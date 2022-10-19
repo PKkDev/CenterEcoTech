@@ -1,0 +1,23 @@
+.page_container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #b6b6b6;
+
+    .dialog_contaier {
+        margin-top: 15vh;
+        padding: 10px;
+        border-radius: 6px;
+        position: relative;
+        background-color: #242424;
+        box-shadow: 0px 4px 14px 8px rgba(34, 41, 47, 0.25);
+        text-align: center;
+
+        .form_cotainer {
+            min-width: 270px;
+            max-width: 100%;
+        }
+    }
+}

@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+body,
+html {
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #d3d3d3;
+}
