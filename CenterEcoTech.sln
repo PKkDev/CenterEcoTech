@@ -5,7 +5,13 @@ VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CenterEcoTech.API", "CenterEcoTech.API\CenterEcoTech.API.csproj", "{A041A197-2ED3-405C-95A3-3A3F54C7D423}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CenterEcoTech.Tests", "CenterEcoTech.Tests\CenterEcoTech.Tests.csproj", "{A3EA739C-9EBB-4605-9361-06ECC77A1A9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CenterEcoTech.Tests", "CenterEcoTech.Tests\CenterEcoTech.Tests.csproj", "{A3EA739C-9EBB-4605-9361-06ECC77A1A9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CenterEcoTech.Domain", "CenterEcoTech.Domain\CenterEcoTech.Domain.csproj", "{D2F87F7B-5ED9-48E3-BDDE-1F630EF11A07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CenterEcoTech.EfData", "CenterEcoTech.EfData\CenterEcoTech.EfData.csproj", "{C559D658-2481-443E-8497-C4F9E7C73321}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CenterEcoTech.Infrastructure", "CenterEcoTech.Infrastructure\CenterEcoTech.Infrastructure.csproj", "{BAC2D055-CD5C-4B0E-9854-08C33CE49792}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{A3EA739C-9EBB-4605-9361-06ECC77A1A9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3EA739C-9EBB-4605-9361-06ECC77A1A9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3EA739C-9EBB-4605-9361-06ECC77A1A9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2F87F7B-5ED9-48E3-BDDE-1F630EF11A07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2F87F7B-5ED9-48E3-BDDE-1F630EF11A07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2F87F7B-5ED9-48E3-BDDE-1F630EF11A07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2F87F7B-5ED9-48E3-BDDE-1F630EF11A07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C559D658-2481-443E-8497-C4F9E7C73321}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C559D658-2481-443E-8497-C4F9E7C73321}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C559D658-2481-443E-8497-C4F9E7C73321}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C559D658-2481-443E-8497-C4F9E7C73321}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAC2D055-CD5C-4B0E-9854-08C33CE49792}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAC2D055-CD5C-4B0E-9854-08C33CE49792}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAC2D055-CD5C-4B0E-9854-08C33CE49792}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAC2D055-CD5C-4B0E-9854-08C33CE49792}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
