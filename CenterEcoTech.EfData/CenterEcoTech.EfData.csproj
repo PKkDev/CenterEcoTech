@@ -24,10 +24,4 @@
     <Folder Include="Entities\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="connectionsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>

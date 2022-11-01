@@ -1,5 +1,7 @@
 # Other
 connectionsettings.json
+privatesettings.json
+privatesettings.*.json
 
 # Angular Compiled output
 /dist
