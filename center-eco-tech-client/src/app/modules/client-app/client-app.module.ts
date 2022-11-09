@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { ClientAppRoutingModule } from './client-app-routing.module';
 // pages
 import { ClientAppComponent } from './client-app.component';
+import { SiteLayoutComponent } from '../layouts/site-layout/site-layout.component';
+
 
 @NgModule({
   imports: [
@@ -11,7 +13,8 @@ import { ClientAppComponent } from './client-app.component';
     CommonModule
   ],
   declarations: [
-    ClientAppComponent
+    ClientAppComponent,
+    SiteLayoutComponent
   ]
 })
 export class ClientAppModule { }
