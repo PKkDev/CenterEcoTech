@@ -11,9 +11,11 @@ namespace CenterEcoTech.EfData.Entities
 
         public string Name { get; set; }
 
-        public double MeasurementValue { get; set; }
+        public double Value { get; set; }
 
-        public List<Client> Clients { get; set; }
-        public List<ClientMeasurement> ClientMeasurements { get; set; }
+        public DateTime Date { get; set; }
+
+        public int ClientId { get; set; }
+        public Client Client { get; set; }
     }
 }

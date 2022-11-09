@@ -18,6 +18,9 @@ namespace CenterEcoTech.EfData.Entities
         public DateTime DateSend { get; set; }
 
         public string Comment { get; set; }
+
+        public int ClientId { get; set; }
+        public Client Client { get; set; }
     }
 
     public enum RequestType

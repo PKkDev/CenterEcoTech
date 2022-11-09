@@ -1,8 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
 
 namespace CenterEcoTech.EfData.Entities
 {
+    [Index(nameof(Phone), IsUnique = true)]
+    [Index(nameof(Email), IsUnique = true)]
     public class Client
     {
         [Key]
@@ -21,10 +25,17 @@ namespace CenterEcoTech.EfData.Entities
 
         public ClientAdress Adress { get; set; }
 
-        public List<Сooperative> Сooperatives { get; set; }
-        public List<СooperativeClient> СooperativeClientd { get; set; }
+        public int СooperativeId { get; set; }
+        public Сooperative Сooperative { get; set; }
+
+        public List<Request> Requests { get; set; }
 
         public List<Measurement> Measurements { get; set; }
-        public List<ClientMeasurement> ClientMeasurements { get; set; }
+
+        public Client()
+        {
+            Requests = new();
+            Measurements = new();
+        }
     }
 }

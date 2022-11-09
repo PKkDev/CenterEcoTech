@@ -5,7 +5,15 @@ namespace CenterEcoTech.EfData.Context
 {
     public class AppDataBaseContext : DbContext
     {
-        public DbSet<Test> Test { get; set; }
+        public DbSet<Сooperative> Сooperative { get; set; }
+
+        public DbSet<Client> Client { get; set; }
+
+        public DbSet<ClientAdress> ClientAdress { get; set; }
+
+        public DbSet<Request> Request { get; set; }
+
+        public DbSet<Measurement> Measurement { get; set; }
 
         public AppDataBaseContext(DbContextOptions<AppDataBaseContext> options)
            : base(options) { }

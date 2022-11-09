@@ -1,8 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace CenterEcoTech.EfData.Entities
 {
+    [Index(nameof(Name), IsUnique = true)]
+    [Index(nameof(Phone), IsUnique = true)]
     public class Сooperative
     {
         [Key]
@@ -16,6 +19,10 @@ namespace CenterEcoTech.EfData.Entities
         public string Phone { get; set; }
 
         public List<Client> Clients { get; set; }
-        public List<СooperativeClient> СooperativeClients { get; set; }
+
+        public Сooperative()
+        {
+            Clients = new();
+        }
     }
 }
