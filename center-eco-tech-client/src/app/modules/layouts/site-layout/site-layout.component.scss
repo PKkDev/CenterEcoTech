@@ -27,6 +27,7 @@ a {
 }
 
 header {
+  z-index: 2;
   display: flex;
   justify-content: center;
   position: fixed;
@@ -265,6 +266,7 @@ header {
     }
   }
   .content {
+    z-index: 1;
     margin-top: 64px;
   }
 }
