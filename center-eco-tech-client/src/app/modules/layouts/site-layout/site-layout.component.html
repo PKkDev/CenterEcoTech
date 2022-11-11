@@ -1,29 +1,21 @@
-<header role="banner">
+<div class="header">
   <div class="header-content">
     <img class="logo" alt="CenterEcoTech Logo" src="./assets/img/logo.jpg">
     <div class="menu" [class.is-open]="isMenuOpen">
-      <div class="category">
-        <span><a routerLink='/accruals' routerLinkActive="router-link-active" >Начисления</a></span>
-        <span><a routerLink='/indications' routerLinkActive="router-link-active">Показания</a></span>
-        <span><a routerLink='/applications' routerLinkActive="router-link-active">Заявки</a></span>
-        <span><a routerLink='/services' routerLinkActive="router-link-active">Услуги</a></span>
-        <span><a routerLink='/news' routerLinkActive="router-link-active">Новости</a></span>
-      </div>
+      <ul class="category">
+        <li><a routerLink='/accruals' routerLinkActive="router-link-active" >Начисления</a></li>
+        <li><a routerLink='/indications' routerLinkActive="router-link-active">Показания</a></li>
+        <li><a routerLink='/applications' routerLinkActive="router-link-active">Заявки</a></li>
+        <li><a routerLink='/services' routerLinkActive="router-link-active">Услуги</a></li>
+        <li><a routerLink='/news' routerLinkActive="router-link-active">Новости</a></li>
+      </ul>
       <div class="category-profile">
-        <a class="ph-avatar" routerLink='/profile' routerLinkActive="router-link-active" title="Сменить аватар"><img class="ph-avatar-img" src="./assets/img/bx_bx-user-circle.svg" alt="avatar"></a>
+        <a class="ph-avatar" routerLink='/profile' routerLinkActive="router-link-active" title="Сменить аватар">
+          <img src="./assets/img/bx_bx-user-circle.svg" alt="avatar">
+        </a>
         <a aria-label-mat-fab class="profile" routerLink='/profile' routerLinkActive="router-link-active" title="Профиль">+7 (495) 755-69-83</a>
         <a class="logout-logo" routerLink='/exit' routerLinkActive="router-link-active" title="Выход">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g clip-path="url(#clip0_304_62)">
-            <path d="M11.2812 12.375C10.9361 12.375 10.6562 12.6548 10.6562 13V14.75H1.71875V1.25H10.6562V3C10.6562 3.34519 10.9361 3.625 11.2812 3.625C11.6264 3.625 11.9062 3.34519 11.9062 3V0.625C11.9062 0.279813 11.6264 0 11.2812 0H1.09375C0.748563 0 0.46875 0.279813 0.46875 0.625V15.375C0.46875 15.7202 0.748563 16 1.09375 16H11.2812C11.6264 16 11.9062 15.7202 11.9062 15.375V13C11.9062 12.6548 11.6264 12.375 11.2812 12.375Z" fill="#212121"/>
-            <path d="M15.3482 7.55805L13.6688 5.87868C13.4248 5.63458 13.0291 5.63461 12.785 5.87868C12.5409 6.12274 12.5409 6.51849 12.785 6.76258L13.3974 7.37499L8.21997 7.37496C7.87481 7.37496 7.59497 7.65477 7.59497 7.99996C7.59497 8.34515 7.87478 8.62496 8.21997 8.62496L13.3975 8.62499L12.785 9.23746C12.5409 9.48149 12.5409 9.87724 12.785 10.1213C13.0291 10.3654 13.4248 10.3654 13.6689 10.1213L15.3483 8.44193C15.3483 8.44186 15.3483 8.4418 15.3484 8.44177C15.4741 8.31593 15.5268 8.17046 15.5313 7.99999C15.5313 7.83149 15.4597 7.66949 15.3482 7.55805Z" fill="#212121"/>
-            </g>
-            <defs>
-            <clipPath id="clip0_304_62">
-            <rect width="16" height="16" fill="white"/>
-            </clipPath>
-            </defs>
-          </svg>
+          <img src="./assets/img/logout.svg" alt="exit">
         </a>
       </div>
     </div>
@@ -31,7 +23,7 @@
       <i class="material-icons"> {{ isMenuOpen ? "close" : "menu" }}</i>
     </div>
   </div>
-</header>
+</div>
 <div class="content">
   <router-outlet></router-outlet>
 </div>

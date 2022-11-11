@@ -1,38 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
-
-a {
-  text-decoration: none;
-  color: #212121;
-  &:hover {
-    text-decoration: none;
-    background-color: #d6cdcd38;
-    border-radius: 4px;
-  }
-  &:active {
-    text-decoration: none;
-    animation-name: link-animation;
-    animation-duration: 500ms;
-    animation-fill-mode: forwards;
-    animation-timing-function: ease;
-    background-color: #a39e9e38;
-    @keyframes link-animation {
-    50% {
-      transform: rotateX(25deg);
-    }
-    100% {
-      transform: rotateX(0deg);
-    }
-  }
-  }
-}
-
-header {
+.header {
   z-index: 2;
   display: flex;
   justify-content: center;
   position: fixed;
   width: 100%;
-  background-color: #1976d2;
   font-family: 'Montserrat', sans-serif;
   font-style: normal;
   font-size: 14px;
@@ -50,6 +21,7 @@ header {
   align-items: center;
   justify-content:center;
   height: 80px;
+  width: 100%;
   .logo {
     width: 80px;
     height: 56px;
@@ -60,9 +32,13 @@ header {
     align-items: center;
     justify-content:center;
     .category {
+      display: flex;
+      padding: 0;
       margin: 32px 251px 32px 0px;
-      span {
+      li {
+        list-style-type: none;
         margin: 0px 40px 0px 0px;
+        border-radius: 4px;
         &:last-of-type {
           margin: 0px;
         }
@@ -85,40 +61,78 @@ header {
     }
     .category-profile {
       display:flex;
+      justify-content: center;
       align-items: center;
-      margin: auto 0;
+      margin: auto 0px;
       .ph-avatar {
         width: 40px;
         height: 40px;
         margin-right: 4px;
         border-radius: 4px;
-        img{
+        img {
           padding: 2px;
           width: 35px;
           height: 35px;
-          border-radius: 50px;
+          border-radius: 50%;
+        }
+      }
+      .logout-logo{
+        width: 16px;
+        height: 16px;
+        img {
+          width: 16px;
+          height: 16px;
         }
       }
       .profile {
         margin-right: 44px;
       }
-      .logout-logo {
-        height: 16px;
-        width: 16px;
+    }
+    a {
+      text-decoration: none;
+      color: #212121;
+      &:hover {
+        text-decoration: none;
+        background-color: #d6cdcd38;
+        border-radius: 4px;
+      }
+      &:active {
+        text-decoration: none;
+        background-color: #a39e9e38;
+        border-radius: 4px;
+        animation-name: link-animation;
+        animation-duration: 500ms;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease;
+        @keyframes link-animation {
+        50% {
+          transform: rotateX(25deg);
+        }
+        100% {
+          transform: rotateX(0deg);
+        }
+      }
       }
     }
     }
   .burger {
     display: none;
+    padding: 0 10px;
+    cursor: pointer;
+    i {
+      color: #212121;
+      line-height: 64px;
+    }
   }
 }
 .content {
   position: relative;
   margin-top: 80px;
 }
+
 /* Responsive Styles */
 
-@media screen and (max-width: 1200px) {
+@media (max-width: 1200px) {
   .header-content {
     .logo {
       margin: 12px 48px 12px 0px;
@@ -126,7 +140,7 @@ header {
     .menu {
       .category {
         margin: 32px 101px 32px 0px;
-        span {
+        li {
           margin: 0px 25px 0px 0px;
           &:last-of-type {
             margin: 0px;
@@ -137,7 +151,7 @@ header {
   }
 }
 
-@media screen and (max-width: 925px) {
+@media (max-width: 925px) {
   .header-content {
     .logo {
       margin: 12px 24px 12px 0px;
@@ -145,7 +159,7 @@ header {
     .menu {
       .category {
         margin: 32px 51px 32px 0px;
-        span {
+        li {
           margin: 0px 15px 0px 0px;
           &:last-of-type {
             margin: 0px;
@@ -161,7 +175,7 @@ header {
   }
 }
 
-@media screen and (max-width: 760px) {
+@media (max-width: 760px) {
   .header-content {
     .logo {
       margin: 12px 12px 12px 0px;
@@ -169,7 +183,7 @@ header {
     .menu {
       .category {
         margin: 32px 25px 32px 0px;
-        span {
+        li {
           margin: 0px 5px 0px 0px;
           &:last-of-type {
             margin: 0px;
@@ -185,27 +199,20 @@ header {
   }
 }
 
-@media screen and (max-width: 675px) {
-
+@media (max-width: 675px) {
   .header-content {
-    display: flex;
-    justify-content: center;
     height: 64px;
+    justify-content: space-between;
     .logo {
-      width: 80px;
-      height: 56px;
       margin: 4px 0px 4px 0px;
     }
     .menu {
       display: none;
-      margin: auto 0 0 0;
       .category {
-        margin: 0px 0px 0px 0px;
-        display: flex;
-        justify-content: center;
+        margin: 0px;
         flex-direction: column;
         align-items: center;
-        span {
+        li {
           margin: 0px 0px 8px 0px;
           &:last-of-type{
             margin-bottom: 0px;
@@ -216,24 +223,22 @@ header {
         }
       }
       .category-profile {
-        display: flex;
-        align-items: center;
         flex-direction: column;
-        justify-content: center;
-        margin: 8px 0;
+        margin: 8px 0px;
         .profile {
-          margin: 8px 0;
+          margin: 8px 0px;
+        }
+        .ph-avatar{
+          margin: 0px;
         }
       }
       &.is-open {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        top: 65px;
-        margin-right: 50px;
+        position: absolute;
+        display: block;
+        align-items: center;
+        top: 64px;
         width: 100%;
         opacity: 0;
-        background-color: #FFFFFF;
         box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
         transform-origin: top center;
         animation-name: menu;
@@ -241,6 +246,7 @@ header {
         animation-delay: 150ms;
         animation-fill-mode: forwards;
         animation-timing-function: ease-in-out;
+        border-radius: 25%;
         @keyframes menu {
           0% {
             opacity: 0;

@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./site-layout.component.scss']
 })
 export class SiteLayoutComponent {
-  isMenuOpen = false;
+  public isMenuOpen = false;
 
   toggleMenu(): void {
     this.isMenuOpen = !this.isMenuOpen;
