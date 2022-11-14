@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace CenterEcoTech.Infrastructure.Services
 {
     public interface IClient
-    {
-        
+    {       
+
         IEnumerable<Client> Get();
         Client Get(int id);
         void Create(Client item);
@@ -39,15 +40,15 @@ namespace CenterEcoTech.Infrastructure.Services
         /// <param name="user"></param>
         /// <returns></returns>
         Task<LoginResponseDto> Authorize(Client user);
+             
 
         /// <summary>
         /// get user detail
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="ct"></param>
-        /// <returns></returns>        
-
-
+        /// <returns></returns>
+        Task<UserDetailDto> GetUserDetailAsync(int userId, CancellationToken ct);
 
 
     }

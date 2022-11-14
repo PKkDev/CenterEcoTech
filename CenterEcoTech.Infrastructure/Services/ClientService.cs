@@ -1,4 +1,5 @@
 ﻿using CenterEcoTech.Domain.DTO;
+using CenterEcoTech.Domain.Exeptions;
 using CenterEcoTech.EfData.Context;
 using CenterEcoTech.EfData.Entities;
 using Microsoft.AspNetCore.Http;
@@ -136,6 +137,29 @@ namespace CenterEcoTech.Infrastructure.Services
 
             return todoItem;
         }
-        
+        /// <summary>
+        /// get user detail
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        /// <exception cref="ApiException"></exception>
+        public async Task<UserDetailDto> GetUserDetailAsync(int userId, CancellationToken ct)
+        {
+            var user = await Context.Client
+                .FirstOrDefaultAsync(x => x.Id == userId);
+
+            if (user == null)
+                throw new ApiException("user not found");
+
+            UserDetailDto result = new()
+            {
+                Phone = user.Phone,
+                Email = user.Email,
+                FirstName = user.FirstName
+            };
+            return result;
+        }
+
     }
 }

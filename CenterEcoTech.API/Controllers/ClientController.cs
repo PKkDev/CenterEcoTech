@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System.Security.Claims;
+using System.Security.Principal;
 using System.Xml.Linq;
 
 namespace CenterEcoTech.API.Controllers
@@ -107,7 +109,18 @@ namespace CenterEcoTech.API.Controllers
         public IActionResult CheckAuth() => Ok("all ok!");
 
 
-
+        /// <summary>
+        /// get user detail
+        /// </summary>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        [HttpGet("detail")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<UserDetailDto> GetUserDetail(CancellationToken ct = default)
+        {
+            var userId = this.User.Claims.First().Value;
+            return await iClient.GetUserDetailAsync(Convert.ToInt32(userId), ct);
+        }
 
 
 
