@@ -1,5 +1,6 @@
 ﻿using CenterEcoTech.Domain.DTO;
 using CenterEcoTech.Domain.Exeptions;
+using CenterEcoTech.Domain.Query;
 using CenterEcoTech.EfData.Context;
 using CenterEcoTech.EfData.Entities;
 using Microsoft.AspNetCore.Http;
@@ -8,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
 namespace CenterEcoTech.Infrastructure.Services
@@ -22,7 +25,7 @@ namespace CenterEcoTech.Infrastructure.Services
         public string SessionInfo_Code { get; private set; }
 
         public IEnumerable<Client> Get()
-        {
+        {           
             return Context.Client;
         }
         public Client Get(int Id)
@@ -118,24 +121,31 @@ namespace CenterEcoTech.Infrastructure.Services
         }
 
         
-        public void Create(Client item)
+        public void Create(RegisterQuery query)
         {
-            Context.Client.Add(item);
+            
+            var user = new Client() { FirstName = query.FirstName, LastNme= query.LastNme, MidName= query.MidName,
+            Phone= query.Phone, Email= query.Email, СooperativeId= query.СooperativeId};
+            Context.Client.Add(user);
+            Context.SaveChanges();
+            var adress = new ClientAdress() { City = query.Adress.City, Street= query.Adress.Street,
+                House= query.Adress.House, Corpus= query.Adress.Corpus, Room= query.Adress.Room, ClientId=user.Id };
+            Context.ClientAdress.Add(adress);
             Context.SaveChanges();
         }
        
 
         public Client Delete(int Id)
         {
-            Client todoItem = Get(Id);
+            Client client = Get(Id);
 
-            if (todoItem != null)
+            if (client != null)
             {
-                Context.Client.Remove(todoItem);
+                Context.Client.Remove(client);
                 Context.SaveChanges();
             }
 
-            return todoItem;
+            return client;
         }
         /// <summary>
         /// get user detail

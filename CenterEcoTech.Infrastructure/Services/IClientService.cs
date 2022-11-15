@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Claims;
+using CenterEcoTech.Domain.Query;
 
 namespace CenterEcoTech.Infrastructure.Services
 {
@@ -14,7 +15,7 @@ namespace CenterEcoTech.Infrastructure.Services
 
         IEnumerable<Client> Get();
         Client Get(int id);
-        void Create(Client item);
+        void Create(RegisterQuery query);
         
         Client Delete(int id);
         /// <summary>

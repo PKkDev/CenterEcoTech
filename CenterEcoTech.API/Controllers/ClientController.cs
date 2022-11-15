@@ -31,33 +31,20 @@ namespace CenterEcoTech.API.Controllers
         public IEnumerable<Client> Get()
         {
             return iClient.Get();
-        }
-
-
-        [HttpGet("{id}", Name = "GetTodoItem")]
-        public IActionResult Get(int Id)
+        }       
+        
+        [HttpPost("register")]
+        public IActionResult Create([FromBody] RegisterQuery query)
         {
-            Client todoItem = iClient.Get(Id);
-
-            if (todoItem == null)
-            {
-                return NotFound();
-            }
-
-            return new ObjectResult(todoItem);
-        }
-
-        [HttpPost]
-        public IActionResult Create([FromBody] Client todoItem)
-        {
-            if (todoItem == null)
+            
+            if (query == null)
             {
                 return BadRequest();
             }
-            iClient.Create(todoItem);
-            return CreatedAtRoute("GetTodoItem", new { id = todoItem.Id }, todoItem);
+            iClient.Create(query);
+            return Ok("created!");
         }
-
+        
         
         [HttpDelete("{id}")]
         public IActionResult Delete(int Id)
