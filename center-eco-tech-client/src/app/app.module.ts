@@ -8,6 +8,7 @@ import { AuthorizeModule } from './modules/authorize/authorize.module';
 import { ClientAppModule } from './modules/client-app/client-app.module';
 // components
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AppComponent } from './app.component';
     AuthorizeModule,
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

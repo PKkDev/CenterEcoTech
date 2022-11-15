@@ -7,9 +7,10 @@ import { ClientAppComponent } from './client-app.component';
 
 const routes: Routes = [
     {
-        path: '',
-        component: ClientAppComponent,
-        canActivate: [AuthGuard],
+    path: '',
+    component: ClientAppComponent,
+    canActivate: [AuthGuard],
+    children: []
     }
 ];
 
