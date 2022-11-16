@@ -1,23 +1,14 @@
 ﻿using CenterEcoTech.Domain.DTO;
-using CenterEcoTech.EfData.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Security.Claims;
+using CenterEcoTech.Domain.DTO.User;
 using CenterEcoTech.Domain.Query;
 
-namespace CenterEcoTech.Infrastructure.Services
+namespace CenterEcoTech.Domain.ServicesContract
 {
     public interface IClient
     {       
-
-        IEnumerable<Client> Get();
-        Client Get(int id);
-        void Create(RegisterQuery query);
+       
+        void Create(RegisterQuery query);        
         
-        Client Delete(int id);
         /// <summary>
         /// send sms with code to user
         /// </summary>
@@ -40,7 +31,7 @@ namespace CenterEcoTech.Infrastructure.Services
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        Task<LoginResponseDto> Authorize(Client user);
+        Task<LoginResponseDto> Authorize(int id);
              
 
         /// <summary>

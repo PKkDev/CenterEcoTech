@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CenterEcoTech.Domain.DTO
+namespace CenterEcoTech.Domain.DTO.User
 {
     public class UserDetailDto
     {

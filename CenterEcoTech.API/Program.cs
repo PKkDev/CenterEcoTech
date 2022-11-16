@@ -1,3 +1,4 @@
+using CenterEcoTech.Domain.ServicesContract;
 using CenterEcoTech.EfData.Context;
 using CenterEcoTech.EfData.Entities;
 using CenterEcoTech.Infrastructure.Services;
@@ -71,13 +72,8 @@ builder.Services.AddTransient<IJWTGenerator, JWTGenerator>();
 builder.Services.AddTransient<IClient, ClientService>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddSession(options =>
-{
-    options.Cookie.Name = ".CenterEcoTech.Session";
-    options.IdleTimeout = TimeSpan.FromSeconds(10);
-    options.Cookie.IsEssential = true;
-});
-#region проверка токена
+builder.Services.AddSession();
+#region check auth
 builder.Services.AddSwaggerGen(swagger =>
 {
     //This is to generate the Default UI of Swagger Documentation
@@ -177,9 +173,9 @@ app.UseCors("CorsPolicy");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
-app.MapControllers();
 app.UseSession();
+app.MapControllers();
+
 
 app.UseSpa(spa =>
 {

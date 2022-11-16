@@ -1,37 +1,31 @@
 ﻿using CenterEcoTech.Domain.DTO;
+using CenterEcoTech.Domain.DTO.User;
 using CenterEcoTech.Domain.Query;
+using CenterEcoTech.Domain.ServicesContract;
 using CenterEcoTech.EfData.Entities;
 using CenterEcoTech.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using System.Security.Claims;
-using System.Security.Principal;
-using System.Xml.Linq;
+
 
 namespace CenterEcoTech.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Client")]
     [ApiController]
     public class ClientController : ControllerBase
     {
-        private readonly IOptions<JWTGenerator> jwtOptions;
-        private readonly IClient iClient;
-        IHttpContextAccessor accessor;
+        private readonly IOptions<JWTGenerator> _jwtOptions;
+        private readonly IClient _client;
+        private readonly IHttpContextAccessor _accessor;
 
         public ClientController(IClient iClient, IOptions<JWTGenerator> jwtOptions, IHttpContextAccessor accessor)
         {
-            this.jwtOptions = jwtOptions;
-            this.iClient = iClient;
-            this.accessor = accessor;
-        }
-
-        [HttpGet(Name = "GetAllItems")]
-        public IEnumerable<Client> Get()
-        {
-            return iClient.Get();
-        }       
+            _jwtOptions = jwtOptions;
+            _client = iClient;
+            _accessor = accessor;
+        }     
         
         [HttpPost("register")]
         public IActionResult Create([FromBody] RegisterQuery query)
@@ -41,23 +35,9 @@ namespace CenterEcoTech.API.Controllers
             {
                 return BadRequest();
             }
-            iClient.Create(query);
+            _client.Create(query);
             return Ok("created!");
-        }
-        
-        
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int Id)
-        {
-            var deletedTodoItem = iClient.Delete(Id);
-
-            if (deletedTodoItem == null)
-            {
-                return BadRequest();
-            }
-
-            return new ObjectResult(deletedTodoItem);
-        }
+        }        
 
         /// <summary>
         /// send sms with code to user
@@ -67,10 +47,10 @@ namespace CenterEcoTech.API.Controllers
         /// <returns></returns>
         [AllowAnonymous]
         [HttpPost("send-sms")]
-        public async Task SendAccesTokenToSms(
+        public async Task SendAccesTokenToSmsAsync(
             [FromBody] PhoneAuthorizeQuery query, CancellationToken ct = default)
         {
-            await iClient.SendAccesTokenToSmsAsync(query.Phone, ct);
+            await _client.SendAccesTokenToSmsAsync(query.Phone, ct);
         }
 
         /// <summary>
@@ -81,10 +61,10 @@ namespace CenterEcoTech.API.Controllers
         /// <returns></returns>
         [AllowAnonymous]
         [HttpPost("check-sms")]
-        public async Task<LoginResponseDto> CheckPhoneAccessToken(
+        public async Task<LoginResponseDto> CheckPhoneAccessTokenAsync(
             [FromBody] CheckPhoneAuthorizeQuery query, CancellationToken ct = default)
         {
-            return await iClient.CheckPhoneAccessTokenAsync(query.Phone, query.Code, ct);
+            return await _client.CheckPhoneAccessTokenAsync(query.Phone, query.Code, ct);
         }
 
         /// <summary>
@@ -106,7 +86,7 @@ namespace CenterEcoTech.API.Controllers
         public async Task<UserDetailDto> GetUserDetail(CancellationToken ct = default)
         {
             var userId = this.User.Claims.First().Value;
-            return await iClient.GetUserDetailAsync(Convert.ToInt32(userId), ct);
+            return await _client.GetUserDetailAsync(Convert.ToInt32(userId), ct);
         }
 
 

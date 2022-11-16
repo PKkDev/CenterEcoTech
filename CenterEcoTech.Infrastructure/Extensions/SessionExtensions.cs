@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace CenterEcoTech.Infrastructure.Services
+namespace CenterEcoTech.Infrastructure.Extensions
 {
     public static class SessionExtensions
     {
@@ -18,7 +18,7 @@ namespace CenterEcoTech.Infrastructure.Services
         public static string GetString(this ISession session, string key)
         {
             var value = session.GetString(key);
-            return value == null ? default(string) : JsonSerializer.Deserialize<string>(value);
+            return value == null ? default : JsonSerializer.Deserialize<string>(value);
 
         }
     }

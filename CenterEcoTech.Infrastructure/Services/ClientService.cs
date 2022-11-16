@@ -1,43 +1,42 @@
 ﻿using CenterEcoTech.Domain.DTO;
+using CenterEcoTech.Domain.DTO.User;
 using CenterEcoTech.Domain.Exeptions;
 using CenterEcoTech.Domain.Query;
+using CenterEcoTech.Domain.ServicesContract;
 using CenterEcoTech.EfData.Context;
 using CenterEcoTech.EfData.Entities;
+using CenterEcoTech.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Nodes;
-using System.Threading.Tasks;
 
 namespace CenterEcoTech.Infrastructure.Services
 {
     public class ClientService : IClient
     {
-        private AppDataBaseContext Context;
+        private AppDataBaseContext _context;
         private readonly IJWTGenerator _jwtTokenService;
         public string SessionKeyCode = "_Code";
-        IHttpContextAccessor accessor;
+        IHttpContextAccessor _accessor;
 
         public string SessionInfo_Code { get; private set; }
 
         public IEnumerable<Client> Get()
         {           
-            return Context.Client;
+            return _context.Client;
         }
+
         public Client Get(int Id)
         {
-            return Context.Client.Find(Id);
+            return _context.Client.Find(Id);
         }
+
         public ClientService(AppDataBaseContext context, IJWTGenerator jwtGenerator, IHttpContextAccessor accessor)
         {
-            Context = context;
+            _context = context;
             _jwtTokenService = jwtGenerator;
-            this.accessor = accessor;
+            _accessor = accessor;
         }
+
         /// <summary>
         /// send sms with code to user
         /// </summary>
@@ -46,7 +45,7 @@ namespace CenterEcoTech.Infrastructure.Services
         /// <returns></returns>
         public async Task SendAccesTokenToSmsAsync(string phone, CancellationToken ct)
         {
-            var user = await Context.Client.FirstOrDefaultAsync(x => x.Phone.Equals(phone), ct);
+            var user = await _context.Client.FirstOrDefaultAsync(x => x.Phone.Equals(phone), ct);
                
             if (user == null)
             {
@@ -54,25 +53,16 @@ namespace CenterEcoTech.Infrastructure.Services
                 {
                     Phone = phone                    
                 };
-                await Context.Client.AddAsync(newUser, ct);
-                await Context.SaveChangesAsync(ct);
+                await _context.Client.AddAsync(newUser, ct);
+                await _context.SaveChangesAsync(ct);
 
-                user = await Context.Client
+                user = await _context.Client
                     .FirstOrDefaultAsync(x => x.Phone.Equals(phone), ct);
             }
 
-            var code = GeneratePhoneNumberTokenAsync();            
-            var httpContext = accessor.HttpContext;
-            //if (string.IsNullOrEmpty(httpContext.Session.GetString(SessionKeyCode)))
-            //{
-                httpContext.Session.SetString(SessionKeyCode, code);
-            //}
-
-
-            Context.Client.Update(user);
-            await Context.SaveChangesAsync(ct);
-
-
+            var code = GeneratePhoneNumberTokenAsync();
+            var httpContext = _accessor.HttpContext;
+            httpContext.Session.SetString(SessionKeyCode, code);
         }
 
         /// <summary>
@@ -84,26 +74,21 @@ namespace CenterEcoTech.Infrastructure.Services
         /// <returns></returns>
         public async Task<LoginResponseDto> CheckPhoneAccessTokenAsync(
             string phone, string code, CancellationToken ct)
-        {
-           
-            var user = await Context.Client
+        {           
+            var user = await _context.Client
                .FirstOrDefaultAsync(x => x.Phone.Equals(phone), ct);
 
-
-
-            return await Authorize(user);
+            return await Authorize(user.Id);
         }
-
 
         /// <summary>
         /// authentication user on login/pass
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public async Task<LoginResponseDto> Authorize(
-            Client user)
+        public async Task<LoginResponseDto> Authorize(int id)
         {
-            string token = _jwtTokenService.CreateToken(user);
+            string token = _jwtTokenService.CreateTokenAsync(id).Result;
             var result = new LoginResponseDto(token);
             return result;
         }
@@ -119,21 +104,19 @@ namespace CenterEcoTech.Infrastructure.Services
             var end = DateTime.Now.Second;
             return start.ToString() + end.ToString();
         }
-
-        
+                
         public void Create(RegisterQuery query)
         {
             
             var user = new Client() { FirstName = query.FirstName, LastNme= query.LastNme, MidName= query.MidName,
             Phone= query.Phone, Email= query.Email, СooperativeId= query.СooperativeId};
-            Context.Client.Add(user);
-            Context.SaveChanges();
+            _context.Client.Add(user);
+            _context.SaveChanges();
             var adress = new ClientAdress() { City = query.Adress.City, Street= query.Adress.Street,
                 House= query.Adress.House, Corpus= query.Adress.Corpus, Room= query.Adress.Room, ClientId=user.Id };
-            Context.ClientAdress.Add(adress);
-            Context.SaveChanges();
-        }
-       
+            _context.ClientAdress.Add(adress);
+            _context.SaveChanges();
+        }       
 
         public Client Delete(int Id)
         {
@@ -141,12 +124,13 @@ namespace CenterEcoTech.Infrastructure.Services
 
             if (client != null)
             {
-                Context.Client.Remove(client);
-                Context.SaveChanges();
+                _context.Client.Remove(client);
+                _context.SaveChanges();
             }
 
             return client;
         }
+
         /// <summary>
         /// get user detail
         /// </summary>
@@ -156,7 +140,7 @@ namespace CenterEcoTech.Infrastructure.Services
         /// <exception cref="ApiException"></exception>
         public async Task<UserDetailDto> GetUserDetailAsync(int userId, CancellationToken ct)
         {
-            var user = await Context.Client
+            var user = await _context.Client
                 .FirstOrDefaultAsync(x => x.Id == userId);
 
             if (user == null)

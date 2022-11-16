@@ -1,4 +1,7 @@
-﻿using CenterEcoTech.EfData.Entities;
+﻿using CenterEcoTech.Domain.ServicesContract;
+using CenterEcoTech.EfData.Context;
+using CenterEcoTech.EfData.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -14,13 +17,14 @@ namespace CenterEcoTech.Infrastructure.Services
     public class JWTGenerator : IJWTGenerator
     {
         private readonly IConfiguration _configuration;
-
-        public JWTGenerator(IConfiguration configuration)
+        private AppDataBaseContext _context;
+        public JWTGenerator(IConfiguration configuration, AppDataBaseContext context)
         {
             _configuration = configuration;
+            _context = context;
         }
 
-        public string CreateToken(Client client)
+        public async Task<string> CreateTokenAsync(int id)
         {
             var key = _configuration["AuthOptions:TokenKey"];
             var issuer = _configuration["AuthOptions:Issuer"];
@@ -28,20 +32,19 @@ namespace CenterEcoTech.Infrastructure.Services
             var lifeTime = Convert.ToInt32(_configuration["AuthOptions:LifeTime"]);
 
             SymmetricSecurityKey _key = new(Encoding.UTF8.GetBytes(key));
+            var user = await _context.Client
+               .FirstOrDefaultAsync(x => x.Id == id);
 
             var claims = new List<Claim> {
-                new Claim("ClientIdentity", client.Id.ToString()),
-                new Claim("ClientIdentityPh", client.Phone),
+                new Claim("ClientIdentity", id.ToString()),
+                new Claim("ClientIdentityPh", user.Phone),
             };
 
-            if (client.Id != 0)
-            {
-                if (client.FirstName != null)
-                    claims.Add(new Claim(JwtRegisteredClaimNames.GivenName, client.FirstName));
-                if (client.Email != null)
-                    claims.Add(new Claim(JwtRegisteredClaimNames.Email, client.Email));
-            }
-
+            if (user.FirstName != null)
+                claims.Add(new Claim(JwtRegisteredClaimNames.GivenName, user.FirstName));
+            if (user.Email != null)
+                claims.Add(new Claim(JwtRegisteredClaimNames.Email, user.Email));
+            
             var credentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
 
             var tokenDescriptor = new SecurityTokenDescriptor
