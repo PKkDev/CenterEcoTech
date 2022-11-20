@@ -7,12 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CenterEcoTech.Domain\CenterEcoTech.Domain.csproj" />
-    <ProjectReference Include="..\CenterEcoTech.EfData\CenterEcoTech.EfData.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\CenterEcoTech.Domain\CenterEcoTech.Domain.csproj" />
+    <ProjectReference Include="..\CenterEcoTech.EfData\CenterEcoTech.EfData.csproj" />
   </ItemGroup>
 
 </Project>

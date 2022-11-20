@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -8,10 +8,6 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2-beta2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ServicesContract\" />
   </ItemGroup>
 
 </Project>
