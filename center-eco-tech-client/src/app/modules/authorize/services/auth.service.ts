@@ -9,7 +9,7 @@ export class AuthService {
 
   constructor(private apiService: ApiService) { }
 
-  public logIn(login: string, pass: string) {
+  public login(login: string, pass: string) {
 
   }
 

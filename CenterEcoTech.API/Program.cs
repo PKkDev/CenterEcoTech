@@ -1,11 +1,12 @@
+using CenterEcoTech.EfData.Context;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Net;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var path = Path.Combine(AppContext.BaseDirectory, "connectionsettings.json");
-builder.Configuration.AddJsonFile(path, false, true);
+builder.Configuration.AddJsonFile($"privatesettings.{builder.Environment.EnvironmentName}.json", false, true);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -27,6 +28,20 @@ builder.Services.AddSwaggerGen(c =>
 
 #endregion add swagger
 
+#region add context
+
+builder.Services.AddDbContext<AppDataBaseContext>(options =>
+{
+    var conStr = builder.Configuration.GetConnectionString("AppConnectionString");
+    options.UseSqlServer(conStr);
+});
+
+//using ServiceProvider serviceProvider = builder.Services.BuildServiceProvider();
+//var context = serviceProvider.GetRequiredService<AppDataBaseContext>();
+//context.Database.Migrate();
+
+#endregion add context
+
 #region add cors
 
 builder.Services.AddCors(options =>
@@ -44,21 +59,36 @@ builder.Services.AddCors(options =>
 #region add SmsAero
 builder.Services.AddHttpClient("smsAreaApi", s =>
 {
-	s.BaseAddress = new Uri(builder.Configuration["SmsAreaSettings:BaseUrl"]);
+    s.BaseAddress = new Uri(builder.Configuration["SmsAreaSettings:BaseUrl"]);
 })
-	.ConfigurePrimaryHttpMessageHandler(() =>
-	{
-		var user = builder.Configuration["SmsAreaSettings:User"];
-		var pass = builder.Configuration["SmsAreaSettings:Pass"];
-		return new HttpClientHandler()
-		{
-			UseDefaultCredentials = true,
-			Credentials = new NetworkCredential(user, pass)
-		};
-	});
+    .ConfigurePrimaryHttpMessageHandler(() =>
+    {
+        var user = builder.Configuration["SmsAreaSettings:User"];
+        var pass = builder.Configuration["SmsAreaSettings:Pass"];
+        return new HttpClientHandler()
+        {
+            UseDefaultCredentials = true,
+            Credentials = new NetworkCredential(user, pass)
+        };
+    });
 #endregion add SmsAero
+#region add spa
+
+builder.Services.AddSpaStaticFiles(configuration =>
+{
+    configuration.RootPath = "clientWebApp";
+});
+
+#endregion add spa
 
 var app = builder.Build();
+
+
+#region use spa
+
+app.UseSpaStaticFiles();
+
+#endregion use spa
 
 app.UseExceptionHandler("/error");
 // app.UseDeveloperExceptionPage();
@@ -69,7 +99,9 @@ app.UseSwagger();
 
 app.UseSwaggerUI(c =>
 {
-    var path = builder.Environment.IsDevelopment() ? "/swagger/v1/swagger.json" : "/Service/swagger/v1/swagger.json";
+    var path = builder.Environment.IsEnvironment("LocalDev") || builder.Environment.IsDevelopment()
+    ? "/swagger/v1/swagger.json"
+    : "/CenterEcoTechService/swagger/v1/swagger.json";
     c.SwaggerEndpoint(path, "CenterEcoTech.API v1");
 });
 
@@ -86,5 +118,10 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseSpa(spa =>
+{
+    spa.Options.SourcePath = "../center-eco-tech-client";
+});
 
 app.Run();
