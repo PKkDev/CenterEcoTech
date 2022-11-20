@@ -1,4 +1,5 @@
 using Microsoft.OpenApi.Models;
+using System.Net;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,6 +40,23 @@ builder.Services.AddCors(options =>
 });
 
 #endregion add cors
+
+#region add SmsAero
+builder.Services.AddHttpClient("smsAreaApi", s =>
+{
+	s.BaseAddress = new Uri(builder.Configuration["SmsAreaSettings:BaseUrl"]);
+})
+	.ConfigurePrimaryHttpMessageHandler(() =>
+	{
+		var user = builder.Configuration["SmsAreaSettings:User"];
+		var pass = builder.Configuration["SmsAreaSettings:Pass"];
+		return new HttpClientHandler()
+		{
+			UseDefaultCredentials = true,
+			Credentials = new NetworkCredential(user, pass)
+		};
+	});
+#endregion add SmsAero
 
 var app = builder.Build();
 
