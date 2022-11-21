@@ -2,42 +2,34 @@
 using CenterEcoTech.Domain.DTO.User;
 using CenterEcoTech.Domain.Query;
 using CenterEcoTech.Domain.ServicesContract;
-using CenterEcoTech.EfData.Entities;
-using CenterEcoTech.Infrastructure.Services;
+using CenterEcoTech.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-
 
 namespace CenterEcoTech.API.Controllers
 {
-    [Route("api/Client")]
+    [Route("api/сlient")]
     [ApiController]
     public class ClientController : ControllerBase
     {
-        private readonly IOptions<JWTGenerator> _jwtOptions;
-        private readonly IClient _client;
-        private readonly IHttpContextAccessor _accessor;
+        private readonly IClientService _clientService;
 
-        public ClientController(IClient iClient, IOptions<JWTGenerator> jwtOptions, IHttpContextAccessor accessor)
+        public ClientController(IClientService clientService)
         {
-            _jwtOptions = jwtOptions;
-            _client = iClient;
-            _accessor = accessor;
-        }     
-        
+            _clientService = clientService;
+        }
+
+        /// <summary>
+        /// register user
+        /// </summary>
+        /// <param name="query"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
         [HttpPost("register")]
-        public IActionResult Create([FromBody] RegisterQuery query)
-        {
-            
-            if (query == null)
-            {
-                return BadRequest();
-            }
-            _client.Create(query);
-            return Ok("created!");
-        }        
+        [AllowAnonymous]
+        public async Task RegisterUser([FromBody] RegisterQuery query, CancellationToken ct = default)
+            => await _clientService.RegisterUserAsync(query, ct);
 
         /// <summary>
         /// send sms with code to user
@@ -49,9 +41,7 @@ namespace CenterEcoTech.API.Controllers
         [HttpPost("send-sms")]
         public async Task SendAccesTokenToSmsAsync(
             [FromBody] PhoneAuthorizeQuery query, CancellationToken ct = default)
-        {
-            await _client.SendAccesTokenToSmsAsync(query.Phone, ct);
-        }
+            => await _clientService.SendAccesTokenToSmsAsync(query.Phone, ct);
 
         /// <summary>
         /// check code from sms and user
@@ -63,9 +53,7 @@ namespace CenterEcoTech.API.Controllers
         [HttpPost("check-sms")]
         public async Task<LoginResponseDto> CheckPhoneAccessTokenAsync(
             [FromBody] CheckPhoneAuthorizeQuery query, CancellationToken ct = default)
-        {
-            return await _client.CheckPhoneAccessTokenAsync(query.Phone, query.Code, ct);
-        }
+            => await _clientService.CheckPhoneAccessTokenAsync(query.Phone, query.Code, ct);
 
         /// <summary>
         /// test check auth
@@ -74,7 +62,6 @@ namespace CenterEcoTech.API.Controllers
         [HttpGet("check-auth")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult CheckAuth() => Ok("all ok!");
-
 
         /// <summary>
         /// get user detail
@@ -85,11 +72,9 @@ namespace CenterEcoTech.API.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<UserDetailDto> GetUserDetail(CancellationToken ct = default)
         {
-            var userId = this.User.Claims.First().Value;
-            return await _client.GetUserDetailAsync(Convert.ToInt32(userId), ct);
+            var userId = HttpContext.GetUserId();
+            return await _clientService.GetUserDetailAsync(Convert.ToInt32(userId), ct);
         }
-
-
 
     }
 }

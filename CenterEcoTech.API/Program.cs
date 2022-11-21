@@ -1,6 +1,5 @@
 using CenterEcoTech.Domain.ServicesContract;
 using CenterEcoTech.EfData.Context;
-using CenterEcoTech.EfData.Entities;
 using CenterEcoTech.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -12,9 +11,11 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration.AddJsonFile($"privatesettings.json", false, true);
 builder.Configuration.AddJsonFile($"privatesettings.{builder.Environment.EnvironmentName}.json", false, true);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+
 #region add JWT authenticaton
 
 var key = builder.Configuration["AuthOptions:TokenKey"];
@@ -39,12 +40,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
         opt.Events = new JwtBearerEvents()
         {
-            OnChallenge = (context) => { return Task.CompletedTask; },
-            OnForbidden = (context) => { return Task.CompletedTask; }
+            OnChallenge = (context) => Task.CompletedTask,
+            OnForbidden = (context) => Task.CompletedTask
         };
     });
 
 #endregion add JWT authenticaton
+
 #region add swagger
 
 builder.Services.AddSwaggerGen(c =>
@@ -62,6 +64,14 @@ builder.Services.AddSwaggerGen(c =>
 
 #endregion add swagger
 
+#region add services
+
+builder.Services.AddTransient<IJWTGenerator, JWTGenerator>();
+builder.Services.AddTransient<IClientService, ClientService>();
+builder.Services.AddTransient<ICooperativeService, CooperativeService>();
+
+#endregion add services
+
 #region add context
 
 builder.Services.AddDbContext<AppDataBaseContext>(options =>
@@ -69,12 +79,19 @@ builder.Services.AddDbContext<AppDataBaseContext>(options =>
     var conStr = builder.Configuration.GetConnectionString("AppConnectionString");
     options.UseSqlServer(conStr);
 });
-builder.Services.AddTransient<IJWTGenerator, JWTGenerator>();
-builder.Services.AddTransient<IClient, ClientService>();
+
+//using ServiceProvider serviceProvider = builder.Services.BuildServiceProvider();
+//var context = serviceProvider.GetRequiredService<AppDataBaseContext>();
+//AppDataBaseContext.SeedInitilData(context);
+
+#endregion add context
+
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSession();
-#region check auth
+
+#region add Swagger v2
+
 builder.Services.AddSwaggerGen(swagger =>
 {
     //This is to generate the Default UI of Swagger Documentation
@@ -109,12 +126,8 @@ builder.Services.AddSwaggerGen(swagger =>
                     }
                 });
 });
-#endregion
-//using ServiceProvider serviceProvider = builder.Services.BuildServiceProvider();
-//var context = serviceProvider.GetRequiredService<AppDataBaseContext>();
-//context.Database.Migrate();
 
-#endregion add context
+#endregion  add Swagger v2
 
 #region add cors
 
@@ -146,6 +159,7 @@ builder.Services.AddHttpClient("smsAreaApi", s =>
         };
     });
 #endregion add SmsAero
+
 #region add spa
 
 builder.Services.AddSpaStaticFiles(configuration =>
@@ -156,7 +170,6 @@ builder.Services.AddSpaStaticFiles(configuration =>
 #endregion add spa
 
 var app = builder.Build();
-
 
 #region use spa
 

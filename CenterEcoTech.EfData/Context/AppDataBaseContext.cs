@@ -22,7 +22,34 @@ namespace CenterEcoTech.EfData.Context
         {
         }
 
-        public static void SeedInitilData(AppDataBaseContext context)
-        { }
+        public static async void SeedInitilData(AppDataBaseContext context)
+        {
+            var newСooperative1 = new Сooperative()
+            {
+                Adress = "Adress1",
+                Name = "Name1",
+                Phone = "Phone1"
+            };
+            context.Сooperative.Add(newСooperative1);
+            context.SaveChanges();
+
+            var newСooperative2 = new Сooperative()
+            {
+                Adress = "Adress2",
+                Name = "Name2",
+                Phone = "Phone2"
+            };
+            context.Сooperative.Add(newСooperative2);
+            context.SaveChanges();
+
+            var newСooperative3 = new Сooperative()
+            {
+                Adress = "Adress3",
+                Name = "Name3",
+                Phone = "Phone3"
+            };
+            context.Сooperative.Add(newСooperative3);
+            context.SaveChanges();
+        }
     }
 }
