@@ -11,30 +11,50 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CenterEcoTech.Infrastructure.Services
 {
-    public class ClientService : IClient
+    public class ClientService : IClientService
     {
         private AppDataBaseContext _context;
         private readonly IJWTGenerator _jwtTokenService;
-        public string SessionKeyCode = "_Code";
-        IHttpContextAccessor _accessor;
+        private readonly IHttpContextAccessor _accessor;
 
-        public string SessionInfo_Code { get; private set; }
+        private readonly string _sessionKeyCode = "_Code";
 
-        public IEnumerable<Client> Get()
-        {           
-            return _context.Client;
-        }
-
-        public Client Get(int Id)
-        {
-            return _context.Client.Find(Id);
-        }
-
-        public ClientService(AppDataBaseContext context, IJWTGenerator jwtGenerator, IHttpContextAccessor accessor)
+        public ClientService(
+            AppDataBaseContext context, IJWTGenerator jwtGenerator, IHttpContextAccessor accessor)
         {
             _context = context;
             _jwtTokenService = jwtGenerator;
             _accessor = accessor;
+        }
+
+        /// <summary>
+        /// register user
+        /// </summary>
+        /// <param name="query"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        public async Task RegisterUserAsync(RegisterQuery query, CancellationToken ct)
+        {
+            var user = new Client()
+            {
+                FirstName = query.FirstName,
+                LastNme = query.LastNme,
+                MidName = query.MidName,
+                Phone = query.Phone,
+                Email = query.Email,
+                СooperativeId = query.СooperativeId,
+                Adress = new ClientAdress()
+                {
+                    City = query.Adress.City,
+                    Street = query.Adress.Street,
+                    House = query.Adress.House,
+                    Corpus = query.Adress.Corpus,
+                    Room = query.Adress.Room,
+                }
+            };
+
+            await _context.Client.AddAsync(user, ct);
+            await _context.SaveChangesAsync(ct);
         }
 
         /// <summary>
@@ -43,26 +63,17 @@ namespace CenterEcoTech.Infrastructure.Services
         /// <param name="phone"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
+        /// <exception cref="ApiException"></exception>
         public async Task SendAccesTokenToSmsAsync(string phone, CancellationToken ct)
         {
-            var user = await _context.Client.FirstOrDefaultAsync(x => x.Phone.Equals(phone), ct);
-               
+            var user = await _context.Client
+                .FirstOrDefaultAsync(x => x.Phone.Equals(phone), ct);
+
             if (user == null)
-            {
-                Client newUser = new()
-                {
-                    Phone = phone                    
-                };
-                await _context.Client.AddAsync(newUser, ct);
-                await _context.SaveChangesAsync(ct);
+                throw new ApiException("user not found");
 
-                user = await _context.Client
-                    .FirstOrDefaultAsync(x => x.Phone.Equals(phone), ct);
-            }
-
-            var code = GeneratePhoneNumberTokenAsync();
-            var httpContext = _accessor.HttpContext;
-            httpContext.Session.SetString(SessionKeyCode, code);
+            var code = GeneratePhoneNumberToken();
+            _accessor.HttpContext.Session.SetString(_sessionKeyCode, code);
         }
 
         /// <summary>
@@ -72,13 +83,22 @@ namespace CenterEcoTech.Infrastructure.Services
         /// <param name="code"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
+        /// <exception cref="ApiException"></exception>
         public async Task<LoginResponseDto> CheckPhoneAccessTokenAsync(
             string phone, string code, CancellationToken ct)
-        {           
+        {
             var user = await _context.Client
                .FirstOrDefaultAsync(x => x.Phone.Equals(phone), ct);
 
-            return await Authorize(user.Id);
+            if (user == null)
+                throw new ApiException("user not found");
+
+            var savedCode = _accessor.HttpContext.Session.GetString(_sessionKeyCode);
+
+            if (!savedCode.Equals(code))
+                throw new ApiException("wrong code");
+
+            return await Authorize(user.Id, ct);
         }
 
         /// <summary>
@@ -86,49 +106,22 @@ namespace CenterEcoTech.Infrastructure.Services
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public async Task<LoginResponseDto> Authorize(int id)
+        private async Task<LoginResponseDto> Authorize(int id, CancellationToken ct)
         {
-            string token = _jwtTokenService.CreateTokenAsync(id).Result;
-            var result = new LoginResponseDto(token);
-            return result;
+            string token = await _jwtTokenService.CreateTokenAsync(id, ct);
+            return new LoginResponseDto(token);
         }
 
         /// <summary>
         /// generate 4-digit code
         /// </summary>
         /// <returns></returns>
-        private string GeneratePhoneNumberTokenAsync()
+        private string GeneratePhoneNumberToken()
         {
             var rnd = new Random();
             var start = rnd.Next(9, 99);
             var end = DateTime.Now.Second;
             return start.ToString() + end.ToString();
-        }
-                
-        public void Create(RegisterQuery query)
-        {
-            
-            var user = new Client() { FirstName = query.FirstName, LastNme= query.LastNme, MidName= query.MidName,
-            Phone= query.Phone, Email= query.Email, СooperativeId= query.СooperativeId};
-            _context.Client.Add(user);
-            _context.SaveChanges();
-            var adress = new ClientAdress() { City = query.Adress.City, Street= query.Adress.Street,
-                House= query.Adress.House, Corpus= query.Adress.Corpus, Room= query.Adress.Room, ClientId=user.Id };
-            _context.ClientAdress.Add(adress);
-            _context.SaveChanges();
-        }       
-
-        public Client Delete(int Id)
-        {
-            Client client = Get(Id);
-
-            if (client != null)
-            {
-                _context.Client.Remove(client);
-                _context.SaveChanges();
-            }
-
-            return client;
         }
 
         /// <summary>
@@ -141,7 +134,7 @@ namespace CenterEcoTech.Infrastructure.Services
         public async Task<UserDetailDto> GetUserDetailAsync(int userId, CancellationToken ct)
         {
             var user = await _context.Client
-                .FirstOrDefaultAsync(x => x.Id == userId);
+                .FirstOrDefaultAsync(x => x.Id == userId, ct);
 
             if (user == null)
                 throw new ApiException("user not found");
@@ -154,6 +147,5 @@ namespace CenterEcoTech.Infrastructure.Services
             };
             return result;
         }
-
     }
 }

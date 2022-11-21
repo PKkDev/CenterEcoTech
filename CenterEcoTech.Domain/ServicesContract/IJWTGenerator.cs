@@ -2,6 +2,6 @@
 {
     public interface IJWTGenerator
     {
-        public Task<string> CreateTokenAsync(int id);
+        public Task<string> CreateTokenAsync(int id, CancellationToken ct);
     }
 }

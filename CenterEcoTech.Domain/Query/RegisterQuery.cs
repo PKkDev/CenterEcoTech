@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CenterEcoTech.Domain.Query
+﻿namespace CenterEcoTech.Domain.Query
 {
     public class RegisterQuery
     {
-        public int Id { get; set; }
+        public int СooperativeId { get; set; }
 
         public string Phone { get; set; }
 
@@ -19,16 +13,13 @@ namespace CenterEcoTech.Domain.Query
         public string LastNme { get; set; }
 
         public string MidName { get; set; }
+
         public ClientAdressQuery Adress { get; set; }
 
-        public int СooperativeId { get; set; }
-        
-
     }
+
     public class ClientAdressQuery
     {
-        public int Id { get; set; }
-
         public string City { get; set; }
 
         public string Street { get; set; }

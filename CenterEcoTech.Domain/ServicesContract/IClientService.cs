@@ -4,11 +4,16 @@ using CenterEcoTech.Domain.Query;
 
 namespace CenterEcoTech.Domain.ServicesContract
 {
-    public interface IClient
-    {       
-       
-        void Create(RegisterQuery query);        
-        
+    public interface IClientService
+    {
+        /// <summary>
+        /// register user
+        /// </summary>
+        /// <param name="query"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        Task RegisterUserAsync(RegisterQuery query, CancellationToken ct);
+
         /// <summary>
         /// send sms with code to user
         /// </summary>
@@ -27,21 +32,11 @@ namespace CenterEcoTech.Domain.ServicesContract
         Task<LoginResponseDto> CheckPhoneAccessTokenAsync(string phone, string code, CancellationToken ct);
 
         /// <summary>
-        /// authentication user on login/pass
-        /// </summary>
-        /// <param name="user"></param>
-        /// <returns></returns>
-        Task<LoginResponseDto> Authorize(int id);
-             
-
-        /// <summary>
         /// get user detail
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
         Task<UserDetailDto> GetUserDetailAsync(int userId, CancellationToken ct);
-
-
     }
 }
