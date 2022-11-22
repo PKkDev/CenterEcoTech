@@ -12,11 +12,11 @@
 
 ## Сылки
 
-[ссылка на ТЗ](https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FGXFetMPR0FbndpqaGlrusXXEvbPaVs8JwxPJ%2B1Cl4%2BQoA7c2jzsfZhoV1R9c5L%2BUq%2FJ6bpmRyOJonT3VoXnDag%3D%3D%3A%2FМатериалы%20для%20практики%2FЗадания%20для%20команд%20(4%20вида%20на%20группу)%2FПРОЕКТ_Приложение_подачи_данных_домовладельцев_V1_00.pdf&name=ПРОЕКТ_Приложение_подачи_данных_домовладельцев_V1_00.pdf "ссылка на ТЗ"){target="_blank"}
+[ссылка на ТЗ](https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FGXFetMPR0FbndpqaGlrusXXEvbPaVs8JwxPJ%2B1Cl4%2BQoA7c2jzsfZhoV1R9c5L%2BUq%2FJ6bpmRyOJonT3VoXnDag%3D%3D%3A%2FМатериалы%20для%20практики%2FЗадания%20для%20команд%20(4%20вида%20на%20группу)%2FПРОЕКТ_Приложение_подачи_данных_домовладельцев_V1_00.pdf&name=ПРОЕКТ_Приложение_подачи_данных_домовладельцев_V1_00.pdf "ссылка на ТЗ")
 
- <a href="https://www.figma.com/file/FP5E5f897mrs5lCs916IK1/Приложение-подачи-данных-домовладельцев?node-id=137%3A0" target="_blank">ссылка на макеты</a> 
+[ссылка на макеты](https://www.figma.com/file/FP5E5f897mrs5lCs916IK1/Приложение-подачи-данных-домовладельцев?node-id=137%3A0 "ссылка на макеты")
 
-[ссылка на требования](https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FGXFetMPR0FbndpqaGlrusXXEvbPaVs8JwxPJ%2B1Cl4%2BQoA7c2jzsfZhoV1R9c5L%2BUq%2FJ6bpmRyOJonT3VoXnDag%3D%3D%3A%2FМатериалы%20для%20практики%2FПИС%20(требования%20к%20выполнению%20практической%20работы).docx&name=ПИС%20(требования%20к%20выполнению%20практической%20работы).docx "ссылка на требования"){target="_blank"}
+[ссылка на требования](https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FGXFetMPR0FbndpqaGlrusXXEvbPaVs8JwxPJ%2B1Cl4%2BQoA7c2jzsfZhoV1R9c5L%2BUq%2FJ6bpmRyOJonT3VoXnDag%3D%3D%3A%2FМатериалы%20для%20практики%2FПИС%20(требования%20к%20выполнению%20практической%20работы).docx&name=ПИС%20(требования%20к%20выполнению%20практической%20работы).docx "ссылка на требования")
 
 ## требования
 
