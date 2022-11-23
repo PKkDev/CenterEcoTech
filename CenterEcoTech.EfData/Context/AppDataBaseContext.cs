@@ -5,7 +5,7 @@ namespace CenterEcoTech.EfData.Context
 {
     public class AppDataBaseContext : DbContext
     {
-        public DbSet<Сooperative> Сooperative { get; set; }
+        public DbSet<Cooperative> Cooperative { get; set; }
 
         public DbSet<Client> Client { get; set; }
 
@@ -19,37 +19,65 @@ namespace CenterEcoTech.EfData.Context
            : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-        }
+        { }
 
         public static async void SeedInitilData(AppDataBaseContext context)
         {
-            var newСooperative1 = new Сooperative()
+            #region Сooperative
+
+            var newСooperative1 = new Cooperative()
             {
                 Adress = "Adress1",
                 Name = "Name1",
                 Phone = "Phone1"
             };
-            context.Сooperative.Add(newСooperative1);
+            context.Cooperative.Add(newСooperative1);
             context.SaveChanges();
 
-            var newСooperative2 = new Сooperative()
+            var newСooperative2 = new Cooperative()
             {
                 Adress = "Adress2",
                 Name = "Name2",
                 Phone = "Phone2"
             };
-            context.Сooperative.Add(newСooperative2);
+            context.Cooperative.Add(newСooperative2);
             context.SaveChanges();
 
-            var newСooperative3 = new Сooperative()
+            var newСooperative3 = new Cooperative()
             {
                 Adress = "Adress3",
                 Name = "Name3",
                 Phone = "Phone3"
             };
-            context.Сooperative.Add(newСooperative3);
+            context.Cooperative.Add(newСooperative3);
             context.SaveChanges();
+
+            #endregion Сooperative
+
+            #region client
+
+            var newClient = new Client()
+            {
+                Email = "Email",
+                LastNme = "LastNme",
+                FirstName = "FirstName",
+                MidName = "MidName",
+                Phone = "Phone",
+                Adress = new ClientAdress()
+                {
+                    City = "City",
+                    Corpus = null,
+                    House = "House",
+                    Room = "Room",
+                    Street = "Street"
+                },
+                Cooperative = newСooperative1,
+            };
+
+            context.Client.Add(newClient);
+            context.SaveChanges();
+
+            #endregion client
         }
     }
 }

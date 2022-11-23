@@ -86,26 +86,31 @@ export class ApiService {
   }
 
   private formatErrors(error: HttpErrorResponse): Observable<any> {
+
+    let message = 'неизвестная ошибка';
+
     if (error.status == 0)
-      return throwError(() => { message: 'нет ответа от сервера' });
+      message = 'нет ответа от сервера';
 
     if (error.error)
       if (error.error.message)
-        return throwError(() => { message: error.error.message });
+        message = error.error.message;
 
     if (error.status == 403)
-      return throwError(() => { message: '403 - не достаточно прав' });
+      message = '403 - не достаточно прав';
 
     if (error.status == 401)
-      return throwError(() => { message: '401 - не авторизован' });
+      message = '401 - не авторизован';
 
-    if (error.status == 404) {
-      const errorResponse = new HttpErrorResponse({ error: '404 error', status: 404, statusText: 'Not Found' });
-      return throwError(() => errorResponse);
-    }
+    if (error.status == 404)
+      message = '404 - not found';
 
-
-    return throwError(() => { message: 'неизвестная ошибка' });
+    return throwError(() =>
+      new HttpErrorResponse({
+        error: error.error.message,
+        status: error.status,
+        statusText: error.statusText
+      }));
   }
 
 }

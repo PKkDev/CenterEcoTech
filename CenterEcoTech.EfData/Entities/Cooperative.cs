@@ -6,7 +6,7 @@ namespace CenterEcoTech.EfData.Entities
 {
     [Index(nameof(Name), IsUnique = true)]
     [Index(nameof(Phone), IsUnique = true)]
-    public class Сooperative
+    public class Cooperative
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -20,7 +20,7 @@ namespace CenterEcoTech.EfData.Entities
 
         public List<Client> Clients { get; set; }
 
-        public Сooperative()
+        public Cooperative()
         {
             Clients = new();
         }

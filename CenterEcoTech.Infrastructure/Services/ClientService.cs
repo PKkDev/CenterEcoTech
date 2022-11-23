@@ -42,7 +42,7 @@ namespace CenterEcoTech.Infrastructure.Services
                 MidName = query.MidName,
                 Phone = query.Phone,
                 Email = query.Email,
-                СooperativeId = query.СooperativeId,
+                CooperativeId = query.СooperativeId,
                 Adress = new ClientAdress()
                 {
                     City = query.Adress.City,
@@ -73,7 +73,7 @@ namespace CenterEcoTech.Infrastructure.Services
                 throw new ApiException("user not found");
 
             var code = GeneratePhoneNumberToken();
-            _accessor.HttpContext.Session.SetString(_sessionKeyCode, code);
+            //  _accessor.HttpContext.Session.SetString(_sessionKeyCode, code);
         }
 
         /// <summary>
@@ -93,10 +93,10 @@ namespace CenterEcoTech.Infrastructure.Services
             if (user == null)
                 throw new ApiException("user not found");
 
-            var savedCode = _accessor.HttpContext.Session.GetString(_sessionKeyCode);
+            //  var savedCode = _accessor.HttpContext.Session.GetString(_sessionKeyCode);
 
-            if (!savedCode.Equals(code))
-                throw new ApiException("wrong code");
+            // TODO
+            //if (!savedCode.Equals(code)) throw new ApiException("wrong code");
 
             return await Authorize(user.Id, ct);
         }

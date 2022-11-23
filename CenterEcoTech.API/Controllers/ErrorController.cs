@@ -25,8 +25,8 @@ namespace CenterEcoTech.API.Controllers
             var exception = context.Error;
 
             var code = 500;
-            // var message = exception.Message;
-            var message = "Exception occurred";
+            var message = exception.Message;
+            //var message = "Exception occurred";
 
             if (exception is ApiException httpException)
             {

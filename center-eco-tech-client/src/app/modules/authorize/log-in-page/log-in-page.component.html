@@ -2,12 +2,76 @@
 
   <div class="dialog_contaier">
 
-    <h1>login</h1>
+    <img class="logo" alt="CenterEcoTech Logo" src="./assets/img/logo.jpg">
 
-    <form class="form_cotainer">
+    <h2>Вход в личный кабинет</h2>
 
-    </form>
+    <app-loader *ngIf="codeIsCheck || codeIsSend"></app-loader>
+
+    <ng-template [ngTemplateOutlet]="nowTemplate"></ng-template>
 
   </div>
 
 </div>
+
+<ng-template #inputPhoneTemplate>
+
+  <div class="form_cotainer">
+
+    <div class="fields">
+
+      <p>
+        <input type="text" autocomplete="off" placeholder="Номер телефона" name="login" #login="ngModel" required
+          [(ngModel)]="phone">
+      </p>
+
+    </div>
+
+    <div class="message" *ngIf="message">
+      {{message}}
+    </div>
+
+    <button class="action-button" [disabled]="login.invalid" (click)="onNextCLick()">
+      Далее
+    </button>
+
+    <a class="demo-link" href="/login">Демо-режим</a>
+
+    <a class="support-link" href="/login">Служба поддержки</a>
+
+  </div>
+
+</ng-template>
+
+<ng-template #inputCodeTemplate>
+
+  <div class="form_cotainer">
+
+    <span>Пожалуйста, введите одноразовый пароль отправленный на номер {{phone}}</span>
+
+    <button class="sub-button" (click)="onChangePhoneClick()">Поменять номер</button>
+
+    <div class="fields">
+
+      <p>
+        <input type="text" autocomplete="off" placeholder="Одноразовый пароль" name="acceptCodeHtml"
+          #acceptCodeHtml="ngModel" required [(ngModel)]="acceptCode">
+      </p>
+
+    </div>
+
+    <div class="message" *ngIf="message">
+      {{message}}
+    </div>
+
+    <button class="sub-button" (click)="onReSendCodeToPhoneClick()">Повторно отправить пароль</button>
+
+    <button class="action-button" [disabled]="acceptCodeHtml.invalid" (click)="onCheckCodeClick()">
+      Войти
+    </button>
+
+    <a class="support-link" href="/login">Служба поддержки</a>
+
+  </div>
+
+</ng-template>
