@@ -18,7 +18,7 @@ export function getBaseUrl() {
     return getProdUrl();
   } else {
     // return getProdUrl();
-    return 'https://localhost:44354/api/';
+    return 'https://localhost:7200/api/';
   }
 }
 

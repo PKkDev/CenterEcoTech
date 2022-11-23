@@ -25,8 +25,8 @@ namespace CenterEcoTech.EfData.Entities
 
         public ClientAdress Adress { get; set; }
 
-        public int СooperativeId { get; set; }
-        public Сooperative Сooperative { get; set; }
+        public int CooperativeId { get; set; }
+        public Cooperative Cooperative { get; set; }
 
         public List<Request> Requests { get; set; }
 

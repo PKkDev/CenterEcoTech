@@ -22,37 +22,6 @@ namespace CenterEcoTech.EfData.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("CenterEcoTech.EfData.Entities.Сooperative", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Adress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.HasIndex("Phone")
-                        .IsUnique();
-
-                    b.ToTable("Сooperative");
-                });
-
             modelBuilder.Entity("CenterEcoTech.EfData.Entities.Client", b =>
                 {
                     b.Property<int>("Id")
@@ -60,6 +29,9 @@ namespace CenterEcoTech.EfData.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CooperativeId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -81,18 +53,15 @@ namespace CenterEcoTech.EfData.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("СooperativeId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("CooperativeId");
 
                     b.HasIndex("Email")
                         .IsUnique();
 
                     b.HasIndex("Phone")
                         .IsUnique();
-
-                    b.HasIndex("СooperativeId");
 
                     b.ToTable("Client");
                 });
@@ -133,6 +102,37 @@ namespace CenterEcoTech.EfData.Migrations
                         .IsUnique();
 
                     b.ToTable("ClientAdress");
+                });
+
+            modelBuilder.Entity("CenterEcoTech.EfData.Entities.Cooperative", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Adress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.HasIndex("Phone")
+                        .IsUnique();
+
+                    b.ToTable("Cooperative");
                 });
 
             modelBuilder.Entity("CenterEcoTech.EfData.Entities.Measurement", b =>
@@ -201,13 +201,13 @@ namespace CenterEcoTech.EfData.Migrations
 
             modelBuilder.Entity("CenterEcoTech.EfData.Entities.Client", b =>
                 {
-                    b.HasOne("CenterEcoTech.EfData.Entities.Сooperative", "Сooperative")
+                    b.HasOne("CenterEcoTech.EfData.Entities.Cooperative", "Cooperative")
                         .WithMany("Clients")
-                        .HasForeignKey("СooperativeId")
+                        .HasForeignKey("CooperativeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Сooperative");
+                    b.Navigation("Cooperative");
                 });
 
             modelBuilder.Entity("CenterEcoTech.EfData.Entities.ClientAdress", b =>
@@ -243,11 +243,6 @@ namespace CenterEcoTech.EfData.Migrations
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("CenterEcoTech.EfData.Entities.Сooperative", b =>
-                {
-                    b.Navigation("Clients");
-                });
-
             modelBuilder.Entity("CenterEcoTech.EfData.Entities.Client", b =>
                 {
                     b.Navigation("Adress")
@@ -256,6 +251,11 @@ namespace CenterEcoTech.EfData.Migrations
                     b.Navigation("Measurements");
 
                     b.Navigation("Requests");
+                });
+
+            modelBuilder.Entity("CenterEcoTech.EfData.Entities.Cooperative", b =>
+                {
+                    b.Navigation("Clients");
                 });
 #pragma warning restore 612, 618
         }

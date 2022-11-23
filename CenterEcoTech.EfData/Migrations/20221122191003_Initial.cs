@@ -10,7 +10,7 @@ namespace CenterEcoTech.EfData.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Сooperative",
+                name: "Cooperative",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -21,7 +21,7 @@ namespace CenterEcoTech.EfData.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Сooperative", x => x.Id);
+                    table.PrimaryKey("PK_Cooperative", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -35,15 +35,15 @@ namespace CenterEcoTech.EfData.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastNme = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MidName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    СooperativeId = table.Column<int>(type: "int", nullable: false)
+                    CooperativeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Client", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Client_Сooperative_СooperativeId",
-                        column: x => x.СooperativeId,
-                        principalTable: "Сooperative",
+                        name: "FK_Client_Cooperative_CooperativeId",
+                        column: x => x.CooperativeId,
+                        principalTable: "Cooperative",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -119,21 +119,9 @@ namespace CenterEcoTech.EfData.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Сooperative_Name",
-                table: "Сooperative",
-                column: "Name",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Сooperative_Phone",
-                table: "Сooperative",
-                column: "Phone",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Client_СooperativeId",
+                name: "IX_Client_CooperativeId",
                 table: "Client",
-                column: "СooperativeId");
+                column: "CooperativeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Client_Email",
@@ -151,6 +139,18 @@ namespace CenterEcoTech.EfData.Migrations
                 name: "IX_ClientAdress_ClientId",
                 table: "ClientAdress",
                 column: "ClientId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cooperative_Name",
+                table: "Cooperative",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cooperative_Phone",
+                table: "Cooperative",
+                column: "Phone",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -179,7 +179,7 @@ namespace CenterEcoTech.EfData.Migrations
                 name: "Client");
 
             migrationBuilder.DropTable(
-                name: "Сooperative");
+                name: "Cooperative");
         }
     }
 }

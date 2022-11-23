@@ -16,7 +16,7 @@ namespace CenterEcoTech.Infrastructure.Services
 
         public async Task<IEnumerable<СooperativeDto>> GetСooperativesAsync(CancellationToken ct)
         {
-            return await _context.Сooperative
+            return await _context.Cooperative
                 .Select(x => new СooperativeDto(x.Id, x.Name))
                 .ToListAsync(ct);
         }
