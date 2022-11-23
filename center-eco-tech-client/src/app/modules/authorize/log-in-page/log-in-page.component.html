@@ -16,7 +16,7 @@
 
 <ng-template #inputPhoneTemplate>
 
-  <div class="form_cotainer">
+  <form class="form_cotainer">
 
     <div class="fields">
 
@@ -31,7 +31,7 @@
       {{message}}
     </div>
 
-    <button class="action-button" [disabled]="login.invalid" (click)="onNextCLick()">
+    <button class="action-button" [disabled]="login.invalid || (codeIsCheck || codeIsSend)" (click)="onNextCLick()">
       Далее
     </button>
 
@@ -39,7 +39,7 @@
 
     <a class="support-link" href="/login">Служба поддержки</a>
 
-  </div>
+  </form>
 
 </ng-template>
 
@@ -66,7 +66,8 @@
 
     <button class="sub-button" (click)="onReSendCodeToPhoneClick()">Повторно отправить пароль</button>
 
-    <button class="action-button" [disabled]="acceptCodeHtml.invalid" (click)="onCheckCodeClick()">
+    <button class="action-button" [disabled]="acceptCodeHtml.invalid || (codeIsCheck || codeIsSend)"
+      (click)="onCheckCodeClick()">
       Войти
     </button>
 

@@ -49,4 +49,8 @@ export class AuthService {
     return this.apiService.post('сlient/send-sms', httpBody);
   }
 
+  public checkLogIn(): boolean {
+    return !!this.user.getValue().token;
+  }
+
 }
