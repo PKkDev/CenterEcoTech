@@ -28,7 +28,7 @@ describe('Api service', () => {
       error: error => {
         console.log(error);
 
-        expect(error.error).toContain('404 error');
+        expect(error.error).toContain('404 - not found');
         done();
       }
     });

@@ -86,7 +86,6 @@ export class ApiService {
   }
 
   private formatErrors(error: HttpErrorResponse): Observable<any> {
-
     let message = 'неизвестная ошибка';
 
     if (error.status == 0)
@@ -107,7 +106,7 @@ export class ApiService {
 
     return throwError(() =>
       new HttpErrorResponse({
-        error: error.error.message,
+        error: message,
         status: error.status,
         statusText: error.statusText
       }));

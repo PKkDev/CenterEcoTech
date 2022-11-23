@@ -31,7 +31,6 @@ export class LogInPageComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private cdr: ChangeDetectorRef,
     private router: Router,
-    private apiService: ApiService,
     private authService: AuthService) { }
 
   ngOnInit() { }
