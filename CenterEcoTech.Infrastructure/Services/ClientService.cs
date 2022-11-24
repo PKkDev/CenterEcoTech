@@ -8,6 +8,8 @@ using CenterEcoTech.EfData.Entities;
 using CenterEcoTech.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
+using System.Numerics;
 
 namespace CenterEcoTech.Infrastructure.Services
 {
@@ -125,27 +127,90 @@ namespace CenterEcoTech.Infrastructure.Services
         }
 
         /// <summary>
-        /// get user detail
+        /// get client detail
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
         /// <exception cref="ApiException"></exception>
-        public async Task<UserDetailDto> GetUserDetailAsync(int userId, CancellationToken ct)
+        public async Task<UserDetailDto> GetClientDetailAsync(int userId, CancellationToken ct)
         {
-            var user = await _context.Client
+            var client = await _context.Client
+                .Include(x => x.Adress)
                 .FirstOrDefaultAsync(x => x.Id == userId, ct);
 
-            if (user == null)
+            if (client == null)
                 throw new ApiException("user not found");
 
             UserDetailDto result = new()
             {
-                Phone = user.Phone,
-                Email = user.Email,
-                FirstName = user.FirstName
+                Phone = client.Phone,
+                Email = client.Email,
+                FirstName = client.FirstName,
+                LastNme = client.LastNme,
+                MidName = client.MidName,
+                Adress = new()
+                {
+                    City = client.Adress.City,
+                    Street = client.Adress.Street,
+                    House = client.Adress.House,
+                    Corpus = client.Adress.Corpus,
+                    Room = client.Adress.Room,
+                }
             };
             return result;
+        }
+
+        /// <summary>
+        /// update client detail
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="detail"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        /// <exception cref="ApiException"></exception>
+        public async Task UpdateClientDetailAsync(int userId, UserDetailDto detail, CancellationToken ct)
+        {
+            var client = await _context.Client
+                .Include(x => x.Adress)
+                .FirstOrDefaultAsync(x => x.Id == userId, ct);
+
+            if (client == null)
+                throw new ApiException("user not found");
+
+            client.Phone = detail.Phone;
+            client.Email = detail.Email;
+            client.FirstName = detail.FirstName;
+            client.LastNme = detail.LastNme;
+            client.MidName = detail.MidName;
+
+            client.Adress.City = detail.Adress.City;
+            client.Adress.Street = detail.Adress.Street;
+            client.Adress.House = detail.Adress.House;
+            client.Adress.Corpus = detail.Adress.Corpus;
+            client.Adress.Room = detail.Adress.Room;
+
+            _context.Client.Update(client);
+            await _context.SaveChangesAsync(ct);
+        }
+
+        /// <summary>
+        /// delete client
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        /// <exception cref="ApiException"></exception>
+        public async Task DeleteClientAsync(int userId, CancellationToken ct)
+        {
+            var client = await _context.Client
+                .FirstOrDefaultAsync(x => x.Id == userId, ct);
+
+            if (client == null)
+                throw new ApiException("user not found");
+
+            _context.Client.Remove(client);
+            await _context.SaveChangesAsync(ct);
         }
     }
 }

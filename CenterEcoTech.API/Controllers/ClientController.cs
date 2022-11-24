@@ -64,7 +64,7 @@ namespace CenterEcoTech.API.Controllers
         public IActionResult CheckAuth() => Ok("all ok!");
 
         /// <summary>
-        /// get user detail
+        /// get client detail
         /// </summary>
         /// <param name="ct"></param>
         /// <returns></returns>
@@ -73,7 +73,34 @@ namespace CenterEcoTech.API.Controllers
         public async Task<UserDetailDto> GetUserDetail(CancellationToken ct = default)
         {
             var userId = HttpContext.GetUserId();
-            return await _clientService.GetUserDetailAsync(Convert.ToInt32(userId), ct);
+            return await _clientService.GetClientDetailAsync(Convert.ToInt32(userId), ct);
+        }
+
+        /// <summary>
+        /// update client detail
+        /// </summary>
+        /// <param name="query"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        [HttpPost("detail")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task UpdateUserDetail([FromBody] UserDetailDto query, CancellationToken ct = default)
+        {
+            var userId = HttpContext.GetUserId();
+            await _clientService.UpdateClientDetailAsync(userId, query, ct);
+        }
+
+        /// <summary>
+        /// delete client
+        /// </summary>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task DeleteUser(CancellationToken ct = default)
+        {
+            var userId = HttpContext.GetUserId();
+            await _clientService.DeleteClientAsync(userId, ct);
         }
 
     }
