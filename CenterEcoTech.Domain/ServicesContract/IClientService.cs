@@ -32,11 +32,28 @@ namespace CenterEcoTech.Domain.ServicesContract
         Task<LoginResponseDto> CheckPhoneAccessTokenAsync(string phone, string code, CancellationToken ct);
 
         /// <summary>
-        /// get user detail
+        /// get user client
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        Task<UserDetailDto> GetUserDetailAsync(int userId, CancellationToken ct);
+        Task<UserDetailDto> GetClientDetailAsync(int userId, CancellationToken ct);
+
+        /// <summary>
+        /// update client detail
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="detail"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        Task UpdateClientDetailAsync(int userId, UserDetailDto detail, CancellationToken ct);
+
+        /// <summary>
+        /// delete client
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        Task DeleteClientAsync(int userId, CancellationToken ct);
     }
 }
