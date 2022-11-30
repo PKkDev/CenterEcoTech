@@ -78,20 +78,10 @@ namespace CenterEcoTech.Infrastructure.Services
                 throw new ApiException("user not found");
 
             var code = GeneratePhoneNumberToken();
-            var client = _clientFactory.CreateClient("smsAreaApi");
-            var message = $"код для доступа: {code}";
-            Dictionary<string, string> queryParam = new()
-            {
-                {"number", $"{phone}"},
-                {"text", $"{message}"},
-                {"sign", "SMS Aero"}
-            };
-            var uri = QueryHelpers.AddQueryString(client.BaseAddress.AbsoluteUri, queryParam);
-            var request = new HttpRequestMessage(HttpMethod.Get, uri);
-            var response = await client.SendAsync(request, ct);
-            var responseMessage = await response.Content.ReadAsStringAsync();
-            if (!response.IsSuccessStatusCode)
-                throw new ApiException("ошибка при отправке sms");
+            SmsAeroService smsAero = new SmsAeroService();
+            smsAero.SmsSend(phone, code, ct);
+
+           
             //  _accessor.HttpContext.Session.SetString(_sessionKeyCode, code);
         }
 
