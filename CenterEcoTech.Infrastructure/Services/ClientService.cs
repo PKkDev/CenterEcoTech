@@ -7,6 +7,7 @@ using CenterEcoTech.EfData.Context;
 using CenterEcoTech.EfData.Entities;
 using CenterEcoTech.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
 using System.Numerics;
@@ -18,15 +19,17 @@ namespace CenterEcoTech.Infrastructure.Services
         private AppDataBaseContext _context;
         private readonly IJWTGenerator _jwtTokenService;
         private readonly IHttpContextAccessor _accessor;
+        private readonly IHttpClientFactory _clientFactory;
 
         private readonly string _sessionKeyCode = "_Code";
 
         public ClientService(
-            AppDataBaseContext context, IJWTGenerator jwtGenerator, IHttpContextAccessor accessor)
+            AppDataBaseContext context, IJWTGenerator jwtGenerator, IHttpContextAccessor accessor, IHttpClientFactory clientFactory)
         {
             _context = context;
             _jwtTokenService = jwtGenerator;
             _accessor = accessor;
+            _clientFactory = clientFactory;
         }
 
         /// <summary>
@@ -75,6 +78,20 @@ namespace CenterEcoTech.Infrastructure.Services
                 throw new ApiException("user not found");
 
             var code = GeneratePhoneNumberToken();
+            var client = _clientFactory.CreateClient("smsAreaApi");
+            var message = $"код для доступа: {code}";
+            Dictionary<string, string> queryParam = new()
+            {
+                {"number", $"{phone}"},
+                {"text", $"{message}"},
+                {"sign", "SMS Aero"}
+            };
+            var uri = QueryHelpers.AddQueryString(client.BaseAddress.AbsoluteUri, queryParam);
+            var request = new HttpRequestMessage(HttpMethod.Get, uri);
+            var response = await client.SendAsync(request, ct);
+            var responseMessage = await response.Content.ReadAsStringAsync();
+            if (!response.IsSuccessStatusCode)
+                throw new ApiException("ошибка при отправке sms");
             //  _accessor.HttpContext.Session.SetString(_sessionKeyCode, code);
         }
 
