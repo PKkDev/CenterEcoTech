@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // routing
 import { ClientAppRoutingModule } from './client-app-routing.module';
 // layout
@@ -18,7 +19,9 @@ import { AccrualsPageComponent } from './pages/accruals-page/accruals-page.compo
   imports: [
     ClientAppRoutingModule,
     CommonModule,
-    MatIconModule
+    MatIconModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     ClientAppComponent,

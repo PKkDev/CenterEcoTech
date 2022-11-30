@@ -1,1 +1,63 @@
-<p>profile-page works!</p>
+<div class="container">
+  <div class="profile-content">
+    <div class="content-header">
+      <h1>Профиль</h1>
+      <p *ngIf="!isCollapsed" class="delete" (click)="reset()">Удалить все данные</p>
+    </div>
+    <form class="profile" [formGroup]="profileForm" (ngSubmit)="submit()">
+      <div class="data">
+        <div class="colums">
+          <label for="surname">Фамилия</label>
+          <input class="surname" name="surname" type="text" placeholder="Введите фамилию" formControlName="surname">
+        </div>
+        <div div class="colums">
+          <label for="name">Имя</label>
+          <input class="name" type="text" placeholder="Введите имя" formControlName="name">
+        </div>
+        <div class="colums">
+          <label for="second-name">Отчество</label>
+          <input class="second-name" type="text" placeholder="Введите отчество" formControlName="secondName">
+        </div>
+      </div>
+      <div class="data" formGroupName="address">
+        <div class="colums">
+          <label for="street">Улица</label>
+          <input class="street" type="text" placeholder="Название улицы" formControlName="street">
+        </div>
+        <div class="colums">
+          <label for="house">Дом</label>
+          <input class="house" type="text" placeholder="Номер" formControlName="house">
+        </div>
+        <div class="colums">
+          <label for="corps">Корпус</label>
+          <input class="corps" type="text" placeholder="Номер" formControlName="corpus">
+        </div>
+        <div class="colums">
+          <label for="flat">Квартира</label>
+          <input class="flat" type="text" placeholder="Номер" formControlName="room">
+        </div>
+      </div>
+      <div class="data">
+        <div class="colums">
+          <label for="number-personal-account">№ лицевого счета</label>
+          <input class="number-personal-account" type="number" placeholder="Введите номер счета" formControlName="numberPersonalAccount">
+        </div>
+        <div class="colums">
+          <label for="email">Электронная почта</label>
+          <input class="email" type="email" placeholder="Адрес почты" formControlName="email">
+        </div>
+        <div class="colums colums-3">
+          <label for="avatar">Фото профиля</label>
+          <img class="avatar-image" src="" alt="">
+          <button class="avatar" type="button">Изменить фото</button>
+        </div>
+      </div>
+      <div class="buttons">
+        <button *ngIf="isCollapsed" class="change" id="change" type="button" (click)="buttonIsClick(); formEnable()">Изменить данные</button>
+        <button *ngIf="!isCollapsed" class="save" id="save" type="submit" (click)="submit(); formDisable(); buttonIsClick()" [disabled]="profileForm.invalid || profileForm.disabled">Сохранить</button>
+        <button *ngIf="!isCollapsed" class="cancel" id="cancel" type="reset" (click)="buttonIsClick(); reset(); formDisable()">Отмена</button>
+      </div>
+    </form>
+  </div>
+</div>
+
