@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CenterEcoTech.Domain.ServicesContract
+﻿namespace CenterEcoTech.Domain.ServicesContract
 {
-	public interface ISmsAeroService
-	{
-		
-	}
+    public interface ISmsAeroService
+    {
+        /// <summary>
+        /// send sms message
+        /// </summary>
+        /// <param name="phone"></param>
+        /// <param name="code"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        void SendAuthCode(string phone, string code, CancellationToken ct);
+    }
 }
