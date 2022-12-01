@@ -69,6 +69,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddTransient<IJWTGenerator, JWTGenerator>();
 builder.Services.AddTransient<IClientService, ClientService>();
 builder.Services.AddTransient<ICooperativeService, CooperativeService>();
+builder.Services.AddTransient<ISmsAeroService, SmsAeroService>();
 
 #endregion add services
 

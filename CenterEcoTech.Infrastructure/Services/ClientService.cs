@@ -5,12 +5,8 @@ using CenterEcoTech.Domain.Query;
 using CenterEcoTech.Domain.ServicesContract;
 using CenterEcoTech.EfData.Context;
 using CenterEcoTech.EfData.Entities;
-using CenterEcoTech.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
-using System.IO;
-using System.Numerics;
 
 namespace CenterEcoTech.Infrastructure.Services
 {
@@ -19,17 +15,18 @@ namespace CenterEcoTech.Infrastructure.Services
         private AppDataBaseContext _context;
         private readonly IJWTGenerator _jwtTokenService;
         private readonly IHttpContextAccessor _accessor;
-        private readonly IHttpClientFactory _clientFactory;
+        private readonly ISmsAeroService _smsAeroService;
 
         private readonly string _sessionKeyCode = "_Code";
 
         public ClientService(
-            AppDataBaseContext context, IJWTGenerator jwtGenerator, IHttpContextAccessor accessor, IHttpClientFactory clientFactory)
+            AppDataBaseContext context, IJWTGenerator jwtGenerator,
+            IHttpContextAccessor accessor, ISmsAeroService smsAeroService)
         {
             _context = context;
             _jwtTokenService = jwtGenerator;
             _accessor = accessor;
-            _clientFactory = clientFactory;
+            _smsAeroService = smsAeroService;
         }
 
         /// <summary>
@@ -78,10 +75,9 @@ namespace CenterEcoTech.Infrastructure.Services
                 throw new ApiException("user not found");
 
             var code = GeneratePhoneNumberToken();
-            SmsAeroService smsAero = new SmsAeroService();
-            smsAero.SmsSend(phone, code, ct);
+            _smsAeroService.SendAuthCode(phone, code, ct);
 
-           
+
             //  _accessor.HttpContext.Session.SetString(_sessionKeyCode, code);
         }
 
