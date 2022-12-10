@@ -27,7 +27,7 @@ export class AuthService {
       code: code,
       phone: phone
     }
-    return this.apiService.post<LoginHttpResponse>('сlient/check-sms', httpBody)
+    return this.apiService.post<LoginHttpResponse>('client/check-sms', httpBody)
       .pipe(
         map((data: LoginHttpResponse) => {
           if (data) {
@@ -42,11 +42,20 @@ export class AuthService {
       );
   }
 
+  public getAuthorizationToken(): string | null {
+    return this.user.getValue().token;
+  }
+
   public sendCodeToPhone(phone: string): Observable<any> {
     const httpBody = {
       phone: phone
     };
-    return this.apiService.post('сlient/send-sms', httpBody);
+    return this.apiService.post('client/send-sms', httpBody);
+  }
+
+  public logOut() {
+    this.user.next({ token: null });
+    sessionStorage.removeItem('token');
   }
 
   public checkLogIn(): boolean {

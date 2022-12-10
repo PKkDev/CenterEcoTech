@@ -58,7 +58,7 @@ namespace CenterEcoTech.EfData.Context
 
             var newClient = new Client()
             {
-                Email = "Email",
+                Email = "Email@mail.ru",
                 LastNme = "LastNme",
                 FirstName = "FirstName",
                 MidName = "MidName",
