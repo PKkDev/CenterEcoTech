@@ -10,6 +10,8 @@ import { AuthorizeRoutingModule } from './authorize-routing.module';
 import { AuthGuard } from './guards/auth.guard';
 // shared
 import { SharedModule } from '../shared/shared.module';
+// interceptors
+import { httpInterceptorProviders } from './interceptors/http-Interceptors';
 
 @NgModule({
   imports: [
@@ -23,7 +25,8 @@ import { SharedModule } from '../shared/shared.module';
     LogInPageComponent
   ],
   providers: [
-    AuthGuard
+    AuthGuard,
+    httpInterceptorProviders
   ]
 })
 export class AuthorizeModule { }

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CenterEcoTech.API.Controllers
 {
-    [Route("api/сlient")]
+    [Route("api/client")]
     [ApiController]
     public class ClientController : ControllerBase
     {

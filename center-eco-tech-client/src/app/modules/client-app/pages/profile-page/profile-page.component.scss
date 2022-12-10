@@ -7,7 +7,7 @@
   position: relative;
   margin: 0 auto;
   max-width: 1136px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
@@ -15,7 +15,7 @@
   color: #212121;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #FFFFFF;
+  background: #ffffff;
   p {
     margin: 0;
   }
@@ -28,7 +28,7 @@
       font-size: 14px;
       height: 24px;
       text-decoration-line: underline;
-      color: #004F9E;
+      color: #004f9e;
       cursor: pointer;
       &:hover {
         background-color: #d6cdcd38;
@@ -62,7 +62,7 @@
       margin-bottom: 16px;
     }
     input {
-      font-family: 'Montserrat', sans-serif;
+      font-family: "Montserrat", sans-serif;
       font-style: normal;
       font-weight: 400;
       font-size: 14px;
@@ -70,7 +70,7 @@
       width: 352px;
       height: 48px;
       color: #666666;
-      border: 1px solid #E4DCD3;
+      border: 1px solid #e4dcd3;
       border-radius: 4px;
       padding: 12px 20px 12px 20px;
       box-sizing: border-box;
@@ -110,17 +110,20 @@
     }
     .data {
       .colums {
+        .city {
+          width: 220px;
+        }
         .street {
-          width: 440px;
+          width: 220px;
         }
         .house {
           width: 192px;
         }
         .corps {
-          width: 192px;
+          width: 190px;
         }
         .flat {
-          width: 192px;
+          width: 190px;
         }
       }
     }
@@ -150,7 +153,7 @@
           padding: 8px 16px;
           background: #fff;
           color: #666666;
-          border: 1px solid #E4DCD3;
+          border: 1px solid #e4dcd3;
           &:hover {
             background-color: #d6cdcd38;
           }
@@ -164,7 +167,7 @@
       }
     }
     button {
-      font-family: 'Montserrat', sans-serif;
+      font-family: "Montserrat", sans-serif;
       font-style: normal;
       font-weight: 500;
       font-size: 16px;
@@ -172,10 +175,10 @@
       text-align: center;
       white-space: pre;
       max-width: 300px;
-      background: #004F9E;
+      background: #004f9e;
       border-radius: 4px;
       border: 0;
-      color: #FFFFFF;
+      color: #ffffff;
       cursor: pointer;
       &:active {
         position: relative;
@@ -198,16 +201,16 @@
         -webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.5);
         box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.5);
         background: #666666;
-      &:enabled {
-        background: #275ccf;
-      }
+        &:enabled {
+          background: #275ccf;
+        }
       }
     }
     .cancel {
       padding: 16px 117px 16px 118px;
       margin-left: 52px;
-      border: 1px solid #004F9E;
-      color: #004F9E;
+      border: 1px solid #004f9e;
+      color: #004f9e;
       background: #fff;
       &:hover {
         background-color: #d6cdcd38;
@@ -217,7 +220,7 @@
     input[type="number"]::-webkit-inner-spin-button {
       -webkit-appearance: none;
     }
-    input[type='number'],
+    input[type="number"],
     input[type="number"]:hover,
     input[type="number"]:focus {
       appearance: none;
@@ -360,7 +363,7 @@
       input {
         width: 192px;
       }
-      .data{
+      .data {
         .colums {
           .street {
             width: 192px;
