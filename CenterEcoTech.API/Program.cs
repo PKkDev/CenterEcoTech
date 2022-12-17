@@ -70,6 +70,7 @@ builder.Services.AddTransient<IJWTGenerator, JWTGenerator>();
 builder.Services.AddTransient<IClientService, ClientService>();
 builder.Services.AddTransient<ICooperativeService, CooperativeService>();
 builder.Services.AddTransient<ISmsAeroService, SmsAeroService>();
+builder.Services.AddTransient<IClientRequestService, ClientRequestService>();
 
 #endregion add services
 

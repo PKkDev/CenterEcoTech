@@ -72,7 +72,7 @@ namespace CenterEcoTech.API.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<UserDetailDto> GetUserDetail(CancellationToken ct = default)
         {
-            var userId = HttpContext.GetUserId();
+            var userId = HttpContext.GetClientId();
             return await _clientService.GetClientDetailAsync(Convert.ToInt32(userId), ct);
         }
 
@@ -86,7 +86,7 @@ namespace CenterEcoTech.API.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task UpdateUserDetail([FromBody] UserDetailDto query, CancellationToken ct = default)
         {
-            var userId = HttpContext.GetUserId();
+            var userId = HttpContext.GetClientId();
             await _clientService.UpdateClientDetailAsync(userId, query, ct);
         }
 
@@ -99,7 +99,7 @@ namespace CenterEcoTech.API.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task DeleteUser(CancellationToken ct = default)
         {
-            var userId = HttpContext.GetUserId();
+            var userId = HttpContext.GetClientId();
             await _clientService.DeleteClientAsync(userId, ct);
         }
 

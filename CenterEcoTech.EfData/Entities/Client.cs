@@ -37,5 +37,16 @@ namespace CenterEcoTech.EfData.Entities
             Requests = new();
             Measurements = new();
         }
+
+        public string GetFullName()
+        {
+            return $"{LastNme} {FirstName} {MidName}";
+        }
+
+        public string GetFullAdress()
+        {
+            if (Adress == null) return String.Empty;
+            return $"{Adress.City} {Adress.Street} {Adress.House}";
+        }
     }
 }

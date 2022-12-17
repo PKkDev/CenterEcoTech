@@ -9,22 +9,23 @@ namespace CenterEcoTech.EfData.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        public DateTime Date { get; set; }
 
-        public string Aress { get; set; }
+        public RequestStatus Status { get; set; }
 
-        public RequestType Type { get; set; }
+        public string Theme { get; set; }
 
-        public DateTime DateSend { get; set; }
-
-        public string Comment { get; set; }
+        public string Message { get; set; }
 
         public int ClientId { get; set; }
         public Client Client { get; set; }
     }
 
-    public enum RequestType
+    public enum RequestStatus
     {
-
+        New = 1,
+        Accepted = 2,
+        InProgress = 3,
+        Done = 4
     }
 }

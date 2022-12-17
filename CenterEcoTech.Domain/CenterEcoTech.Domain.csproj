@@ -10,4 +10,8 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2-beta2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CenterEcoTech.EfData\CenterEcoTech.EfData.csproj" />
+  </ItemGroup>
+
 </Project>
