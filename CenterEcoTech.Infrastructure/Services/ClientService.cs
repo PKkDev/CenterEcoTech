@@ -75,7 +75,7 @@ namespace CenterEcoTech.Infrastructure.Services
                 throw new ApiException("user not found");
 
             var code = GeneratePhoneNumberToken();
-            _smsAeroService.SendAuthCode(phone, code, ct);
+           // _smsAeroService.SendAuthCode(phone, code, ct);
 
 
             //  _accessor.HttpContext.Session.SetString(_sessionKeyCode, code);
