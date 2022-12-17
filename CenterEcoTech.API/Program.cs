@@ -91,6 +91,12 @@ builder.Services.AddDistributedMemoryCache();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSession();
 
+#region AddMemoryCache
+
+builder.Services.AddMemoryCache();
+
+#endregion AddMemoryCache
+
 #region add Swagger v2
 
 builder.Services.AddSwaggerGen(swagger =>

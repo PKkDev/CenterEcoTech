@@ -1,6 +1,7 @@
 ﻿using CenterEcoTech.Domain.DTO.Сooperative;
 using CenterEcoTech.Domain.ServicesContract;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace CenterEcoTech.API.Controllers
 {
@@ -9,10 +10,13 @@ namespace CenterEcoTech.API.Controllers
     public class СooperativeController : ControllerBase
     {
         private readonly ICooperativeService _cooperativeService;
+        private readonly IMemoryCache _memoryCache;
 
-        public СooperativeController(ICooperativeService cooperativeService)
+        public СooperativeController(
+            ICooperativeService cooperativeService, IMemoryCache memoryCache)
         {
             _cooperativeService = cooperativeService;
+            _memoryCache = memoryCache;
         }
 
         /// <summary>
@@ -23,7 +27,16 @@ namespace CenterEcoTech.API.Controllers
         [HttpGet]
         public async Task<IEnumerable<СooperativeDto>> GetСooperatives(CancellationToken ct = default)
         {
-            return await _cooperativeService.GetСooperativesAsync(ct);
+            var cachedValue = await _memoryCache.GetOrCreate(
+                "GetСooperatives",
+                async cacheEntry =>
+                {
+                    cacheEntry.SlidingExpiration = TimeSpan.FromSeconds(3);
+                    cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(20);
+                    return await _cooperativeService.GetСooperativesAsync(ct);
+                });
+
+            return cachedValue;
         }
     }
 }
