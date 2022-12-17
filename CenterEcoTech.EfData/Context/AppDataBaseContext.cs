@@ -27,27 +27,27 @@ namespace CenterEcoTech.EfData.Context
 
             var newСooperative1 = new Cooperative()
             {
-                Adress = "Adress1",
-                Name = "Name1",
-                Phone = "Phone1"
+                Adress = "Cooperative1Adress",
+                Name = "Cooperative1",
+                Phone = "86874587458"
             };
             context.Cooperative.Add(newСooperative1);
             context.SaveChanges();
 
             var newСooperative2 = new Cooperative()
             {
-                Adress = "Adress2",
-                Name = "Name2",
-                Phone = "Phone2"
+                Adress = "Cooperative2Adress",
+                Name = "Cooperative2",
+                Phone = "85632145985"
             };
             context.Cooperative.Add(newСooperative2);
             context.SaveChanges();
 
             var newСooperative3 = new Cooperative()
             {
-                Adress = "Adress3",
-                Name = "Name3",
-                Phone = "Phone3"
+                Adress = "Cooperative3Adress",
+                Name = "Cooperative3",
+                Phone = "87452369856"
             };
             context.Cooperative.Add(newСooperative3);
             context.SaveChanges();
@@ -59,17 +59,17 @@ namespace CenterEcoTech.EfData.Context
             var newClient = new Client()
             {
                 Email = "Email@mail.ru",
-                LastNme = "LastNme",
-                FirstName = "FirstName",
-                MidName = "MidName",
-                Phone = "Phone",
+                LastNme = "Вовкиннн",
+                FirstName = "Вова",
+                MidName = "Вович",
+                Phone = "81234567896",
                 Adress = new ClientAdress()
                 {
-                    City = "City",
+                    City = "Самара",
                     Corpus = null,
-                    House = "House",
-                    Room = "Room",
-                    Street = "Street"
+                    House = "55",
+                    Room = "44",
+                    Street = "Уличная"
                 },
                 Cooperative = newСooperative1,
             };

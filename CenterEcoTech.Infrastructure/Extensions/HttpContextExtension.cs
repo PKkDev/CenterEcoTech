@@ -5,7 +5,7 @@ namespace CenterEcoTech.Infrastructure.Extensions
 {
     public static class HttpContextExtension
     {
-        public static int GetUserId(this HttpContext httpContext)
+        public static int GetClientId(this HttpContext httpContext)
         {
             var userIdStr = httpContext.User.Claims.ToList().Find(x => x.Type == "ClientIdentity");
             if (userIdStr == null)
