@@ -1,57 +1,74 @@
 <div class="container">
+
   <div class="applications-content">
-    <mat-form-field>
-      <label for="matInput">Поиск</label>
-      <input matInput (keyup)="applyFilter($event)" #input>
-    </mat-form-field>
 
-      <table mat-table class="striped"[dataSource]="dataSource" matSort>
+    <div class="tool">
 
-        <!-- ID Column -->
-        <ng-container matColumnDef="Date">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> ДАТА </th>
-          <td mat-cell *matCellDef="let row"> {{row.Date}} </td>
-        </ng-container>
+      <mat-form-field class="my-form-field" appearance="outline">
+        <mat-label>Статус заявки</mat-label>
+        <mat-select [(ngModel)]="selectedStatus" (ngModelChange)="onStatusSelected()">
+          <mat-option *ngFor="let status of allStatuses" [value]="status"> {{status | applictionStatusConverter}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-        <!-- Progress Column -->
-        <ng-container matColumnDef="Status">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> СТАТУС </th>
-          <td mat-cell *matCellDef="let row"> {{row.Status}}% </td>
-        </ng-container>
+      <mat-form-field class="my-form-field" appearance="outline">
+        <mat-label>Дата заявки</mat-label>
+        <input name="dateFilter" matInput [matDatepicker]="picker" [(ngModel)]="selectedDate"
+          (ngModelChange)="onNewDateSelected()">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
 
-        <!-- Name Column -->
-        <ng-container matColumnDef="Theme">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> ТЕМА </th>
-          <td mat-cell *matCellDef="let row"> {{row.Theme}} </td>
-        </ng-container>
+      <mat-form-field class="my-form-field" appearance="outline">
+        <mat-label>Поиск</mat-label>
+        <input matInput name="textFilter" (keyup)="applyFilter($event)" autocomplete="false" #input>
+      </mat-form-field>
 
-        <!-- Fruit Column -->
-        <ng-container matColumnDef="FIO">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> ФИО </th>
-          <td mat-cell *matCellDef="let row"> {{row.FIO}} </td>
-        </ng-container>
+    </div>
 
-        <!-- Adress Column -->
-        <ng-container matColumnDef="Adress">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Адрес </th>
-          <td mat-cell *matCellDef="let row"> {{row.Adress}} </td>
-        </ng-container>
+    <table mat-table class="striped" [dataSource]="dataSource" matSort>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Дата </th>
+        <td mat-cell *matCellDef="let row"> {{row.date | date:'dd.MM.yyyy'}} </td>
+      </ng-container>
 
-        <!-- Row shown when there is no matching data. -->
-        <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell" colspan="5">Не найдено данных "{{input.value}}"</td>
-        </tr>
-      </table>
-      <mat-paginator
-      [pageSize]="pageSize"
-      [showFirstLastButtons]="showFirstLastButtons"
-      [hidePageSize]="hidePageSize"
-      [pageIndex]="pageIndex"
-      [hidePageSize]="hidePageSize"
-      aria-label="Select page">
-      </mat-paginator>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Статус </th>
+        <td mat-cell *matCellDef="let row"> {{row.status | applictionStatusConverter}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="theme">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Тема </th>
+        <td mat-cell *matCellDef="let row"> {{row.theme}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="message">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Сообщение </th>
+        <td mat-cell *matCellDef="let row"> {{row.message}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="cLientName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Клиент </th>
+        <td mat-cell *matCellDef="let row"> {{row.cLientName}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="cLientAdress">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Адресс </th>
+        <td mat-cell *matCellDef="let row"> {{row.cLientAdress}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="5">Не найдено данных "{{input.value}}"</td>
+      </tr>
+
+    </table>
+    <mat-paginator [pageSize]="pageSize" [showFirstLastButtons]="showFirstLastButtons" [hidePageSize]="hidePageSize"
+      [pageIndex]="pageIndex" [hidePageSize]="hidePageSize" aria-label="Select page">
+    </mat-paginator>
   </div>
 </div>

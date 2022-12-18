@@ -2,6 +2,7 @@
   position: relative;
   max-height: auto;
 }
+
 .applications-content {
   position: relative;
   margin: 0 auto;
@@ -15,13 +16,16 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #ffffff;
+
   p {
     margin: 0;
   }
+
   .applications {
     label {
       margin-bottom: 16px;
     }
+
     input {
       font-family: "Montserrat", sans-serif;
       font-style: normal;
@@ -35,25 +39,31 @@
       border-radius: 4px;
       padding: 12px 20px 12px 20px;
       box-sizing: border-box;
+
       &.ng-invalid.ng-touched {
         border: 1px solid red;
       }
+
       &.ng-valid.ng-touched {
         border: 1px solid green;
       }
     }
+
     .data {
       display: flex;
       flex-direction: row;
       justify-content: left;
       margin: 0px auto 44px auto;
+
       &:nth-last-of-type(2) {
         margin-bottom: 60px;
       }
+
       .colums {
         display: flex;
         flex-direction: column;
         margin-right: 40px;
+
         &:last-of-type {
           margin-right: 0px;
         }
@@ -158,9 +168,9 @@
         -webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.5);
         box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.5);
         background: #666666;
-      &:enabled {
-        background: #275ccf;
-      }
+        &:enabled {
+          background: #275ccf;
+        }
       }
     }
     .cancel {
@@ -177,7 +187,7 @@
     input[type="number"]::-webkit-inner-spin-button {
       -webkit-appearance: none;
     }
-    input[type='number'],
+    input[type="number"],
     input[type="number"]:hover,
     input[type="number"]:focus {
       appearance: none;
@@ -192,7 +202,7 @@
 
 @media (max-height: 1440px) {
   .container {
-    height: 960px;
+    // height: 960px;
   }
   .buttons {
     margin: 0 0 20px 0;
@@ -200,27 +210,27 @@
 }
 @media (max-height: 1180px) {
   .container {
-    max-height: 1060px;
+    //  max-height: 1060px;
   }
 }
 @media (max-height: 950px) {
   .container {
-    height: 870px;
+    //   height: 870px;
   }
 }
 @media (max-height: 820px) {
   .container {
-    height: 740px;
+    //    height: 740px;
   }
 }
 @media (max-height: 800px) {
   .container {
-    height: 720px;
+    //   height: 720px;
   }
 }
 @media (max-height: 600px) {
   .container {
-    height: 520px;
+    //   height: 520px;
   }
   .buttons {
     margin: 0 0 20px 0;
@@ -228,7 +238,7 @@
 }
 @media (max-height: 450px) {
   .container {
-    height: 350px;
+    //   height: 350px;
   }
   .buttons {
     margin: 0 0 20px 0;
@@ -275,29 +285,29 @@
 }
 @media (max-width: 830px) {
   .container {
-    max-height: 85%;
+    //   max-height: 85%;
   }
 }
 @media (max-width: 820px) {
   .container {
-    max-height: 75%;
+    //   max-height: 75%;
   }
 }
 @media (max-width: 720px) {
   .container {
-    max-height: 85%;
+    //  max-height: 85%;
   }
 }
 @media (max-width: 675px) {
   .container {
     margin: 64px auto 0 auto;
-    max-height: 90%;
+    //   max-height: 90%;
   }
 }
 @media (max-width: 600px) {
   .container {
     margin: 64px auto 0 auto;
-    max-height: 90%;
+    //   max-height: 90%;
   }
   .applications-content {
     .applications {
@@ -338,5 +348,12 @@
         }
       }
     }
+  }
+}
+
+button {
+  &:disabled {
+    background-color: red !important;
+    opacity: 0.5;
   }
 }

@@ -22,10 +22,15 @@ const routes: Routes = [
       { path: '', redirectTo: '/news', pathMatch: 'full' },
       { path: 'accruals', component: AccrualsPageComponent, },
       { path: 'indications', component: IndicationsPageComponent, },
-      { path: 'applications', component: ApplicationsPageComponent, children: [
-        { path: 'create-application', component: ApplicationComponent, },
-        { path: 'history', component: ApplicationsHistoryComponent, }
-      ] },
+      {
+        path: 'applications',
+        component: ApplicationsPageComponent,
+        children: [
+          { path: '', pathMatch: 'full', redirectTo: 'history' },
+          { path: 'create-application', component: ApplicationComponent, },
+          { path: 'history', component: ApplicationsHistoryComponent, }
+        ]
+      },
       { path: 'services', component: ServicesPageComponent, },
       { path: 'news', component: NewsPageComponent, },
       { path: 'profile', component: ProfilePageComponent, },

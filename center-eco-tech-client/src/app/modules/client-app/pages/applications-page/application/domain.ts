@@ -17,3 +17,8 @@ export class UserDetailAdressDto {
     corpus: string | null;
     room: string;
 }
+
+export class newRequestQuery {
+    public theme: string;
+    public message: string;
+}

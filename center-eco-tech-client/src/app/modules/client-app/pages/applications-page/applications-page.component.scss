@@ -5,7 +5,7 @@
   position: relative;
   margin: 0 auto;
   max-width: 1136px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
@@ -30,7 +30,7 @@
   }
   .pages {
     display: flex;
-    justify-content:left;
+    justify-content: left;
     align-items: center;
     margin-bottom: 2px;
     a {
@@ -63,13 +63,13 @@
         animation-fill-mode: forwards;
         animation-timing-function: ease;
         @keyframes link-animation {
-        50% {
-          transform: rotateX(25deg);
+          50% {
+            transform: rotateX(25deg);
+          }
+          100% {
+            transform: rotateX(0deg);
+          }
         }
-        100% {
-          transform: rotateX(0deg);
-        }
-      }
       }
     }
   }

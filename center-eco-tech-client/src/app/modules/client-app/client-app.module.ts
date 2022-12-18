@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {DatePipe} from '@angular/common';
+import { DatePipe } from '@angular/common';
 // material
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -9,6 +9,10 @@ import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginato
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 // routing
 import { ClientAppRoutingModule } from './client-app-routing.module';
 // layout
@@ -23,7 +27,8 @@ import { ApplicationsPageComponent } from './pages/applications-page/application
 import { AccrualsPageComponent } from './pages/accruals-page/accruals-page.component';
 import { ApplicationsHistoryComponent } from './pages/applications-page/applications-history/applications-history.component';
 import { ApplicationComponent } from './pages/applications-page/application/application.component';
-
+// pipe
+import { ApplictionStatusConverterPipe } from './pages/applications-page/applications-history/appliction-status-converter.pipe';
 
 @NgModule({
   imports: [
@@ -37,6 +42,10 @@ import { ApplicationComponent } from './pages/applications-page/application/appl
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
+    MatSelectModule,
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   declarations: [
     ClientAppComponent,
@@ -48,7 +57,8 @@ import { ApplicationComponent } from './pages/applications-page/application/appl
     ApplicationsPageComponent,
     AccrualsPageComponent,
     ApplicationsHistoryComponent,
-    ApplicationComponent
+    ApplicationComponent,
+    ApplictionStatusConverterPipe
   ],
   providers: [DatePipe]
 })

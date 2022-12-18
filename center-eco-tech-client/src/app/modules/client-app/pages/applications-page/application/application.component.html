@@ -1,101 +1,104 @@
 <div class="container">
-    <div class="applications-content">
+  <div class="applications-content">
 
-      <form class="applications" [formGroup]="applicationsForm" (ngSubmit)="submit()">
+    <div class="applications">
 
-        <div class="data" formGroupName="address">
+      <!-- <div class="data">
 
-          <div class="colums">
-            <label for="city">Город</label>
-            <input class="city" type="text" placeholder="Название города" formControlName="city">
-          </div>
+        <div class="colums">
+          <label for="city">Город</label>
+          <input class="city" type="text" placeholder="Название города" [(ngModel)]="userDetaill.adress.city">
+        </div>
 
-          <div class="colums">
-            <label for="street">Улица</label>
-            <input class="street" type="text" placeholder="Название улицы" formControlName="street">
-          </div>
+        <div class="colums">
+          <label for="street">Улица</label>
+          <input class="street" type="text" placeholder="Название улицы" [(ngModel)]="userDetaill.adress.street">
+        </div>
 
-          <div class="colums">
-            <label for="house">Дом</label>
-            <input class="house" type="text" placeholder="Номер" formControlName="house">
-          </div>
+        <div class="colums">
+          <label for="house">Дом</label>
+          <input class="house" type="text" placeholder="Номер" [(ngModel)]="userDetaill.adress.house">
+        </div>
 
-          <div class="colums">
-            <label for="corps">Корпус</label>
-            <input class="corps" type="text" placeholder="Номер" formControlName="corpus">
-          </div>
+        <div class="colums">
+          <label for="corps">Корпус</label>
+          <input class="corps" type="text" placeholder="Номер" [(ngModel)]="userDetaill.adress.corpus">
+        </div>
 
-          <div class="colums">
-            <label for="flat">Квартира</label>
-            <input class="flat" type="text" placeholder="Номер" formControlName="room">
-          </div>
+        <div class="colums">
+          <label for="flat">Квартира</label>
+          <input class="flat" type="text" placeholder="Номер" [(ngModel)]="userDetaill.adress.room">
+        </div>
+
+      </div> -->
+
+      <!-- <div class="data">
+
+        <div class="colums">
+          <label for="surname">Фамилия</label>
+          <input class="surname" type="text" placeholder="Введите фамилию" formControlName="lastNme">
+        </div>
+
+        <div div class="colums">
+          <label for="name">Имя</label>
+          <input class="name" type="text" placeholder="Введите имя" formControlName="firstName">
+        </div>
+
+        <div class="colums">
+          <label for="second-name">Отчество</label>
+          <input class="second-name" type="text" placeholder="Введите отчество" formControlName="midName">
+        </div>
+
+      </div> -->
+
+      <!-- <div class="data">
+
+        <div class="colums">
+          <label for="tel">Телефон</label>
+          <input class="tel" type="tel" placeholder="Номер телефона" formControlName="phone">
+        </div>
+
+        <div class="colums">
+          <label for="email">Электронная почта</label>
+          <input class="email" type="email" placeholder="Адрес почты" formControlName="email">
+        </div>
+
+      </div> -->
+
+      <div class="data">
+
+        <div class="colums columsappeal">
+          <label>Обращение</label>
+          <input class="theme" type="text" placeholder="Тема" required [(ngModel)]="theme">
+          <textarea class="textappeal" type="text" placeholder="Текст обращения" required
+            [(ngModel)]="message"></textarea>
+          <!--<input class="file" type="file" placeholder="Прикрепить файл" formControlName="fileappeal" multiple>-->
 
         </div>
 
-        <div class="data">
+      </div>
 
-          <div class="colums">
-            <label for="surname">Фамилия</label>
-            <input class="surname" type="text" placeholder="Введите фамилию" formControlName="lastNme">
-          </div>
+      <div class="buttons">
 
-          <div div class="colums">
-            <label for="name">Имя</label>
-            <input class="name" type="text" placeholder="Введите имя" formControlName="firstName">
-          </div>
+        <button class="change" id="change" type="button" (click)="onCreateRequestClick()" [disabled]="checkFields()">
+          Создать заявку
+        </button>
 
-          <div class="colums">
-            <label for="second-name">Отчество</label>
-            <input class="second-name" type="text" placeholder="Введите отчество" formControlName="midName">
-          </div>
+        <!-- <button *ngIf="!isCollapsed" class="save" id="save" type="submit"
+          (click)="formDisable(); buttonIsClick(); confirmingMessageUser(); reset()"
+          [disabled]="applicationsForm.invalid || applicationsForm.disabled">
+          Отправить
+        </button>
 
-        </div>
+        <button *ngIf="!isCollapsed" class="cancel" id="cancel" type="reset"
+          (click)="buttonIsClick(); reset(); formDisable()">
+          Отмена
+        </button> -->
 
-        <div class="data">
+      </div>
 
-          <div class="colums">
-            <label for="tel">Телефон</label>
-            <input class="tel" type="tel" placeholder="Номер телефона" formControlName="phone">
-          </div>
-
-          <div class="colums">
-            <label for="email">Электронная почта</label>
-            <input class="email" type="email" placeholder="Адрес почты" formControlName="email">
-          </div>
-
-        </div>
-
-        <div class="data">
-
-          <div class="colums columsappeal">
-            <label>Обращение</label>
-            <input class="theme" type="text" placeholder="Тема" formControlName="theme">
-            <textarea class="textappeal" type="text" placeholder="Текст обращения" formControlName="message"></textarea>
-            <!--<input class="file" type="file" placeholder="Прикрепить файл" formControlName="fileappeal" multiple>-->
-
-          </div>
-
-        </div>
-
-        <div class="buttons">
-
-          <button *ngIf="isCollapsed" class="change" id="change" type="button" (click)="buttonIsClick(); formEnable()">
-            Создать заявку
-          </button>
-
-          <button *ngIf="!isCollapsed" class="save" id="save" type="submit"
-            (click)="submit(); formDisable(); buttonIsClick(); confirmingMessageUser(); reset()"
-            [disabled]="applicationsForm.invalid || applicationsForm.disabled">
-            Отправить
-          </button>
-
-          <button *ngIf="!isCollapsed" class="cancel" id="cancel" type="reset"
-            (click)="buttonIsClick(); reset(); formDisable()">
-            Отмена
-          </button>
-
-        </div>
-
-      </form>
     </div>
+
   </div>
+
+</div>
