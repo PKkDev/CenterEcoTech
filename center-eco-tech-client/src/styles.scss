@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
 body,
 html {
@@ -8,6 +8,17 @@ html {
     margin: 0;
     height: 100%;
     width: 100%;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     font-family: "Montserrat", sans-serif;
+}
+
+.router-link-active {
+    background-color: #d6cdcd38;
+    border-radius: 4px;
+}
+
+.mat-datepicker-toggle {
+    position: absolute;
+    top: 0;
+    right: 0;
 }

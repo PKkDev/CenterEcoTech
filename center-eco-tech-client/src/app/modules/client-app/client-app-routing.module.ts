@@ -6,6 +6,8 @@ import { AuthGuard } from '../authorize/guards/auth.guard';
 import { ClientAppComponent } from './client-app.component';
 import { AccrualsPageComponent } from './pages/accruals-page/accruals-page.component';
 import { ApplicationsPageComponent } from './pages/applications-page/applications-page.component';
+import { ApplicationComponent } from './pages/applications-page/application/application.component';
+import { ApplicationsHistoryComponent } from './pages/applications-page/applications-history/applications-history.component';
 import { IndicationsPageComponent } from './pages/indications-page/indications-page.component';
 import { NewsPageComponent } from './pages/news-page/news-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
@@ -20,7 +22,15 @@ const routes: Routes = [
       { path: '', redirectTo: '/news', pathMatch: 'full' },
       { path: 'accruals', component: AccrualsPageComponent, },
       { path: 'indications', component: IndicationsPageComponent, },
-      { path: 'applications', component: ApplicationsPageComponent, },
+      {
+        path: 'applications',
+        component: ApplicationsPageComponent,
+        children: [
+          { path: '', pathMatch: 'full', redirectTo: 'history' },
+          { path: 'create-application', component: ApplicationComponent, },
+          { path: 'history', component: ApplicationsHistoryComponent, }
+        ]
+      },
       { path: 'services', component: ServicesPageComponent, },
       { path: 'news', component: NewsPageComponent, },
       { path: 'profile', component: ProfilePageComponent, },

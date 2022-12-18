@@ -1,1 +1,18 @@
-<p>applications-page works!</p>
+<div class="container">
+  <div class="applications-content">
+
+    <div class="content-header">
+      <h1>Заявки</h1>
+    </div>
+
+    <div class="pages">
+      <a [routerLink]="['/applications/create-application']" routerLinkActive="router-link-active">Создание заявки</a>
+      <a [routerLink]="['/applications/history']" routerLinkActive="router-link-active">История</a>
+    </div>
+
+    <div class="line">
+      <hr>
+    </div>
+    <router-outlet></router-outlet>
+  </div>
+</div>

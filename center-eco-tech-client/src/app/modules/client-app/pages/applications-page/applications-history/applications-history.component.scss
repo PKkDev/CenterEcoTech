@@ -1,0 +1,104 @@
+.container {
+  position: relative;
+}
+
+.applications-content {
+  position: relative;
+  margin: 0 auto;
+  max-width: 1136px;
+  font-family: "Montserrat", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #212;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #fff;
+
+  .tool {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    .my-form-field {
+      margin: 0 5px;
+     // width: 33.333%;
+    }
+  }
+
+  p {
+    margin: 0;
+  }
+
+  // input {
+  //   font-family: "Montserrat", sans-serif;
+  //   font-style: normal;
+  //   font-weight: 400;
+  //   font-size: 14px;
+  //   line-height: 24px;
+  //   height: 48px;
+  //   background: #f9f9f9;
+  //   color: #666;
+  //   border-radius: 4px;
+  //   padding: 12px 20px 12px 20px;
+  //   box-sizing: border-box;
+
+  //   &:hover {
+  //     background: #f7f7f7;
+  //   }
+  // }
+
+  // mat-form-field {
+  //   width: 100%;
+  // }
+
+  table {
+    width: 100%;
+    font-family: "Montserrat", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    width: 1136px;
+    height: 48px;
+    color: #666;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  th.mat-sort-header-sorted {
+    color: black;
+  }
+}
+
+@media (max-width: 1160px) {
+  .applications-content {
+    // mat-form-field {
+    //   width: 90%;
+    //   margin-left: 50px;
+    // }
+  }
+}
+
+@media (max-width: 600px) {
+  .applications-content {
+    // mat-form-field {
+    //   width: 70%;
+    // }
+    table {
+      align-self: center;
+      width: 80%;
+    }
+  }
+}
+
+@media (max-width: 352px) {
+  .applications-content {
+    .applications {
+      // input {
+      //   width: 192px;
+      // }
+    }
+  }
+}
