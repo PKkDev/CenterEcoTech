@@ -102,6 +102,5 @@ namespace CenterEcoTech.API.Controllers
             var userId = HttpContext.GetClientId();
             await _clientService.DeleteClientAsync(userId, ct);
         }
-
-    }
+	}
 }

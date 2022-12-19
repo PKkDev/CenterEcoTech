@@ -55,5 +55,6 @@ namespace CenterEcoTech.Domain.ServicesContract
         /// <param name="ct"></param>
         /// <returns></returns>
         Task DeleteClientAsync(int userId, CancellationToken ct);
+
     }
 }
