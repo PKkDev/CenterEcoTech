@@ -71,6 +71,7 @@ builder.Services.AddTransient<IClientService, ClientService>();
 builder.Services.AddTransient<ICooperativeService, CooperativeService>();
 builder.Services.AddTransient<ISmsAeroService, SmsAeroService>();
 builder.Services.AddTransient<IClientRequestService, ClientRequestService>();
+builder.Services.AddTransient<IMeasurementService, MeasurementService>();
 
 #endregion add services
 

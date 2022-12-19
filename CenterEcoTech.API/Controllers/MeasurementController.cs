@@ -1,38 +1,37 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using CenterEcoTech.Domain.DTO;
-using CenterEcoTech.Domain.DTO.User;
-using CenterEcoTech.Domain.Query;
+﻿using Microsoft.AspNetCore.Mvc;
 using CenterEcoTech.Domain.ServicesContract;
 using CenterEcoTech.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using CenterEcoTech.Infrastructure.Services;
+using CenterEcoTech.Domain.DTO.MeasurementRequest;
+using CenterEcoTech.Domain.Query.MeasurementRequest;
 
 namespace CenterEcoTech.API.Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
-	public class MeasurementController : ControllerBase
-	{
-		private readonly IMeasurementService _measurementService;
+    [Route("api/measurement]")]
+    [ApiController]
+    public class MeasurementController : ControllerBase
+    {
+        private readonly IMeasurementService _measurementService;
 
-		public MeasurementController(IMeasurementService measurementService)
-		{
-			_measurementService = measurementService;
-		}
+        public MeasurementController(IMeasurementService measurementService)
+        {
+            _measurementService = measurementService;
+        }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="ct"></param>
-		/// <returns></returns>
-		[HttpGet("history")]
-		[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-		public async Task GetHistory(CancellationToken ct = default)
-		{
-			var userId = HttpContext.GetClientId();
-			await _measurementService.GetHistoryMeasurement(userId, ct);
-		}
-	}
+        /// <summary>
+        /// get measurement history
+        /// </summary>
+        /// <param name="query"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        [HttpGet("history")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IEnumerable<MeasurementRequestDto>> GetHistory(
+           [FromBody] GetMeasurementHistoryQuery query, CancellationToken ct = default)
+        {
+            var userId = HttpContext.GetClientId();
+            return await _measurementService.GetHistoryMeasurement(query, userId, ct);
+        }
+    }
 }
