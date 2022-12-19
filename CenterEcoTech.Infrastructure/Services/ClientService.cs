@@ -7,6 +7,7 @@ using CenterEcoTech.EfData.Context;
 using CenterEcoTech.EfData.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace CenterEcoTech.Infrastructure.Services
 {
