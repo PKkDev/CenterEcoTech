@@ -41,19 +41,8 @@ namespace CenterEcoTech.Infrastructure.Services
             var user = new Client()
             {
                 FirstName = query.FirstName,
-                LastNme = query.LastNme,
-                MidName = query.MidName,
                 Phone = query.Phone,
-                Email = query.Email,
                 CooperativeId = query.СooperativeId,
-                Adress = new ClientAdress()
-                {
-                    City = query.Adress.City,
-                    Street = query.Adress.Street,
-                    House = query.Adress.House,
-                    Corpus = query.Adress.Corpus,
-                    Room = query.Adress.Room,
-                }
             };
 
             await _context.Client.AddAsync(user, ct);
@@ -76,7 +65,7 @@ namespace CenterEcoTech.Infrastructure.Services
                 throw new ApiException("user not found");
 
             var code = GeneratePhoneNumberToken();
-           // _smsAeroService.SendAuthCode(phone, code, ct);
+            // _smsAeroService.SendAuthCode(phone, code, ct);
 
 
             //  _accessor.HttpContext.Session.SetString(_sessionKeyCode, code);
