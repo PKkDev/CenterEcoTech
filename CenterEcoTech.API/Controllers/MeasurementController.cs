@@ -8,7 +8,7 @@ using CenterEcoTech.Domain.Query.MeasurementRequest;
 
 namespace CenterEcoTech.API.Controllers
 {
-    [Route("api/measurement]")]
+    [Route("api/measurement")]
     [ApiController]
     public class MeasurementController : ControllerBase
     {
@@ -25,7 +25,7 @@ namespace CenterEcoTech.API.Controllers
         /// <param name="query"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        [HttpGet("history")]
+        [HttpPost("history")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IEnumerable<MeasurementRequestDto>> GetHistory(
            [FromBody] GetMeasurementHistoryQuery query, CancellationToken ct = default)

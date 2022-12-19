@@ -41,19 +41,8 @@ namespace CenterEcoTech.Infrastructure.Services
             var user = new Client()
             {
                 FirstName = query.FirstName,
-                LastNme = query.LastNme,
-                MidName = query.MidName,
                 Phone = query.Phone,
-                Email = query.Email,
                 CooperativeId = query.СooperativeId,
-                Adress = new ClientAdress()
-                {
-                    City = query.Adress.City,
-                    Street = query.Adress.Street,
-                    House = query.Adress.House,
-                    Corpus = query.Adress.Corpus,
-                    Room = query.Adress.Room,
-                }
             };
 
             await _context.Client.AddAsync(user, ct);
@@ -76,7 +65,7 @@ namespace CenterEcoTech.Infrastructure.Services
                 throw new ApiException("user not found");
 
             var code = GeneratePhoneNumberToken();
-           // _smsAeroService.SendAuthCode(phone, code, ct);
+            // _smsAeroService.SendAuthCode(phone, code, ct);
 
 
             //  _accessor.HttpContext.Session.SetString(_sessionKeyCode, code);
@@ -155,11 +144,11 @@ namespace CenterEcoTech.Infrastructure.Services
                 MidName = client.MidName,
                 Adress = new()
                 {
-                    City = client.Adress.City,
-                    Street = client.Adress.Street,
-                    House = client.Adress.House,
-                    Corpus = client.Adress.Corpus,
-                    Room = client.Adress.Room,
+                    City = client.Adress?.City ?? null,
+                    Street = client.Adress?.Street ?? null,
+                    House = client.Adress?.House ?? null,
+                    Corpus = client.Adress?.Corpus ?? null,
+                    Room = client.Adress?.Room ?? null,
                 }
             };
             return result;
@@ -187,6 +176,9 @@ namespace CenterEcoTech.Infrastructure.Services
             client.FirstName = detail.FirstName;
             client.LastNme = detail.LastNme;
             client.MidName = detail.MidName;
+
+            if (client.Adress == null)
+                client.Adress = new();
 
             client.Adress.City = detail.Adress.City;
             client.Adress.Street = detail.Adress.Street;
