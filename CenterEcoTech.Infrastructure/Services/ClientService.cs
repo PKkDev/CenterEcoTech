@@ -144,11 +144,11 @@ namespace CenterEcoTech.Infrastructure.Services
                 MidName = client.MidName,
                 Adress = new()
                 {
-                    City = client.Adress.City,
-                    Street = client.Adress.Street,
-                    House = client.Adress.House,
-                    Corpus = client.Adress.Corpus,
-                    Room = client.Adress.Room,
+                    City = client.Adress?.City ?? null,
+                    Street = client.Adress?.Street ?? null,
+                    House = client.Adress?.House ?? null,
+                    Corpus = client.Adress?.Corpus ?? null,
+                    Room = client.Adress?.Room ?? null,
                 }
             };
             return result;
@@ -176,6 +176,9 @@ namespace CenterEcoTech.Infrastructure.Services
             client.FirstName = detail.FirstName;
             client.LastNme = detail.LastNme;
             client.MidName = detail.MidName;
+
+            if (client.Adress == null)
+                client.Adress = new();
 
             client.Adress.City = detail.Adress.City;
             client.Adress.Street = detail.Adress.Street;
