@@ -1,8 +1,10 @@
 ﻿using CenterEcoTech.Domain.DTO.MeasurementRequest;
 using CenterEcoTech.Domain.Exeptions;
+using CenterEcoTech.Domain.Query.ClientRequest;
 using CenterEcoTech.Domain.Query.MeasurementRequest;
 using CenterEcoTech.Domain.ServicesContract;
 using CenterEcoTech.EfData.Context;
+using CenterEcoTech.EfData.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace CenterEcoTech.Infrastructure.Services
@@ -52,6 +54,33 @@ namespace CenterEcoTech.Infrastructure.Services
                 .ToListAsync(ct);
 
             return metrics;
+        }
+        /// <summary>
+        /// add mesuarement 
+        /// </summary>
+        /// <param name="query"></param>
+        /// <param name="clientId"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        /// <exception cref="ApiException"></exception>
+        public async Task AddMeasurementAsync(
+            AddMeasurementQuery query, int clientId, CancellationToken ct)
+        {
+            var client = await _context.Client
+                .FirstOrDefaultAsync(x => x.Id == clientId, ct);
+            if (client == null) throw new ApiException("client not found");
+
+            var today = DateTime.Today;
+            var newMeasure = new Measurement()
+            {
+                Client = client,
+                Name = query.Name,
+                Value = query.Value,                
+                Date = DateTime.Today
+            };
+
+            await _context.Measurement.AddAsync(newMeasure, ct);
+            await _context.SaveChangesAsync(ct);
         }
     }
 }
