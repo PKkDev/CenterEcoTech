@@ -18,6 +18,11 @@ namespace CenterEcoTech.Infrastructure.Services
             _context = context;
         }
 
+        public Task AddMeasurementAsync(AddMeasurementQuery query, int clientId, CancellationToken ct)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// get mesuarement history
         /// </summary>
@@ -34,8 +39,8 @@ namespace CenterEcoTech.Infrastructure.Services
                 .FirstOrDefaultAsync(x => x.Id == userId, ct);
             if (client == null) throw new ApiException("client not found");
 
-            var queryR = _context.Entry(client).Collection(x => x.Measurements).Query();
-
+            //var queryR = _context.Entry(client).Collection(x => x.Measurements).Query();
+/*
             if (query.Date != null)
                 queryR = queryR.Where(x => x.Date == query.Date);
 
@@ -51,9 +56,9 @@ namespace CenterEcoTech.Infrastructure.Services
                     CLientName = client.GetFullName(),
                     CLientAdress = client.GetFullAdress(),
                 })
-                .ToListAsync(ct);
+                .ToListAsync(ct);*/
 
-            return metrics;
+            return new List<MeasurementRequestDto>();
         }
     }
 }

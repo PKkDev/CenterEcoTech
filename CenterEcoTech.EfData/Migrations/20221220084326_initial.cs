@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CenterEcoTech.EfData.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,10 +31,10 @@ namespace CenterEcoTech.EfData.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Phone = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastNme = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MidName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastNme = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MidName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CooperativeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -54,11 +54,11 @@ namespace CenterEcoTech.EfData.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Street = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    House = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    House = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Corpus = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Room = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Room = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ClientId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -73,21 +73,20 @@ namespace CenterEcoTech.EfData.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Measurement",
+                name: "Counter",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Value = table.Column<double>(type: "float", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Postfix = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ClientId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Measurement", x => x.Id);
+                    table.PrimaryKey("PK_Counter", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Measurement_Client_ClientId",
+                        name: "FK_Counter_Client_ClientId",
                         column: x => x.ClientId,
                         principalTable: "Client",
                         principalColumn: "Id",
@@ -117,6 +116,27 @@ namespace CenterEcoTech.EfData.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Measurement",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Value = table.Column<double>(type: "float", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CounterId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Measurement", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Measurement_Counter_CounterId",
+                        column: x => x.CounterId,
+                        principalTable: "Counter",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Client_CooperativeId",
                 table: "Client",
@@ -126,7 +146,8 @@ namespace CenterEcoTech.EfData.Migrations
                 name: "IX_Client_Email",
                 table: "Client",
                 column: "Email",
-                unique: true);
+                unique: true,
+                filter: "[Email] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Client_Phone",
@@ -153,9 +174,20 @@ namespace CenterEcoTech.EfData.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Measurement_ClientId",
-                table: "Measurement",
+                name: "IX_Counter_ClientId",
+                table: "Counter",
                 column: "ClientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Counter_Name",
+                table: "Counter",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Measurement_CounterId",
+                table: "Measurement",
+                column: "CounterId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Request_ClientId",
@@ -173,6 +205,9 @@ namespace CenterEcoTech.EfData.Migrations
 
             migrationBuilder.DropTable(
                 name: "Request");
+
+            migrationBuilder.DropTable(
+                name: "Counter");
 
             migrationBuilder.DropTable(
                 name: "Client");

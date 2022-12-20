@@ -9,13 +9,11 @@ namespace CenterEcoTech.EfData.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public string Name { get; set; }
-
         public double Value { get; set; }
 
         public DateTime Date { get; set; }
 
-        public int ClientId { get; set; }
-        public Client Client { get; set; }
+        public int CounterId { get; set; }
+        public Counter Counter { get; set; }
     }
 }

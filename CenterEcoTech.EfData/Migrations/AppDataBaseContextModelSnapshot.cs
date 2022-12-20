@@ -129,7 +129,7 @@ namespace CenterEcoTech.EfData.Migrations
                     b.ToTable("Cooperative");
                 });
 
-            modelBuilder.Entity("CenterEcoTech.EfData.Entities.Measurement", b =>
+            modelBuilder.Entity("CenterEcoTech.EfData.Entities.Counter", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -140,19 +140,43 @@ namespace CenterEcoTech.EfData.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Postfix")
                         .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Counter");
+                });
+
+            modelBuilder.Entity("CenterEcoTech.EfData.Entities.Measurement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CounterId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
 
                     b.Property<double>("Value")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClientId");
+                    b.HasIndex("CounterId");
 
                     b.ToTable("Measurement");
                 });
@@ -211,15 +235,26 @@ namespace CenterEcoTech.EfData.Migrations
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("CenterEcoTech.EfData.Entities.Measurement", b =>
+            modelBuilder.Entity("CenterEcoTech.EfData.Entities.Counter", b =>
                 {
                     b.HasOne("CenterEcoTech.EfData.Entities.Client", "Client")
-                        .WithMany("Measurements")
+                        .WithMany("Counters")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Client");
+                });
+
+            modelBuilder.Entity("CenterEcoTech.EfData.Entities.Measurement", b =>
+                {
+                    b.HasOne("CenterEcoTech.EfData.Entities.Counter", "Counter")
+                        .WithMany("Measurements")
+                        .HasForeignKey("CounterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Counter");
                 });
 
             modelBuilder.Entity("CenterEcoTech.EfData.Entities.Request", b =>
@@ -237,7 +272,7 @@ namespace CenterEcoTech.EfData.Migrations
                 {
                     b.Navigation("Adress");
 
-                    b.Navigation("Measurements");
+                    b.Navigation("Counters");
 
                     b.Navigation("Requests");
                 });
@@ -245,6 +280,11 @@ namespace CenterEcoTech.EfData.Migrations
             modelBuilder.Entity("CenterEcoTech.EfData.Entities.Cooperative", b =>
                 {
                     b.Navigation("Clients");
+                });
+
+            modelBuilder.Entity("CenterEcoTech.EfData.Entities.Counter", b =>
+                {
+                    b.Navigation("Measurements");
                 });
 #pragma warning restore 612, 618
         }
