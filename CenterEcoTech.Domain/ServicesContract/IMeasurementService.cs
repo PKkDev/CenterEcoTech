@@ -15,5 +15,9 @@ namespace CenterEcoTech.Domain.ServicesContract
         /// <returns></returns>
         Task<IEnumerable<MeasurementRequestDto>> GetHistoryMeasurement(GetMeasurementHistoryQuery query, int userId, CancellationToken ct);
         Task AddMeasurementAsync(AddMeasurementQuery query, int clientId, CancellationToken ct);
-    }
+
+        Task<IEnumerable<LastCounterDto>> GetLastMeasurement(LastCounterDto query, int userId, CancellationToken ct);
+
+        Task AddNewCounter(AddCounterQuery query, int userId, CancellationToken ct);
+	}
 }
