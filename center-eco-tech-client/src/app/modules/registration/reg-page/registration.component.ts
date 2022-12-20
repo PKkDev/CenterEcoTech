@@ -12,4 +12,26 @@ export class RegistrationComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // field
+  public phone: string;
+  public coops = [
+    {
+      id : 1,
+      name : "Cooperation1"
+    },
+    {
+      id : 2,
+      name : "Cooperation2"
+    },
+    {
+      id : 3,
+      name : "Cooperation3"
+    }
+  ]
+
+
+
+  public onNextCLick() {
+  }
+
 }
