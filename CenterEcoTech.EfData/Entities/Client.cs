@@ -15,15 +15,15 @@ namespace CenterEcoTech.EfData.Entities
 
         public string Phone { get; set; }
 
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         public string FirstName { get; set; }
 
-        public string LastNme { get; set; }
+        public string? LastNme { get; set; }
 
-        public string MidName { get; set; }
+        public string? MidName { get; set; }
 
-        public ClientAdress Adress { get; set; }
+        public ClientAdress? Adress { get; set; }
 
         public int CooperativeId { get; set; }
         public Cooperative Cooperative { get; set; }
