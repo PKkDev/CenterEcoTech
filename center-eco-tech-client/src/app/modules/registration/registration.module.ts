@@ -4,12 +4,15 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // pages
 import { RegistrationComponent } from './reg-page/registration.component';
+// routing
+import { RegRoutingModule } from './registration-routing.module';
 // shared
 import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
   imports: [
+    RegRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
     CommonModule,
