@@ -17,19 +17,17 @@ export class RegistrationComponent implements OnInit {
   public coops = [
     {
       id : 1,
-      name : "Cooperation1"
+      name : "Cooperative1"
     },
     {
       id : 2,
-      name : "Cooperation2"
+      name : "Cooperative2"
     },
     {
       id : 3,
-      name : "Cooperation3"
+      name : "Cooperative3"
     }
   ]
-
-
 
   public onNextCLick() {
   }
