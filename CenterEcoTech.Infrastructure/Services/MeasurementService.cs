@@ -34,7 +34,7 @@ namespace CenterEcoTech.Infrastructure.Services
             };
             
             await _context.Measurement.AddAsync(newMeasure, ct);
-            counter.Postfix = query.Value.ToString();
+            //counter.Postfix = query.Value.ToString();
             await _context.SaveChangesAsync(ct);
             
 
@@ -53,31 +53,33 @@ namespace CenterEcoTech.Infrastructure.Services
         public async Task<IEnumerable<MeasurementRequestDto>> GetHistoryMeasurement(
             GetMeasurementHistoryQuery query, int userId, CancellationToken ct)
         {
+            List<MeasurementRequestDto> metrics=null;
             var client = await _context.Client
                 .Include(x => x.Adress)
                 .FirstOrDefaultAsync(x => x.Id == userId, ct);
             if (client == null) throw new ApiException("client not found");
 
-            //var queryR = _context.Entry(client).Collection(x => x.Measurements).Query();
-            /*
-                        if (query.Date != null)
-                            queryR = queryR.Where(x => x.Date == query.Date);
+            var queryR = _context.Entry(client).Collection(x => x.Counters).Query();
+            if (query.Status != null)
+                queryR = queryR.Where(x => x.Name == query.Status);
+            foreach (var r in queryR)
+            {
+                var queryM = _context.Entry(r).Collection(x => x.Measurements).Query();         
 
-                        if (query.Status != null)
-                            queryR = queryR.Where(x => x.Name == query.Status);
+                    metrics = await queryM
+                    .Select(x => new MeasurementRequestDto()
+                    {
+                        Date = x.Date,
+                        Name = r.Name,
+                        Value = x.Value,
+                        CLientName = client.GetFullName(),
+                        CLientAdress = client.GetFullAdress(),
+                    })
+                    .ToListAsync(ct);
+                
+            }
+            return metrics;
 
-                        var metrics = await queryR
-                            .Select(x => new MeasurementRequestDto()
-                            {
-                                Date = x.Date,
-                                Name = x.Name,
-                                Value = x.Value,
-                                CLientName = client.GetFullName(),
-                                CLientAdress = client.GetFullAdress(),
-                            })
-                            .ToListAsync(ct);*/
-
-            return new List<MeasurementRequestDto>();
         }
 
         public async Task<IEnumerable<LastCounterDto>> GetLastMeasurement(int userId, CancellationToken ct)
