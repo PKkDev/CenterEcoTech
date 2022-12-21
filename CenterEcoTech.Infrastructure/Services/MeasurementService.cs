@@ -1,6 +1,5 @@
 ﻿using CenterEcoTech.Domain.DTO.MeasurementRequest;
 using CenterEcoTech.Domain.Exeptions;
-using CenterEcoTech.Domain.Query.ClientRequest;
 using CenterEcoTech.Domain.Query.MeasurementRequest;
 using CenterEcoTech.Domain.ServicesContract;
 using CenterEcoTech.EfData.Context;
@@ -18,6 +17,17 @@ namespace CenterEcoTech.Infrastructure.Services
             _context = context;
         }
 
+        public async Task AddMeasurementAsync(AddMeasurementQuery query, int userId, CancellationToken ct)
+        {
+            var client = await _context.Client
+                .Include(x => x.Adress)
+                .FirstOrDefaultAsync(x => x.Id == userId, ct);
+            if (client == null) throw new ApiException("client not found");
+
+            throw new NotImplementedException();
+        }
+
+
         /// <summary>
         /// get mesuarement history
         /// </summary>
@@ -34,52 +44,60 @@ namespace CenterEcoTech.Infrastructure.Services
                 .FirstOrDefaultAsync(x => x.Id == userId, ct);
             if (client == null) throw new ApiException("client not found");
 
-            var queryR = _context.Entry(client).Collection(x => x.Measurements).Query();
+            //var queryR = _context.Entry(client).Collection(x => x.Measurements).Query();
+            /*
+                        if (query.Date != null)
+                            queryR = queryR.Where(x => x.Date == query.Date);
 
-            if (query.Date != null)
-                queryR = queryR.Where(x => x.Date == query.Date);
+                        if (query.Status != null)
+                            queryR = queryR.Where(x => x.Name == query.Status);
 
-            if (query.Status != null)
-                queryR = queryR.Where(x => x.Name == query.Status);
+                        var metrics = await queryR
+                            .Select(x => new MeasurementRequestDto()
+                            {
+                                Date = x.Date,
+                                Name = x.Name,
+                                Value = x.Value,
+                                CLientName = client.GetFullName(),
+                                CLientAdress = client.GetFullAdress(),
+                            })
+                            .ToListAsync(ct);*/
 
-            var metrics = await queryR
-                .Select(x => new MeasurementRequestDto()
-                {
-                    Date = x.Date,
-                    Name = x.Name,
-                    Value = x.Value,
-                    CLientName = client.GetFullName(),
-                    CLientAdress = client.GetFullAdress(),
-                })
-                .ToListAsync(ct);
-
-            return metrics;
+            return new List<MeasurementRequestDto>();
         }
-        /// <summary>
-        /// add mesuarement 
-        /// </summary>
-        /// <param name="query"></param>
-        /// <param name="clientId"></param>
-        /// <param name="ct"></param>
-        /// <returns></returns>
-        /// <exception cref="ApiException"></exception>
-        public async Task AddMeasurementAsync(
-            AddMeasurementQuery query, int clientId, CancellationToken ct)
+
+        public async Task<IEnumerable<LastCounterDto>> GetLastMeasurement(int userId, CancellationToken ct)
         {
             var client = await _context.Client
-                .FirstOrDefaultAsync(x => x.Id == clientId, ct);
+                .Include(x => x.Counters)
+                .ThenInclude(x => x.Measurements)
+                .FirstOrDefaultAsync(x => x.Id == userId, ct);
             if (client == null) throw new ApiException("client not found");
 
-            var today = DateTime.Today;
-            var newMeasure = new Measurement()
+            var lastMeasurement = client.Counters
+                .Select(x => new LastCounterDto(x.Name, x.Measurements.OrderBy(x => x.Date).First().Value))
+                .ToList();
+
+            return lastMeasurement;
+        }
+
+
+        public async Task AddNewCounter(AddCounterQuery query, int userId, CancellationToken ct)
+        {
+            var client = await _context.Client
+                .FirstOrDefaultAsync(x => x.Id == userId, ct);
+            if (client == null) throw new ApiException("client not found");
+
+            var checkCounter = await _context.Counter
+                .FirstOrDefaultAsync(x => x.ClientId == userId && x.Name.ToLower().Trim().Equals(query.Name.ToLower().Trim()), ct);
+            if (checkCounter != null) throw new ApiException("counter already exist");
+
+            var newRequest = new Counter
             {
-                Client = client,
-                Name = query.Name,
-                Value = query.Value,                
-                Date = DateTime.Today
+                Name = query.Name
             };
 
-            await _context.Measurement.AddAsync(newMeasure, ct);
+            await _context.Counter.AddAsync(newRequest, ct);
             await _context.SaveChangesAsync(ct);
         }
     }

@@ -30,12 +30,12 @@ namespace CenterEcoTech.EfData.Entities
 
         public List<Request> Requests { get; set; }
 
-        public List<Measurement> Measurements { get; set; }
+        public List<Counter> Counters { get; set; }
 
         public Client()
         {
             Requests = new();
-            Measurements = new();
+            Counters = new();
         }
 
         public string GetFullName()
