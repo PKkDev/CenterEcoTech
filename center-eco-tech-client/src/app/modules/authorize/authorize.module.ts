@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // pages
 import { LogInPageComponent } from './log-in-page/log-in-page.component';
+import { RegistrationComponent } from './reg-page/registration.component';
 // routing
 import { AuthorizeRoutingModule } from './authorize-routing.module';
 // guard
@@ -22,7 +23,8 @@ import { httpInterceptorProviders } from './interceptors/http-Interceptors';
     SharedModule
   ],
   declarations: [
-    LogInPageComponent
+    LogInPageComponent,
+    RegistrationComponent
   ],
   providers: [
     AuthGuard,

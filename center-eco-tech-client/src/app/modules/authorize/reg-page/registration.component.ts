@@ -1,9 +1,8 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-
 import { ApiService } from 'src/app/services/api.service';
-import { CooperativeDto } from './domain';
+import { CooperativeDto, RegistrationDto } from './domain';
 
 @Component({
   selector: 'app-registration',
@@ -11,13 +10,6 @@ import { CooperativeDto } from './domain';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit, AfterViewInit, OnDestroy {
-
-  constructor(
-    private apiService: ApiService,
-    private router: Router) { }
-
-  ngOnInit(): void {
-  }
 
   // fields
   public phone: string;
@@ -31,14 +23,19 @@ export class RegistrationComponent implements OnInit, AfterViewInit, OnDestroy {
   private userRegSups: Subscription;
   public message: string | null;
 
+  constructor(
+    private apiService: ApiService,
+    private router: Router) { }
+
+  ngOnInit() { }
+
+  ngAfterViewInit() {
+    this.getCooperatives();
+  }
 
   public onNextCLick() {
     this.message = null;
     this.registerUser();
-  }
-
-  ngAfterViewInit() {
-    this.getCooperatives();
   }
 
   private getCooperatives() {
@@ -92,10 +89,3 @@ export class RegistrationComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 }
-
-export class RegistrationDto {
-  public name: number;
-  public phone: string;
-  public firstName: string;
-}
-

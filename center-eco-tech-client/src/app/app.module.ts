@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 // modules
 import { AuthorizeModule } from './modules/authorize/authorize.module';
 import { ClientAppModule } from './modules/client-app/client-app.module';
-import { RegistrationModule } from './modules/registration/registration.module';
 // components
 import { AppComponent } from './app.component';
 
@@ -18,7 +17,6 @@ import { AppComponent } from './app.component';
   imports: [
     ClientAppModule,
     AuthorizeModule,
-    RegistrationModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
