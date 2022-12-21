@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -10,10 +10,10 @@ import { CooperativeDto } from './domain';
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss']
 })
-export class RegistrationComponent implements OnInit, AfterViewInit {
+export class RegistrationComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  constructor(  
-    private apiService: ApiService, 
+  constructor(
+    private apiService: ApiService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -39,22 +39,23 @@ export class RegistrationComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.getCooperatives();
-  } 
+  }
 
   private getCooperatives() {
     this.coopDetailSubs = this.apiService.get<CooperativeDto[]>('cooperative')
       .subscribe({
-        next: data => { this.coopData = data; 
+        next: data => {
+          this.coopData = data;
         },
-        error: error => { 
+        error: error => {
           if (this.coopDetailSubs) this.coopDetailSubs.unsubscribe();
           this.message = error.error;
-         },
+        },
         complete: () => { this.feetCooperatives(); }
       });
   }
 
-  private feetCooperatives() {      
+  private feetCooperatives() {
     this.coopData.forEach(element => {
       this.coops.push(element);
     });
@@ -69,21 +70,25 @@ export class RegistrationComponent implements OnInit, AfterViewInit {
     };
     if (this.selectedCoop != null && this.phone != null && this.name != null) {
       this.userRegSups = this.apiService.post<RegistrationDto>('client/register', httpBody)
-      .subscribe({
-        next: data => {   this.router.navigate(['']);  },
-        error: error => {
-          if (this.userRegSups) this.userRegSups.unsubscribe();
-          this.message = error.error;
-        },
-        complete: () => { }
-      })
+        .subscribe({
+          next: data => { this.router.navigate(['']); },
+          error: error => {
+            if (this.userRegSups) this.userRegSups.unsubscribe();
+            this.message = error.error;
+          },
+          complete: () => { }
+        })
     }
     else {
       this.message = "Заполните все поля";
     }
-   };
+  };
 
   public submit() {
+  }
+
+  ngOnDestroy(): void {
+    if (this.userRegSups) this.userRegSups.unsubscribe();
   }
 
 }
