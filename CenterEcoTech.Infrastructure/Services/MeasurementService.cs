@@ -23,8 +23,22 @@ namespace CenterEcoTech.Infrastructure.Services
                 .Include(x => x.Adress)
                 .FirstOrDefaultAsync(x => x.Id == userId, ct);
             if (client == null) throw new ApiException("client not found");
+            var counter = _context.Counter
+                .FirstOrDefault(x => x.ClientId == userId && x.Name == query.Name);
+            
+            var newMeasure = new Measurement()
+            {
+                Value = query.Value,                
+                Date = DateTime.Today,
+                Counter = counter
+            };
+            
+            await _context.Measurement.AddAsync(newMeasure, ct);
+            counter.Postfix = query.Value.ToString();
+            await _context.SaveChangesAsync(ct);
+            
 
-            throw new NotImplementedException();
+
         }
 
 
@@ -94,7 +108,8 @@ namespace CenterEcoTech.Infrastructure.Services
 
             var newRequest = new Counter
             {
-                Name = query.Name
+                Name = query.Name,
+                Client= client
             };
 
             await _context.Counter.AddAsync(newRequest, ct);
