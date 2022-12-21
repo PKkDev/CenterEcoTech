@@ -5,9 +5,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using CenterEcoTech.Domain.DTO.MeasurementRequest;
 using CenterEcoTech.Domain.Query.MeasurementRequest;
-using CenterEcoTech.Domain.Query.ClientRequest;
-using CenterEcoTech.Infrastructure.Services;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace CenterEcoTech.API.Controllers
 {
@@ -51,23 +48,20 @@ namespace CenterEcoTech.API.Controllers
             await _measurementService.AddMeasurementAsync(query, clientId, ct);
         }
 
-		//get last measurement from counter возращает список название счетчика и последнее значение
         /// <summary>
-        /// 
+        /// get last measurement counter
         /// </summary>
         /// <returns></returns>
-		[HttpPost("get-last-measurement")]
-		[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-		public async Task<IEnumerable<LastCounterDto>> GetLastMeasurementCounter(
-			[FromBody] LastCounterDto query, CancellationToken ct = default)
+        [HttpPost("get-last-measurement")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IEnumerable<LastCounterDto>> GetLastMeasurementCounter(CancellationToken ct = default)
         {
             var clientId = HttpContext.GetClientId();
-			return await _measurementService.GetLastMeasurement(query, clientId, ct);
-		}
+            return await _measurementService.GetLastMeasurement(clientId, ct);
+        }
 
-        //add new counter на вход получает название проверка есть ли такой
         /// <summary>
-        /// 
+        /// add new counter
         /// </summary>
         /// <param name="query"></param>
         /// <param name="ct"></param>
