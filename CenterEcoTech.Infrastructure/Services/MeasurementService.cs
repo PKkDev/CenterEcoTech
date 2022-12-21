@@ -32,9 +32,7 @@ namespace CenterEcoTech.Infrastructure.Services
                 Date = DateTime.Today,
                 Counter = counter
             };
-            
             await _context.Measurement.AddAsync(newMeasure, ct);
-            //counter.Postfix = query.Value.ToString();
             await _context.SaveChangesAsync(ct);
             
 
@@ -53,7 +51,8 @@ namespace CenterEcoTech.Infrastructure.Services
         public async Task<IEnumerable<MeasurementRequestDto>> GetHistoryMeasurement(
             GetMeasurementHistoryQuery query, int userId, CancellationToken ct)
         {
-            List<MeasurementRequestDto> metrics=null;
+            List<MeasurementRequestDto> allmetrics=new List<MeasurementRequestDto>();
+            List<MeasurementRequestDto> metrics=new List<MeasurementRequestDto>();
             var client = await _context.Client
                 .Include(x => x.Adress)
                 .FirstOrDefaultAsync(x => x.Id == userId, ct);
@@ -64,9 +63,9 @@ namespace CenterEcoTech.Infrastructure.Services
                 queryR = queryR.Where(x => x.Name == query.Status);
             foreach (var r in queryR)
             {
-                var queryM = _context.Entry(r).Collection(x => x.Measurements).Query();         
-
-                    metrics = await queryM
+                var queryM = _context.Entry(r).Collection(x => x.Measurements).Query();
+               
+                metrics = await queryM
                     .Select(x => new MeasurementRequestDto()
                     {
                         Date = x.Date,
@@ -76,9 +75,10 @@ namespace CenterEcoTech.Infrastructure.Services
                         CLientAdress = client.GetFullAdress(),
                     })
                     .ToListAsync(ct);
+                allmetrics.AddRange(metrics);
                 
             }
-            return metrics;
+            return allmetrics;
 
         }
 
@@ -91,7 +91,7 @@ namespace CenterEcoTech.Infrastructure.Services
             if (client == null) throw new ApiException("client not found");
 
             var lastMeasurement = client.Counters
-                .Select(x => new LastCounterDto(x.Name, x.Measurements.OrderBy(x => x.Date).First().Value))
+                .Select(x => new LastCounterDto(x.Name, x.Measurements.OrderByDescending(x => x.Date).First().Value))
                 .ToList();
 
             return lastMeasurement;
