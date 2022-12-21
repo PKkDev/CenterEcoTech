@@ -1,0 +1,48 @@
+<div class="page_container">
+
+    <div class="dialog_contaier">
+  
+      <img class="logo" alt="CenterEcoTech Logo" src="./assets/img/logo.jpg">
+  
+      <h2>Регистрация</h2>
+
+      <form class="form_cotainer">
+  
+        <div class="fields">
+    
+          <p>
+            <input type="text" autocomplete="off" placeholder="Номер телефона" name="login" #login="ngModel" required 
+            [(ngModel)]="phone">
+          </p>
+          <p>
+            <input type="text" autocomplete="off" placeholder="Имя" name="login" #login="ngModel" required 
+            [(ngModel)]="name">
+          </p>
+                    
+          <p>
+            <select name="Cooperation" [(ngModel)]="selectedCoop" required>  
+                   <option *ngFor="let coop of coops" [ngValue]="coop.id"> {{coop.name}} </option>
+            </select>
+          </p>
+
+        </div>
+    
+        <div class="message" *ngIf="message">
+          {{message}}
+        </div>
+    
+        <button class="action-button" [disabled]="login.invalid" (click)="onNextCLick()">
+          Далее
+        </button>
+    
+        <a class="demo-link" href="/login">Войти</a>
+    
+        <a class="demo-link" href="/registration">Демо-режим</a>
+    
+        <a class="support-link" href="/registration">Служба поддержки</a>
+    
+      </form>
+  
+    </div>
+  
+  </div>
