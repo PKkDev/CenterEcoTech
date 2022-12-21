@@ -15,7 +15,9 @@ namespace CenterEcoTech.EfData.Context
 
         public DbSet<Measurement> Measurement { get; set; }
 
-        public AppDataBaseContext(DbContextOptions<AppDataBaseContext> options)
+		public DbSet<Counter> Counter { get; set; }
+
+		public AppDataBaseContext(DbContextOptions<AppDataBaseContext> options)
            : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

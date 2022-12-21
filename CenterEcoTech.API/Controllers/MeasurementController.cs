@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using CenterEcoTech.Domain.DTO.MeasurementRequest;
 using CenterEcoTech.Domain.Query.MeasurementRequest;
-using CenterEcoTech.Domain.Query.ClientRequest;
-using CenterEcoTech.Infrastructure.Services;
 
 namespace CenterEcoTech.API.Controllers
 {
@@ -48,6 +46,33 @@ namespace CenterEcoTech.API.Controllers
         {
             var clientId = HttpContext.GetClientId();
             await _measurementService.AddMeasurementAsync(query, clientId, ct);
+        }
+
+        /// <summary>
+        /// get last measurement counter
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("get-last-measurement")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IEnumerable<LastCounterDto>> GetLastMeasurementCounter(CancellationToken ct = default)
+        {
+            var clientId = HttpContext.GetClientId();
+            return await _measurementService.GetLastMeasurement(clientId, ct);
+        }
+
+        /// <summary>
+        /// add new counter
+        /// </summary>
+        /// <param name="query"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        [HttpPost("add-new-counter")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task AddNewCounter(
+            [FromBody] AddCounterQuery query, CancellationToken ct = default)
+        {
+            var clientId = HttpContext.GetClientId();
+            await _measurementService.AddNewCounter(query, clientId, ct);
         }
     }
 }
