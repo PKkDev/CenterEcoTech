@@ -14,18 +14,22 @@
             <input type="text" autocomplete="off" placeholder="Номер телефона" name="login" #login="ngModel" required 
             [(ngModel)]="phone">
           </p>
+          <p>
+            <input type="text" autocomplete="off" placeholder="Имя" name="login" #login="ngModel" required 
+            [(ngModel)]="name">
+          </p>
                     
           <p>
-            <select placeholder="ТСЖ" name="Cooperation" required >  
+            <select name="Cooperation" [(ngModel)]="selectedCoop" required>  
                    <option *ngFor="let coop of coops" [ngValue]="coop.id"> {{coop.name}} </option>
             </select>
           </p>
 
         </div>
     
-        <!-- <div class="message" *ngIf="message">
+        <div class="message" *ngIf="message">
           {{message}}
-        </div> -->
+        </div>
     
         <button class="action-button" [disabled]="login.invalid" (click)="onNextCLick()">
           Далее
