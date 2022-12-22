@@ -9,7 +9,6 @@ export class IndicationsPageComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit() { }
 
 }

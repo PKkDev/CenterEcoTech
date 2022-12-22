@@ -5,7 +5,7 @@ import { DatePipe } from '@angular/common';
 // material
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -23,6 +23,8 @@ import { ServicesPageComponent } from './pages/services-page/services-page.compo
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { NewsPageComponent } from './pages/news-page/news-page.component';
 import { IndicationsPageComponent } from './pages/indications-page/indications-page.component';
+import { IndicationComponent } from './pages/indications-page/indication/indication.component';
+import { IndicationsHistoryComponent } from './pages/indications-page/indications-history/indications-history.component';
 import { ApplicationsPageComponent } from './pages/applications-page/applications-page.component';
 import { AccrualsPageComponent } from './pages/accruals-page/accruals-page.component';
 import { ApplicationsHistoryComponent } from './pages/applications-page/applications-history/applications-history.component';
@@ -53,14 +55,16 @@ import { SharedModule } from '../shared/shared.module';
   declarations: [
     ClientAppComponent,
     HeaderComponent,
+    AccrualsPageComponent,
     ServicesPageComponent,
     ProfilePageComponent,
     NewsPageComponent,
     IndicationsPageComponent,
+    IndicationComponent,
+    IndicationsHistoryComponent,
     ApplicationsPageComponent,
-    AccrualsPageComponent,
-    ApplicationsHistoryComponent,
     ApplicationComponent,
+    ApplicationsHistoryComponent,
     ApplictionStatusConverterPipe
   ],
   providers: [DatePipe]
