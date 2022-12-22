@@ -29,6 +29,8 @@ import { ApplicationsHistoryComponent } from './pages/applications-page/applicat
 import { ApplicationComponent } from './pages/applications-page/application/application.component';
 // pipe
 import { ApplictionStatusConverterPipe } from './pages/applications-page/applications-history/appliction-status-converter.pipe';
+// shared
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -45,7 +47,8 @@ import { ApplictionStatusConverterPipe } from './pages/applications-page/applica
     MatSelectModule,
     MatSnackBarModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    SharedModule
   ],
   declarations: [
     ClientAppComponent,
