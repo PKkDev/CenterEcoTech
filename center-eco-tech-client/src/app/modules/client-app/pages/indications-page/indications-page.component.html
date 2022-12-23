@@ -1,1 +1,18 @@
-<app-empty-banner></app-empty-banner>
+<div class="container">
+  <div class="indications-content">
+
+    <div class="content-header">
+      <h1>Показания</h1>
+    </div>
+
+    <div class="pages">
+      <a [routerLink]="['/indications/submit-indication']" routerLinkActive="router-link-active">Подать показания</a>
+      <a [routerLink]="['/indications/history']" routerLinkActive="router-link-active">История</a>
+    </div>
+
+    <div class="line">
+      <hr>
+    </div>
+    <router-outlet></router-outlet>
+  </div>
+</div>
