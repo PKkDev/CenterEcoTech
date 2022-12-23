@@ -18,6 +18,7 @@
 
 [ссылка на требования](https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FGXFetMPR0FbndpqaGlrusXXEvbPaVs8JwxPJ%2B1Cl4%2BQoA7c2jzsfZhoV1R9c5L%2BUq%2FJ6bpmRyOJonT3VoXnDag%3D%3D%3A%2FМатериалы%20для%20практики%2FПИС%20(требования%20к%20выполнению%20практической%20работы).docx&name=ПИС%20(требования%20к%20выполнению%20практической%20работы).docx "ссылка на требования")
 
+[ссылка на тест план](https://docs.google.com/spreadsheets/d/1qsnx6kSBJeDIQf26aDaMqNA09y4I2r69a6nFsXN5WHo/edit?usp=sharing "ссылка на тест план")
 ## требования
 
 - Visual Studio 2019/2022
