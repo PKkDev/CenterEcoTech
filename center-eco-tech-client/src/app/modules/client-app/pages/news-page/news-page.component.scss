@@ -1,3 +1,7 @@
+body {
+    overflow: scroll;
+  }
+
 .container {
     position: relative;
   }
@@ -32,10 +36,24 @@
     .main-article {
         display: flex;
         .photo {
+            object-fit: cover;
             width: 548px;
             height: 288px;
         }
 
        
     }
+
+    .other-news {
+        display: flex;
+        .article {
+            .photo {
+
+                object-fit: cover;
+                width: 254px;
+                height: 192px;
+            }
+        }
+    }
 }
+
