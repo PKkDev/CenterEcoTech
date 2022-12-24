@@ -1,0 +1,41 @@
+.container {
+    position: relative;
+  }
+  .news-content {
+    position: relative;
+    margin: 0 auto;
+    max-width: 1136px;
+    font-family: "Montserrat", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #212;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: #fff;
+    p {
+      margin: 0;
+    }
+    .content-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 0 48px 0;
+      h1 {
+        margin: 40px 0 0 0;
+        font-size: 30px;
+        line-height: 36px;
+      }
+    }
+
+    .main-article {
+        display: flex;
+        .photo {
+            width: 548px;
+            height: 288px;
+        }
+
+       
+    }
+}
