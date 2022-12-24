@@ -35,15 +35,26 @@ body {
 
     .main-article {
         display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        padding: 7px;
+        &:hover {
+          text-decoration: none;
+          background-color: #d6cdcd38;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+
         .photo {
             object-fit: cover;
-            width: 550px;
+            width: 520px;
             height: 250px;
         }
         .text {
           margin-left: 40px;
+          width: 540px;
 
-          a {
+          .header {
             font-size: 20px;
             line-height: 28px;
             text-decoration: none;
@@ -52,6 +63,7 @@ body {
               text-decoration: none;
               background-color: #d6cdcd38;
               border-radius: 4px;
+              cursor: pointer;
             }
           }
 
@@ -75,22 +87,43 @@ body {
     .other-news {
         display: flex;
         flex-wrap: wrap;
-        .article {
-            .photo {
+        justify-content: space-between;
 
+        .article {
+          padding: 7px;
+          width: 250px;
+          margin-top: 30px;
+          &:hover {
+            text-decoration: none;
+            background-color: #d6cdcd38;
+            cursor: pointer;
+          }
+
+            .photo {
                 object-fit: cover;
-                width: 254px;
                 height: 192px;
+                width: 250px;
             }
 
             .text {
-
+              .header {
+                margin: 10px 0 10px 0;
+                font-size: 14px;
+                line-height: 20px;
+                text-decoration: none;
+                font-weight: 500;
+                color: #000;
+              };
               p {
                 overflow: hidden;
                 text-overflow:clip;
                 display: -webkit-box;
                 -webkit-line-clamp: 3;
                 -webkit-box-orient: vertical;
+                font-size: 12px;
+                line-height: 18px;
+                font-weight: 400;
+                color: #666666;
               }
               
             }

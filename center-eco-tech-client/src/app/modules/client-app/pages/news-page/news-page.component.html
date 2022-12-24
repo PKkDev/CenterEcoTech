@@ -6,13 +6,13 @@
             <h1>Новости</h1>
           </div>  
     
-          <div class="main-article">
+          <div class="main-article" [routerLink]="['/news/article']" routerLinkActive="router-link-active">
                 <div class="photo">
-                    <img class="photo" src="https://vsegda-pomnim.com/uploads/posts/2022-02/1645918233_5-vsegda-pomnim-com-p-gololyod-foto-7.jpg">
+                    <img class="photo" src="{{articles.main_article?.pic}}">
                 </div>
 
                 <div class="text">
-                    <a [routerLink]="['/news/main-article']" routerLinkActive="router-link-active"> 
+                    <a class="header" > 
                         {{articles.main_article?.name}}
                     </a>
                     <p>
@@ -23,15 +23,15 @@
     
           <div class="other-news">
     
-            <div class="article" *ngFor="let atkl of articles.articles">
+            <div [routerLink]="['/news/article']" routerLinkActive="router-link-active" class="article" *ngFor="let atkl of articles.articles">
                 <div class="photo">
-                    <img class="photo" src="https://vsegda-pomnim.com/uploads/posts/2022-02/1645918233_5-vsegda-pomnim-com-p-gololyod-foto-7.jpg">
+                    <img class="photo" src="{{atkl.pic}}">
                 </div>
     
                 <div class="text">
-                    <a [routerLink]="['/news/article']" routerLinkActive="router-link-active"> 
+                    <p class="header">
                         {{atkl.name}}
-                    </a>
+                    </p>
                     <p>
                         {{atkl.content}}
                     </p>

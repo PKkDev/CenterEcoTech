@@ -16,7 +16,6 @@ export class NewsPageComponent implements OnInit {
   ngOnInit(){
     this.httpClient.get("assets/articles/articles.json").subscribe({
       next : data =>{
-      console.log(data);
       this.articles = data;
       }
     })
@@ -25,14 +24,3 @@ export class NewsPageComponent implements OnInit {
   
 
 }
-      
-    //   {
-    //   next: data => {
-    //     console.log(data);
-    //   },
-    //   error: error => {
-    //     if (this.coopDetailSubs) this.coopDetailSubs.unsubscribe();
-    //     this.message = error.error;
-    //   },
-    //   complete: () => { this.feetCooperatives(); }
-    // });
