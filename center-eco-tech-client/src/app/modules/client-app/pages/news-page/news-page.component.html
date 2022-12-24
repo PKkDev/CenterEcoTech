@@ -13,13 +13,10 @@
     
                 <div class="text">
                     <a [routerLink]="['/news/main-article']" routerLinkActive="router-link-active"> 
-                        Гололёд, дороги, вакцинация. Что волновало ульяновцев
+                        {{articles.main_article.name}}
                     </a>
                     <p>
-                        В тройку лидирующих тем вошли благоустройство – 49 инцидентов, социальное обслуживание и соцзащита 
-                        – 45, дороги – 37 инцидентов. Также людей беспокоили вопросы здравоохранения, 
-                        общественного транспорта, ЖКХ, образования, 
-                        безопасности, экологии и коронавируса. 
+                        {{articles.main_article.content}}
                     </p>
                 </div>
           </div>
@@ -32,11 +29,11 @@
                 </div>
     
                 <div class="text">
-                    <h3>
-                        Заголовок статьи
-                    </h3>
+                    <a [routerLink]="['/news/article']" routerLinkActive="router-link-active"> 
+                        {{articles.articles[0].name}}
+                    </a>
                     <p>
-                        Текст статьи
+                        {{articles.articles[0].content}}
                     </p>
                 </div>
             </div>
@@ -47,11 +44,11 @@
                 </div>
     
                 <div class="text">
-                    <h3>
-                        Заголовок статьи
-                    </h3>
+                    <a [routerLink]="['/news/article']" routerLinkActive="router-link-active"> 
+                        {{articles.articles[1].name}}
+                    </a>
                     <p>
-                        Текст статьи
+                        {{articles.articles[1].content}}
                     </p>
                 </div>
             </div>
@@ -62,11 +59,11 @@
                 </div>
     
                 <div class="text">
-                    <h3>
-                        Заголовок статьи
-                    </h3>
+                    <a [routerLink]="['/news/article']" routerLinkActive="router-link-active"> 
+                        {{articles.articles[2].name}}
+                    </a>
                     <p>
-                        Текст статьи
+                        {{articles.articles[2].content}}
                     </p>
                 </div>
             </div>
@@ -77,11 +74,11 @@
                 </div>
     
                 <div class="text">
-                    <h3>
-                        Заголовок статьи
-                    </h3>
+                    <a [routerLink]="['/news/article']" routerLinkActive="router-link-active"> 
+                        {{articles.articles[3].name}}
+                    </a>
                     <p>
-                        Текст статьи
+                        {{articles.articles[3].content}}
                     </p>
                 </div>
             </div>
