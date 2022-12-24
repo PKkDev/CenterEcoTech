@@ -1,43 +1,81 @@
 <body>
+
     <div class="container">
         <div class="news-content">
-      
-          <div class="content-header">
+        
+            <div class="content-header">
             <h1>Новости</h1>
-          </div>  
-    
-          <div class="main-article" [routerLink]="['/news/article']" routerLinkActive="router-link-active">
-                <div class="photo">
-                    <img class="photo" src="{{articles.main_article?.pic}}">
-                </div>
-
-                <div class="text">
-                    <a class="header" > 
-                        {{articles.main_article?.name}}
-                    </a>
-                    <p>
-                        {{articles.main_article?.content}}
-                    </p>
-                </div>
-            </div>
-    
-          <div class="other-news">
-    
-            <div [routerLink]="['/news/article']" routerLinkActive="router-link-active" class="article" *ngFor="let atkl of articles.articles">
-                <div class="photo">
-                    <img class="photo" src="{{atkl.pic}}">
-                </div>
-    
-                <div class="text">
-                    <p class="header">
-                        {{atkl.name}}
-                    </p>
-                    <p>
-                        {{atkl.content}}
-                    </p>
-                </div>
-            </div>    
-          </div>    
+            </div>  
+        
+            <ng-template [ngTemplateOutlet]="nowTemplate"></ng-template>
+            
         </div>
-    </div>
+        </div>
+        
+        
+        
+        <ng-template #allNewsTemplate>
+          <div class="main-article">
+            <div class="main-article" (click)="setArticle(articles.main_article?.pic, articles.main_article?.name, articles.main_article?.content)">
+              <div class="photo">
+                  <img class="photo" src="{{articles.main_article?.pic}}">
+              </div>
+        
+              <div class="text">
+                  <a class="header" > 
+                      {{articles.main_article?.name}}
+                  </a>
+                  <p>
+                      {{articles.main_article?.content}}
+                  </p>
+              </div>
+            </div>
+          </div>
+        
+        <div class="other-news">
+        
+        <div class="article" *ngFor="let atkl of articles.articles" >
+          <div (click)="setArticle(atkl.pic, atkl.name, atkl.content)">
+              <div class="photo">
+                  <img class="photo" src="{{atkl.pic}}">
+              </div>
+        
+              <div class="text">
+                  <p class="header">
+                      {{atkl.name}}
+                  </p>
+                  <p>
+                      {{atkl.content}}
+                  </p>
+              </div>
+          </div>    
+        </div>  
+        </div> 
+        </ng-template>
+        
+        
+        <ng-template #articleTemplate>
+            <div class="main-article">
+                <a (click)="onBackClick()"> Ко всем новостям </a>
+        
+                <p class="h3" > 
+                    {{currArticle?.name}}
+                </p>
+        
+                <div class="content">
+                    <div class="photo">
+                        <img class="photo" src="{{currArticle?.pic}}">
+                    </div>
+            
+                    <div class="text">
+                        <p>
+                            {{currArticle?.content}}
+                        </p>
+                    </div>
+                </div>       
+            </div>
+        </ng-template>
+        
+        
+
 </body>
