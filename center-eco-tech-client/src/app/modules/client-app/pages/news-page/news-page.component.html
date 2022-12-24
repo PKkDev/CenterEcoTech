@@ -10,16 +10,16 @@
                 <div class="photo">
                     <img class="photo" src="https://vsegda-pomnim.com/uploads/posts/2022-02/1645918233_5-vsegda-pomnim-com-p-gololyod-foto-7.jpg">
                 </div>
-    
+
                 <div class="text">
                     <a [routerLink]="['/news/main-article']" routerLinkActive="router-link-active"> 
-                        {{articles.main_article.name}}
+                        {{articles.main_article?.name}}
                     </a>
                     <p>
-                        {{articles.main_article.content}}
+                        {{articles.main_article?.content}}
                     </p>
                 </div>
-          </div>
+            </div>
     
           <div class="other-news" *ngFor="let atkl of articles.articles">
     
