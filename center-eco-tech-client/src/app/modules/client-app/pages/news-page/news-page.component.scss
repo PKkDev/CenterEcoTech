@@ -25,7 +25,7 @@ body {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin: 0 0 48px 0;
+      margin: 0 0 40px 0;
       h1 {
         margin: 40px 0 0 0;
         font-size: 30px;
@@ -37,15 +37,44 @@ body {
         display: flex;
         .photo {
             object-fit: cover;
-            width: 548px;
-            height: 288px;
+            width: 550px;
+            height: 250px;
         }
+        .text {
+          margin-left: 40px;
 
-       
+          a {
+            font-size: 20px;
+            line-height: 28px;
+            text-decoration: none;
+            color: #000;
+            &:hover {
+              text-decoration: none;
+              background-color: #d6cdcd38;
+              border-radius: 4px;
+            }
+          }
+
+          p {
+            color: #666666;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 18px;
+            margin-top: 15px;
+
+            overflow: hidden;
+            text-overflow:clip;
+            display: -webkit-box;
+            -webkit-line-clamp: 5;
+            -webkit-box-orient: vertical;
+          }
+         
+        }
     }
 
     .other-news {
         display: flex;
+        flex-wrap: wrap;
         .article {
             .photo {
 
