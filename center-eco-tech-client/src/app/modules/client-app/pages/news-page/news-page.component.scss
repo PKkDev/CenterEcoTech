@@ -57,3 +57,12 @@ body {
     }
 }
 
+@media (max-height: 1440px) {
+    .container {
+      overflow: auto;
+      height: 960px;
+    }
+    .buttons {
+      margin: 0 0 20px 0;
+    }
+  }
