@@ -22,6 +22,8 @@ import { ClientAppComponent } from './client-app.component';
 import { ServicesPageComponent } from './pages/services-page/services-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { NewsPageComponent } from './pages/news-page/news-page.component';
+import { MainArticleComponent } from './pages/news-page/main-article/main-article.component';
+import { ArticleComponent } from './pages/news-page/article/article.component';
 import { IndicationsPageComponent } from './pages/indications-page/indications-page.component';
 import { IndicationComponent } from './pages/indications-page/indication/indication.component';
 import { IndicationsHistoryComponent } from './pages/indications-page/indications-history/indications-history.component';
@@ -60,6 +62,8 @@ import { SharedModule } from '../shared/shared.module';
     ServicesPageComponent,
     ProfilePageComponent,
     NewsPageComponent,
+    MainArticleComponent,
+    ArticleComponent,
     IndicationsPageComponent,
     IndicationComponent,
     IndicationsHistoryComponent,

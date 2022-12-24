@@ -12,6 +12,8 @@ import { IndicationsPageComponent } from './pages/indications-page/indications-p
 import { IndicationComponent } from './pages/indications-page/indication/indication.component';
 import { IndicationsHistoryComponent } from './pages/indications-page/indications-history/indications-history.component';
 import { NewsPageComponent } from './pages/news-page/news-page.component';
+import { MainArticleComponent } from './pages/news-page/main-article/main-article.component';
+import { ArticleComponent } from './pages/news-page/article/article.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { ServicesPageComponent } from './pages/services-page/services-page.component';
 
@@ -43,6 +45,8 @@ const routes: Routes = [
       },
       { path: 'services', component: ServicesPageComponent, },
       { path: 'news', component: NewsPageComponent, },
+      { path: 'news/main-article', component: MainArticleComponent, },
+      { path: 'news/article', component: ArticleComponent, },
       { path: 'profile', component: ProfilePageComponent, },
     ]
   }
