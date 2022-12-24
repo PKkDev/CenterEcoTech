@@ -53,6 +53,18 @@ body {
                 width: 254px;
                 height: 192px;
             }
+
+            .text {
+
+              p {
+                overflow: hidden;
+                text-overflow:clip;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+              }
+              
+            }
         }
     }
 }
