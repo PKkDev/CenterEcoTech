@@ -21,7 +21,7 @@
                 </div>
           </div>
     
-          <div class="other-news">
+          <div class="other-news" *ngFor="let atkl of articles.articles">
     
             <div class="article">
                 <div class="photo">
@@ -30,61 +30,14 @@
     
                 <div class="text">
                     <a [routerLink]="['/news/article']" routerLinkActive="router-link-active"> 
-                        {{articles.articles[0].name}}
+                        {{atkl.name}}
                     </a>
                     <p>
-                        {{articles.articles[0].content}}
+                        {{atkl.content}}
                     </p>
                 </div>
-            </div>
-    
-            <div class="article">
-                <div class="photo">
-                    <img class="photo" src="https://vsegda-pomnim.com/uploads/posts/2022-02/1645918233_5-vsegda-pomnim-com-p-gololyod-foto-7.jpg">
-                </div>
-    
-                <div class="text">
-                    <a [routerLink]="['/news/article']" routerLinkActive="router-link-active"> 
-                        {{articles.articles[1].name}}
-                    </a>
-                    <p>
-                        {{articles.articles[1].content}}
-                    </p>
-                </div>
-            </div>
-    
-            <div class="article">
-                <div class="photo">
-                    <img class="photo" src="https://vsegda-pomnim.com/uploads/posts/2022-02/1645918233_5-vsegda-pomnim-com-p-gololyod-foto-7.jpg">
-                </div>
-    
-                <div class="text">
-                    <a [routerLink]="['/news/article']" routerLinkActive="router-link-active"> 
-                        {{articles.articles[2].name}}
-                    </a>
-                    <p>
-                        {{articles.articles[2].content}}
-                    </p>
-                </div>
-            </div>
-    
-            <div class="article">
-                <div class="photo">
-                    <img class="photo" src="https://vsegda-pomnim.com/uploads/posts/2022-02/1645918233_5-vsegda-pomnim-com-p-gololyod-foto-7.jpg">
-                </div>
-    
-                <div class="text">
-                    <a [routerLink]="['/news/article']" routerLinkActive="router-link-active"> 
-                        {{articles.articles[3].name}}
-                    </a>
-                    <p>
-                        {{articles.articles[3].content}}
-                    </p>
-                </div>
-            </div>
-          </div>
-    
-    
+            </div>    
+          </div>    
         </div>
     </div>
 </body>
