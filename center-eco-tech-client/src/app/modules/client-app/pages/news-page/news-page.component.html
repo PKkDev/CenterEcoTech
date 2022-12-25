@@ -3,18 +3,18 @@
     <div class="container">
         <div class="news-content">
         
-            <div class="content-header">
-            <h1>Новости</h1>
-            </div>  
-        
             <ng-template [ngTemplateOutlet]="nowTemplate"></ng-template>
             
         </div>
-        </div>
+    </div>
         
-        
-        
+    
         <ng-template #allNewsTemplate>
+            
+            <div class="content-header">
+                <h1>Новости</h1>
+            </div>  
+
           <div class="main-article">
             <div class="main-article" (click)="setArticle(articles.main_article?.pic, articles.main_article?.name, articles.main_article?.content)">
               <div class="photo">
@@ -33,21 +33,20 @@
           </div>
         
         <div class="other-news">
-        
-        <div class="article" *ngFor="let atkl of articles.articles" >
-          <div (click)="setArticle(atkl.pic, atkl.name, atkl.content)">
-              <div class="photo">
-                  <img class="photo" src="{{atkl.pic}}">
-              </div>
-        
-              <div class="text">
-                  <p class="header">
-                      {{atkl.name}}
-                  </p>
-                  <p>
-                      {{atkl.content}}
-                  </p>
-              </div>
+            <div class="article" *ngFor="let atkl of articles.articles" >
+            <div (click)="setArticle(atkl.pic, atkl.name, atkl.content)">
+                <div class="photo">
+                    <img class="photo" src="{{atkl.pic}}">
+                </div>
+            
+                <div class="text">
+                    <p class="header">
+                        {{atkl.name}}
+                    </p>
+                    <p>
+                        {{atkl.content}}
+                    </p>
+                </div>
           </div>    
         </div>  
         </div> 
@@ -55,23 +54,21 @@
         
         
         <ng-template #articleTemplate>
-            <div class="main-article">
-                <a (click)="onBackClick()"> Ко всем новостям </a>
-        
-                <p class="h3" > 
-                    {{currArticle?.name}}
+
+            <div class="curr-article">
+
+                <a class="back-button" (click)="onBackClick()"> 🔙 Ко всем новостям </a>
+
+                <p class="header" > 
+                    {{currArticle[0]?.name}}
                 </p>
         
                 <div class="content">
-                    <div class="photo">
-                        <img class="photo" src="{{currArticle?.pic}}">
-                    </div>
-            
-                    <div class="text">
+                        <img class="photo" src="{{currArticle[0]?.pic}}">
+                
                         <p>
-                            {{currArticle?.content}}
+                            {{currArticle[0]?.content}}
                         </p>
-                    </div>
                 </div>       
             </div>
         </ng-template>

@@ -122,8 +122,52 @@ body {
             }
         }
     }
+
+    .curr-article {
+      margin-top: 40px;
+
+      .back-button {
+        font-size: 12px;
+        line-height: 16px;
+        color: #004F9E;
+        &:hover {
+          text-decoration: none;
+          background-color: #d6cdcd38;
+          cursor: pointer;
+        }
+      }
+        
+        .header {
+          margin: 20px 0 20px 0;
+          text-decoration: none;
+          font-weight: 500;
+          font-size: 20px;
+          line-height: 28px;
+          color: #000;
+        };
+
+        .photo {
+          object-fit: cover;
+          width: 520px;
+          height: 250px;
+          float: left;
+          margin: 0 40px 20px 0;
+        }
+
+        p {
+          text-align: justify;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 20px;
+          color: #666666;
+        }
+
+      }
+    
+      
+    }
   }
-}
+
 
 @media (max-height: 1440px) {
     .container {
