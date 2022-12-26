@@ -16,7 +16,7 @@ describe('IndicationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientModule, MatSnackBarModule, FormsModule],
+      imports: [HttpClientModule, MatSnackBarModule],
       declarations: [ IndicationComponent ],
       providers: [MatSnackBar, ApiService, baseAppUrl]
     })
