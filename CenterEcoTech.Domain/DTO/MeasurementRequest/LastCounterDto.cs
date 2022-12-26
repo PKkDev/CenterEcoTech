@@ -4,12 +4,15 @@
     {
         public string Name { get; set; }
 
-        public double Value { get; set; }
+        public double? Value { get; set; }
 
-        public LastCounterDto(string name, double value)
+        public string? Postfix { get; set; }
+
+        public LastCounterDto(string name, double? value, string? postfix)
         {
             Name = name;
             Value = value;
+            Postfix = postfix;
         }
     }
 }

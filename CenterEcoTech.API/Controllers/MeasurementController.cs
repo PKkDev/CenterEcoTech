@@ -33,6 +33,7 @@ namespace CenterEcoTech.API.Controllers
             var userId = HttpContext.GetClientId();
             return await _measurementService.GetHistoryMeasurement(query, userId, ct);
         }
+
         /// <summary>
         /// add measurement 
         /// </summary>

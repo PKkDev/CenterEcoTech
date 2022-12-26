@@ -31,7 +31,6 @@ import { ApplicationsHistoryComponent } from './pages/applications-page/applicat
 import { ApplicationComponent } from './pages/applications-page/application/application.component';
 // pipe
 import { ApplictionStatusConverterPipe } from './pages/applications-page/applications-history/appliction-status-converter.pipe';
-import { IndicationsTypeConverterPipe } from './pages/indications-page/indications-history/indications-type-converter.pipe';
 // shared
 import { SharedModule } from '../shared/shared.module';
 
@@ -66,8 +65,7 @@ import { SharedModule } from '../shared/shared.module';
     ApplicationsPageComponent,
     ApplicationComponent,
     ApplicationsHistoryComponent,
-    ApplictionStatusConverterPipe,
-    IndicationsTypeConverterPipe
+    ApplictionStatusConverterPipe
   ],
   providers: [DatePipe]
 })

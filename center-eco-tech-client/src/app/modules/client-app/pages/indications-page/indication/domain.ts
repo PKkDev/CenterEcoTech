@@ -1,23 +1,23 @@
 export class clientCounterDto {
-    public name: string;
-    public postfix: string;
-    public clientId: string;
+  public name: string;
+  public postfix: string;
+  public value: number | null;
 }
 
 export class UserDetailDto {
-    firstName: string;
-    lastNme: string;
-    midName: string;
-    adress: UserDetailAdressDto;
-    myDate: 'yyyy-mm-dd'
+  firstName: string;
+  lastNme: string;
+  midName: string;
+  adress: UserDetailAdressDto;
+  myDate: 'yyyy-mm-dd'
 }
 
 export class UserDetailAdressDto {
-    city: string;
-    street: string;
-    house: string;
-    corpus: string | null;
-    room: string;
+  city: string;
+  street: string;
+  house: string;
+  corpus: string | null;
+  room: string;
 }
 
 export class newRequestQuery {
