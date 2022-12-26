@@ -38,9 +38,9 @@
             <div class="meters-block">
         
                 <div class="block" *ngFor="let meter of clientCounterDto; let im of images"> 
-                    <img *ngIf="meter.name=='Горячая вода'" src="./assets/img/hot-water.svg">
-                    <img *ngIf="meter.name=='Холодная вода'" src="./assets/img/cold-water.svg">
-                    <img *ngIf="meter.name=='Газ'" src="./assets/img/gas.svg">
+                    <img *ngIf="meter.name==='Горячая вода'" src="./assets/img/hot-water.svg">
+                    <img *ngIf="meter.name==='Холодная вода'" src="./assets/img/cold-water.svg">
+                    <img *ngIf="meter.name==='Газ'" src="./assets/img/gas.svg">
                     
                     <div class="info"> 
                         <p class="header"> {{meter.name}}</p>
