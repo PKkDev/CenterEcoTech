@@ -1,6 +1,5 @@
-import { NameCounter } from './../indications-history/domain';
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { UserDetailDto } from './domain';
@@ -44,9 +43,9 @@ export class IndicationComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   allType: type[] = [
-    {value: '1', viewValue: 'Горячая вода'},
-    {value: '2', viewValue: 'Холодная вода'},
-    {value: '3', viewValue: 'Газ'},
+    { value: '1', viewValue: 'Горячая вода' },
+    { value: '2', viewValue: 'Холодная вода' },
+    { value: '3', viewValue: 'Газ' },
   ]
 
   ngAfterViewInit() {

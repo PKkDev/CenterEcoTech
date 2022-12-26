@@ -1,6 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { StaticProvider } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -14,7 +15,7 @@ describe('IndicationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientModule, MatSnackBarModule],
+      imports: [HttpClientModule, MatSnackBarModule, FormsModule],
       declarations: [ IndicationComponent ],
       providers: [MatSnackBar, ApiService, baseAppUrl]
     })

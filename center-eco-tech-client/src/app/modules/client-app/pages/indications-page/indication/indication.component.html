@@ -3,7 +3,7 @@
 
     <div class="indication">
 
-      <div class="data">
+      <div class="data" *ngIf="userDetaill">
 
         <div class="colums">
           <label for="city" [formGroup]="indicationForm" (click)="onCreateRequestClick()">Город</label>
