@@ -111,15 +111,37 @@
                 margin: 5px 0;
             }
 
+            hr {
+              margin: 20px 0 0 0;
+              width: 100%;
+              border: 1px solid #e0e0e0;
+              border-radius: 3px;
+            }
+
             .demo-link {
-                margin: 10px 0;
+                margin: 20px 0 0 0;
                 color: #004f9e;
                 text-decoration: none;
             }
 
             .support-link {
-                margin: 10px 0;
+                margin: 20px 0 28px 0;
                 color: #004f9e;
+            }
+
+            .app-link {
+              display: flex;
+              justify-content: center;
+              .store {
+                margin-right: 2px;
+                width: 96px;
+                height: 32px;
+              }
+              .google {
+                margin-left: 2px;
+                width: 108px;
+                height: 32px;
+              }
             }
         }
     }
