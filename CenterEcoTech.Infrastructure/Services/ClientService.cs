@@ -42,7 +42,7 @@ namespace CenterEcoTech.Infrastructure.Services
             {
                 FirstName = query.FirstName,
                 Phone = query.Phone,
-                CooperativeId = query.СooperativeId,
+                CooperativeId = query.CooperativeId,
             };
 
             await _context.Client.AddAsync(user, ct);

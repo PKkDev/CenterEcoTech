@@ -2,7 +2,7 @@
 {
     public class RegisterQuery
     {
-        public int СooperativeId { get; set; }
+        public int CooperativeId { get; set; }
 
         public string Phone { get; set; }
 

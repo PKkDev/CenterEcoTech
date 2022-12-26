@@ -1,4 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, map, Observable, of } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { LoginHttpResponse } from '../log-in-page/model';
@@ -11,7 +12,9 @@ export class AuthService {
   private user: BehaviorSubject<LoginHttpResponse>;
   private isLogged = new EventEmitter<boolean>();
 
-  constructor(private apiService: ApiService) {
+  constructor(
+    private apiService: ApiService,
+    private router: Router) {
 
     const token = sessionStorage.getItem('token');
 
@@ -56,6 +59,7 @@ export class AuthService {
   public logOut() {
     this.user.next({ token: null });
     sessionStorage.removeItem('token');
+    location.reload();
   }
 
   public checkLogIn(): boolean {
