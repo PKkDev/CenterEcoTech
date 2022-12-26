@@ -1,3 +1,138 @@
+<div class="container">
+    <div class="indication-content">
+  
+      <div class="indication">
+  
+        <div class="data" *ngIf="userDetaill">
+  
+          <div class="colums">
+            <label for="city" [formGroup]="indicationForm" (click)="onCreateRequestClick()">Город</label>
+            <input class="city" type="text" placeholder="Название города" [(ngModel)]="userDetaill.adress.city">
+          </div>
+  
+          <div class="colums">
+            <label for="street">Улица</label>
+            <input class="street" type="text" placeholder="Название улицы" [(ngModel)]="userDetaill.adress.street">
+          </div>
+  
+          <div class="colums">
+            <label for="house">Дом</label>
+            <input class="house" type="text" placeholder="Номер" [(ngModel)]="userDetaill.adress.house">
+          </div>
+  
+          <div class="colums">
+            <label for="corps">Корпус</label>
+            <input class="corps" type="text" placeholder="Номер" [(ngModel)]="userDetaill.adress.corpus">
+          </div>
+  
+          <div class="colums">
+            <label for="flat">Квартира</label>
+            <input class="flat" type="text" placeholder="Номер" [(ngModel)]="userDetaill.adress.room">
+          </div>
+  
+        </div>
+
+        <div class="meters"> 
+            <h1>Счетчики</h1>
+        
+            <div class="meters-block">
+        
+                <div class="block" *ngFor="let meter of clientCounterDto; let im of images"> 
+                    <img *ngIf="meter.name=='Горячая вода'" src="./assets/img/hot-water.svg">
+                    <img *ngIf="meter.name=='Холодная вода'" src="./assets/img/cold-water.svg">
+                    <img *ngIf="meter.name=='Газ'" src="./assets/img/gas.svg">
+                    
+                    <div class="info"> 
+                        <p class="header"> {{meter.name}}</p>
+                        <p class="value"> {{meter.postfix}} м. куб.</p>
+                    </div>
+                </div>
+            </div>
+        
+        
+            <div class="addingMeter">
+        
+                <button class="adding-button" [disabled]="adding" (click)="activateAddingMeter()"> 
+                    Добавить счетчик
+                </button>
+            
+                <div *ngIf="adding">
+                    <form class="form_cotainer">
+                            <p>Выберите тип счетчика: </p> 
+                            
+                            <select class="input" name="Meter Name" [(ngModel)]="selectedMeterName" required>  
+                                <option *ngFor="let meter of clientCounterDto" [ngValue]="meter.name"> {{meter.name}} </option>
+                            </select>
+        
+                            <div class="message" *ngIf="message">
+                                {{message}}
+                            </div>                
+                                        
+                            <div>
+                                <button class="add-button" type="submit" (click)="onAddCLick()"> Добавить </button>
+                                <button class="ready-button" type="submit" (click)="onReadyCLick()"> Готово </button>
+                            </div>
+                        
+                    </form>
+                </div>
+        
+            </div>
+            
+        </div>
+  
+        <div class="data">
+  
+          <div class="colums">
+            <label for="name">Тип счетчика</label>
+            <mat-form-field class="my-form-field" appearance="outline">
+              <mat-label>Выберите тип</mat-label>
+              <mat-select>
+                <mat-option *ngFor="let type of allType" [value]="type.value">
+                  {{type.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+            <!--<select name="name" id="name">
+              <option value="1">Горячая вода</option>
+              <option value="2">Холодная вода</option>
+              <option value="3">Газ</option>
+            </select>-->
+  
+  
+          <div class="colums">
+            <label for="pastvalue">Предыдущие показания</label>
+            <input class="pastvalue" type="text" placeholder="Введите показания" [(ngModel)]="pastvalue">
+          </div>
+  
+          <div class="colums">
+            <label for="currentvalue">Текущие показания</label>
+            <input class="currentvalue" type="text" placeholder="Введите показания" required [(ngModel)]="currentvalue">
+          </div>
+  
+        </div>
+  
+        <div class="buttons">
+  
+          <button class="change" id="change" type="button" (click)="onCreateRequestClick()" [disabled]="checkFields()">
+            Отправить
+          </button>
+  
+          <!-- <button *ngIf="!isCollapsed" class="save" id="save" type="submit"
+            (click)="formDisable(); buttonIsClick(); confirmingMessageUser(); reset()"
+            [disabled]="applicationsForm.invalid || applicationsForm.disabled">
+            Отправить
+          </button>
+  
+          <button *ngIf="!isCollapsed" class="cancel" id="cancel" type="reset"
+            (click)="buttonIsClick(); reset(); formDisable()">
+            Отмена
+          </button> -->
+  
+        </div>
+  
+      </div>
+  
 <div class="meters">
     <h1>Счетчики</h1>
 
