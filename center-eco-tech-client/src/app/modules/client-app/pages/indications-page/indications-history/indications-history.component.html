@@ -7,7 +7,7 @@
       <mat-form-field class="my-form-field" appearance="outline">
         <mat-label>Тип счетчика</mat-label>
         <mat-select [(ngModel)]="selectedTypes" (ngModelChange)="onTypesSelected()">
-          <mat-option *ngFor="let type of allTypes" [value]="type"> {{type | indicationsTypeConverter}}
+          <mat-option *ngFor="let type of allTypes" [value]="type"> {{type}}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -36,17 +36,12 @@
 
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Тип счетчика </th>
-        <td mat-cell *matCellDef="let row"> {{row.type | indicationsTypeConverter}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="pastvalue">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Прошлые показания </th>
-        <td mat-cell *matCellDef="let row"> {{row.value}} м.куб. </td>
+        <td mat-cell *matCellDef="let row"> {{row.name}} </td>
       </ng-container>
 
       <ng-container matColumnDef="currentvalue">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Текущие показания </th>
-        <td mat-cell *matCellDef="let row"> {{row.value}} м.куб. </td>
+        <td mat-cell *matCellDef="let row"> {{row.value}} {{row.postfix}} </td>
       </ng-container>
 
       <ng-container matColumnDef="cLientName">

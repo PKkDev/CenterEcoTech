@@ -11,7 +11,6 @@ import { AuthService } from 'src/app/modules/authorize/services/auth.service';
 import { ApiService } from 'src/app/services/api.service';
 
 import { IndicationsHistoryComponent } from './indications-history.component';
-import { IndicationsTypeConverterPipe } from './indications-type-converter.pipe';
 
 describe('IndicationsHistoryComponent', () => {
   let component: IndicationsHistoryComponent;
@@ -22,7 +21,7 @@ describe('IndicationsHistoryComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientModule, FormsModule, ReactiveFormsModule, MatSelectModule, MatFormFieldModule, MatInputModule, BrowserAnimationsModule],
-      declarations: [IndicationsHistoryComponent, IndicationsTypeConverterPipe],
+      declarations: [IndicationsHistoryComponent],
       providers: [AuthService, ApiService, baseAppUrl]
     })
       .compileComponents();

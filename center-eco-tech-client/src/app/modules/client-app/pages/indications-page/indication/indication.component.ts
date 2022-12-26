@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import {  AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { clientCounterDto } from './domain';
 import { ApiService } from 'src/app/services/api.service';
@@ -11,7 +11,6 @@ interface type {
   value: string;
   viewValue: string;
 }
-
 
 @Component({
   selector: 'app-indication',
@@ -43,125 +42,134 @@ export class IndicationComponent implements OnInit, AfterViewInit, OnDestroy {
   private addMeterSups: Subscription;
   private lastMeasureSups: Subscription;
   public adding: boolean = false;
-  public selectedMeterName: string = "Горячая вода";
+  public newCounterName: string = "Горячая вода";
+  public newCounterPostfix: string = "м. куб.";
   public message: string | null;
 
-  constructor( private snackBar: MatSnackBar,
+  public selectedMeterName: string = "Горячая вода";
+
+  constructor(private snackBar: MatSnackBar,
     private httpClient: HttpClient,
-    private apiService: ApiService){}
+    private apiService: ApiService) { }
 
-  ngOnInit(): void {
-  //  this.getLastMeasurement();
+  ngOnInit() {
+    this.getLastMeasurement();
     this.getUserDetail();
-    this.httpClient.get<clientCounterDto[]>("assets/meters.json").subscribe({
-      next : data =>{
-      this.clientCounterDto = data
-      }
-    });
-    }
+    // this.httpClient.get<clientCounterDto[]>("assets/meters.json").subscribe({
+    //   next: data => {
+    //     this.clientCounterDto = data
+    //   }
+    // });
+  }
 
-    allType: type[] = [
-      { value: '1', viewValue: 'Горячая вода' },
-      { value: '2', viewValue: 'Холодная вода' },
-      { value: '3', viewValue: 'Газ' },
-    ]
+  allType: type[] = [
+    { value: '1', viewValue: 'Горячая вода' },
+    { value: '2', viewValue: 'Холодная вода' },
+    { value: '3', viewValue: 'Газ' },
+  ]
 
-    ngAfterViewInit() {
-      this.getUserDetail();
-    }
+  ngAfterViewInit() {
+    this.getUserDetail();
+  }
 
-    ngOnDestroy() {
-      if (this.addRequestsSubs) this.addRequestsSubs.unsubscribe();
-  
-      // if (this.userDetailSubs) this.userDetailSubs.unsubscribe();
-      // if (this.updateDetailSubs) this.updateDetailSubs.unsubscribe();
-      // if (this.ConfirmUserSubs) this.ConfirmUserSubs.unsubscribe();
-    }
+  ngOnDestroy() {
+    if (this.addRequestsSubs) this.addRequestsSubs.unsubscribe();
 
-    private getUserDetail() {
-      this.userDetailSubs = this.apiService.get<UserDetailDto>('client/detail')
-        .subscribe({
-          next: data => { this.userDetaill = data; },
-          error: error => { if (this.userDetailSubs) this.userDetailSubs.unsubscribe(); },
-          complete: () => { }
-        });
-    }
+    // if (this.userDetailSubs) this.userDetailSubs.unsubscribe();
+    // if (this.updateDetailSubs) this.updateDetailSubs.unsubscribe();
+    // if (this.ConfirmUserSubs) this.ConfirmUserSubs.unsubscribe();
+  }
+
+  private getUserDetail() {
+    this.userDetailSubs = this.apiService.get<UserDetailDto>('client/detail')
+      .subscribe({
+        next: data => { this.userDetaill = data; },
+        error: error => { if (this.userDetailSubs) this.userDetailSubs.unsubscribe(); },
+        complete: () => { }
+      });
+  }
 
 
-    public formEnable() {
-      this.indicationForm.enable();
-    }
-  
-    public formDisable() {
-      this.indicationForm.disable();
-    }
-  
-    public onCreateRequestClick() {
-      debugger;
-      if (!this.name || !this.name) return;
-      this.addRequestsSubs = this.apiService.post('measurement/add-measurement', this.indicationForm.value)
-        .subscribe({
-          next: data => {
-            this.snackBar.open('успешно', 'OK');
-            this.name = null;
-            this.currentvalue = null;
-          },
-          error: error => {
-            if (this.addRequestsSubs) this.addRequestsSubs.unsubscribe();
-          },
-          complete: () => { }
-        });
-    }
-  
-    public checkFields() {
-      const check = !this.name || !this.name;
-      return check;
-    }
+  public formEnable() {
+    this.indicationForm.enable();
+  }
 
-    public confirmingMessageUser() {
-      (window.alert('Показания отправлены'))
-    }
-  
-    public reset() {
-      this.indicationForm.reset()
-    }
+  public formDisable() {
+    this.indicationForm.disable();
+  }
 
-  public activateAddingMeter(): void{
+  public onCreateRequestClick() {
+    if (!this.selectedType || !this.currentvalue) return;
+    const httpBody = {
+      name: this.selectedType,
+      value: this.currentvalue
+    }
+    this.addRequestsSubs = this.apiService.post('measurement/add-measurement', httpBody)
+      .subscribe({
+        next: data => {
+          this.snackBar.open('успешно', 'OK');
+          this.name = null;
+          this.currentvalue = null;
+        },
+        error: error => {
+          if (this.addRequestsSubs) this.addRequestsSubs.unsubscribe();
+        },
+        complete: () => { }
+      });
+  }
+
+  public checkFields() {
+    const check = !this.selectedType || !this.currentvalue;
+    return check;
+  }
+
+  public confirmingMessageUser() {
+    (window.alert('Показания отправлены'))
+  }
+
+  public reset() {
+    this.indicationForm.reset()
+  }
+
+  public activateAddingMeter(): void {
     this.adding = true;
   }
 
   private getLastMeasurement() {
-    this.lastMeasureSups = this.apiService.post('measurement/get-last-measurement')
-    .subscribe({
-      next: data => { 
-        console.log(data);
-      },
-          error: error => { if (this.lastMeasureSups) this.lastMeasureSups.unsubscribe(); this.message = error.error; },
-          complete: () => { }
-    })
+    this.lastMeasureSups = this.apiService.post<clientCounterDto[]>('measurement/get-last-measurement')
+      .subscribe({
+        next: data => {
+          this.clientCounterDto = data;
+        },
+        error: error => { if (this.lastMeasureSups) this.lastMeasureSups.unsubscribe(); this.message = error.error; },
+        complete: () => { }
+      })
   }
 
   private addMeter() {
     this.message = null;
     const httpBody = {
-      name : this.selectedMeterName
+      name: this.newCounterName,
+      postfix: this.newCounterPostfix
     };
     this.addMeterSups = this.apiService.post('measurement/add-new-counter', httpBody)
-    .subscribe({
-      next: data => { },
-          error: error => { if (this.addMeterSups) this.addMeterSups.unsubscribe(); this.message = error.error; },
-          complete: () => { this.message = "Счётчик успешно добавлен" }
-    })
+      .subscribe({
+        next: data => { this.adding = false; },
+        error: error => { if (this.addMeterSups) this.addMeterSups.unsubscribe(); this.message = error.error; },
+        complete: () => { this.message = "Счётчик успешно добавлен" }
+      })
   }
 
   public onAddCLick() {
-    // this.adding = false;
     this.addMeter();
   }
 
   public onReadyCLick() {
     this.message = null;
+  }
+
+  public onCancellAddCounterCLick() {
     this.adding = false;
   }
 
-  }
+}
