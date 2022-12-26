@@ -6,6 +6,6 @@ namespace CenterEcoTech.Domain.Query.MeasurementRequest
     {
         public DateTime? Date { get; set; }
 
-        public string? Status { get; set; }
+        public string? Type { get; set; }
     }
 }

@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/modules/authorize/services/auth.service';
 import { ApiService } from 'src/app/services/api.service';
-import { MeasurementRequestDto, NameCounter } from './domain';
+import { MeasurementRequestDto } from './domain';
 
 @Component({
   selector: 'app-indications-history',
@@ -16,8 +16,8 @@ import { MeasurementRequestDto, NameCounter } from './domain';
 export class IndicationsHistoryComponent implements AfterViewInit, OnDestroy {
 
   // filter
-  public allTypes: NameCounter[] = [NameCounter.Hotwater, NameCounter.Coldwater, NameCounter.Gas];
-  public selectedTypes: NameCounter | null = null;
+  public allTypes: string[] = [];
+  public selectedTypes: string | null = null;
   // date
   public selectedDate: Date | null = null;
   // data
@@ -25,7 +25,7 @@ export class IndicationsHistoryComponent implements AfterViewInit, OnDestroy {
   // http
   private userRequestsSubs: Subscription;
 
-  displayedColumns: string[] = ['date', 'name', 'pastvalue', 'currentvalue', 'cLientName', 'cLientAdress'];
+  displayedColumns: string[] = ['date', 'name', 'currentvalue', 'cLientName', 'cLientAdress'];
   dataSource: MatTableDataSource<MeasurementRequestDto> = new MatTableDataSource();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -65,13 +65,19 @@ export class IndicationsHistoryComponent implements AfterViewInit, OnDestroy {
   private getRequests() {
     const httpBody = {
       date: this.selectedDate ? this.formatDate(this.selectedDate) : null,
-      types: this.selectedTypes
+      type: this.selectedTypes
     };
     this.userRequestsSubs = this.apiService.post<MeasurementRequestDto[]>('measurement/history', httpBody)
       .subscribe({
         next: data => {
           this.MeasurementRequestDto = data;
           this.dataSource.data = this.MeasurementRequestDto;
+
+          for (const item of data) {
+            if (this.allTypes.findIndex(x => x == item.name) == -1)
+              this.allTypes.push(item.name);
+          }
+
         },
         error: error => {
           if (this.userRequestsSubs) this.userRequestsSubs.unsubscribe();
