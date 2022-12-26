@@ -3,38 +3,36 @@
 
     <div class="meters-block">
 
-        <div class="block"> 
-            <img src="./assets/img/hot-water.svg">
+        <div class="block" *ngFor="let meter of clientCounterDto; let im of images"> 
+            <img *ngIf="meter.name=='Горячая вода'" src="./assets/img/hot-water.svg">
+            <img *ngIf="meter.name=='Холодная вода'" src="./assets/img/cold-water.svg">
+            <img *ngIf="meter.name=='Газ'" src="./assets/img/gas.svg">
+            
             <div class="info"> 
-                <p class="header">Горячая вода</p>
-                <p class="value">36 м.куб</p>
+                <p class="header"> {{meter.name}}</p>
+                <p class="value"> {{meter.postfix}} м. куб.</p>
             </div>
         </div>
+    </div>
 
-        <div class="block"> 
-            <img src="./assets/img/cold-water.svg">
-            <div class="info"> 
-                <p class="header">Холодная вода</p>
-                <p class="value">126 м.куб</p>
-            </div>
-        </div>
+    <button (click)="activateAddingMeter()"> 
+        Добавить счетчик
+    </button>
 
+    <div *ngIf="adding">
+        <form class="form_cotainer">
+             <p>
+                <select name="Meter Name" [(ngModel)]="selectedMeterName" required>  
+                    <option *ngFor="let meter of clientCounterDto" [ngValue]="meter.name"> {{meter.name}} </option>
+                </select>
+             </p>
 
-        <div class="block"> 
-            <img src="./assets/img/gas.svg">
-            <div class="info"> 
-                <p class="header">Газ</p>
-                <p class="value">126 м.куб</p>
-            </div>
-        </div>
+             <button type="submit" (click)="onAddCLick()"> Добавить </button>
+             <button type="submit" (click)="onReadyCLick()"> Готово </button>
+        </form>
+    </div>
 
-        <div class="block"> 
-            <img src="./assets/img/gas.svg">
-            <div class="info"> 
-                <p class="header">Газ</p>
-                <p class="value">126 м.куб</p>
-            </div>
-        </div>
-
+    <div *ngIf="message">
+        {{message}}
     </div>
 </div>
