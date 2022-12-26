@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-news-page',
@@ -9,22 +8,25 @@ import { Observable } from 'rxjs';
 })
 export class NewsPageComponent implements OnInit {
 
-   // template
-   @ViewChild('allNewsTemplate') allNewsTemplate: TemplateRef<any>;
-   @ViewChild('articleTemplate') articleTemplate: TemplateRef<any>;
-   public nowTemplate: TemplateRef<any>;
-   public articles: any = [];
-   public currArticle: any = [];
+  // template
+  @ViewChild('allNewsTemplate') allNewsTemplate: TemplateRef<any>;
+  @ViewChild('articleTemplate') articleTemplate: TemplateRef<any>;
+  public nowTemplate: TemplateRef<any>;
+  // data
+  public articles: any = [];
+  public currArticle: any = [];
 
-  constructor(private cdr: ChangeDetectorRef,
-    private httpClient: HttpClient){}
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private httpClient: HttpClient) { }
 
-  ngOnInit(){
-    this.httpClient.get("assets/articles/articles.json").subscribe({
-      next : data =>{
-      this.articles = data;
-      }
-    })
+  ngOnInit() {
+    this.httpClient.get("assets/articles/articles.json")
+      .subscribe({
+        next: data => {
+          this.articles = data;
+        }
+      })
   }
 
   ngAfterViewInit() {
@@ -34,25 +36,24 @@ export class NewsPageComponent implements OnInit {
   public onLoadTemplate() {
     switch (this.currArticle.length) {
       case (0): {
-        this.nowTemplate = this.allNewsTemplate; 
+        this.nowTemplate = this.allNewsTemplate;
         break;
       }
-      case (1): { 
-        this.nowTemplate = this.articleTemplate; 
+      case (1): {
+        this.nowTemplate = this.articleTemplate;
         break;
-    }
+      }
       default: this.nowTemplate = this.allNewsTemplate; break;
     }
     this.cdr.detectChanges();
   }
 
-  public setArticle(currPic: string, currName:string, currContent:string) {
+  public setArticle(currPic: string, currName: string, currContent: string) {
     this.currArticle.push({
-      "pic" : currPic,
-      "name" : currName,
-      "content" : currContent
+      "pic": currPic,
+      "name": currName,
+      "content": currContent
     });
-    console.log(this.currArticle);
     this.onLoadTemplate();
   }
 

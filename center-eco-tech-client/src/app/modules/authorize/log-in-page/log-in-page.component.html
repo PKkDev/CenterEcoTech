@@ -16,7 +16,7 @@
 
 <ng-template #inputPhoneTemplate>
 
-  <form class="form_cotainer">
+  <form class="form_cotainer" [ngClass]="{'disabled': codeIsCheck}">
 
     <div class="fields">
 
@@ -54,7 +54,7 @@
 
 <ng-template #inputCodeTemplate>
 
-  <div class="form_cotainer">
+  <div class="form_cotainer" [ngClass]="{'disabled': codeIsSend}">
 
     <span>Пожалуйста, введите одноразовый пароль отправленный на номер {{phone}}</span>
 
@@ -82,8 +82,9 @@
 
     <div class="flex-content">
       <div><input type="checkbox" class="check" name="check" id="check" required></div>
-      <div class="policy"><p>Я согласен c <a class="about" href="/login">Пользовательским соглашением</a><br>
-        и <a class="about" href="/login">Политикой обработки персональных данных.</a></p>
+      <div class="policy">
+        <p>Я согласен c <a class="about" href="/login">Пользовательским соглашением</a><br>
+          и <a class="about" href="/login">Политикой обработки персональных данных.</a></p>
       </div>
     </div>
 
