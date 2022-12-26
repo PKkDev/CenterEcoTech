@@ -17,6 +17,7 @@ export class IndicationComponent implements OnInit {
 
 
   private addMeterSups: Subscription;
+  private lastMeasureSups: Subscription;
   public adding: boolean = false;
   public selectedMeterName: string = "Горячая вода";
   public message: string | null;
@@ -26,7 +27,7 @@ export class IndicationComponent implements OnInit {
     private apiService: ApiService){}
 
   ngOnInit(): void {
-   
+  //  this.getLastMeasurement();
     this.httpClient.get<clientCounterDto[]>("assets/meters.json").subscribe({
       next : data =>{
       this.clientCounterDto = data
@@ -36,6 +37,17 @@ export class IndicationComponent implements OnInit {
 
   public activateAddingMeter(): void{
     this.adding = true;
+  }
+
+  private getLastMeasurement() {
+    this.lastMeasureSups = this.apiService.post('measurement/get-last-measurement')
+    .subscribe({
+      next: data => { 
+        console.log(data);
+      },
+          error: error => { if (this.lastMeasureSups) this.lastMeasureSups.unsubscribe(); this.message = error.error; },
+          complete: () => { }
+    })
   }
 
   private addMeter() {

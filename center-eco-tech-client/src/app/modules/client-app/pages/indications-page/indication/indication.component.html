@@ -15,24 +15,33 @@
         </div>
     </div>
 
-    <button (click)="activateAddingMeter()"> 
-        Добавить счетчик
-    </button>
 
-    <div *ngIf="adding">
-        <form class="form_cotainer">
-             <p>
-                <select name="Meter Name" [(ngModel)]="selectedMeterName" required>  
-                    <option *ngFor="let meter of clientCounterDto" [ngValue]="meter.name"> {{meter.name}} </option>
-                </select>
-             </p>
+    <div class="addingMeter">
 
-             <button type="submit" (click)="onAddCLick()"> Добавить </button>
-             <button type="submit" (click)="onReadyCLick()"> Готово </button>
-        </form>
+        <button class="adding-button" [disabled]="adding" (click)="activateAddingMeter()"> 
+            Добавить счетчик
+        </button>
+    
+        <div *ngIf="adding">
+            <form class="form_cotainer">
+                    <p>Выберите тип счетчика: </p> 
+                    
+                    <select class="input" name="Meter Name" [(ngModel)]="selectedMeterName" required>  
+                        <option *ngFor="let meter of clientCounterDto" [ngValue]="meter.name"> {{meter.name}} </option>
+                    </select>
+
+                    <div class="message" *ngIf="message">
+                        {{message}}
+                    </div>                
+                                
+                    <div>
+                        <button class="add-button" type="submit" (click)="onAddCLick()"> Добавить </button>
+                        <button class="ready-button" type="submit" (click)="onReadyCLick()"> Готово </button>
+                    </div>
+                
+            </form>
+        </div>
+
     </div>
-
-    <div *ngIf="message">
-        {{message}}
-    </div>
+    
 </div>
