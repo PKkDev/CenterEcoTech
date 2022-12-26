@@ -1,34 +1,34 @@
-<div class="meters"> 
+<div class="meters">
     <h1>Счетчики</h1>
 
     <div class="meters-block">
 
-        <div class="block" *ngFor="let meter of clientCounterDto; let im of images"> 
-            <img *ngIf="meter.name=='Горячая вода'" src="./assets/img/hot-water.svg">
-            <img *ngIf="meter.name=='Холодная вода'" src="./assets/img/cold-water.svg">
-            <img *ngIf="meter.name=='Газ'" src="./assets/img/gas.svg">
-            
-            <div class="info"> 
+        <div class="block" *ngFor="let meter of clientCounterDto; let im of images">
+            <img *ngIf="meter.name==='Горячая вода'" src="./assets/img/hot-water.svg">
+            <img *ngIf="meter.name==='Холодная вода'" src="./assets/img/cold-water.svg">
+            <img *ngIf="meter.name==='Газ'" src="./assets/img/gas.svg">
+
+            <div class="info">
                 <p class="header"> {{meter.name}}</p>
                 <p class="value"> {{meter.postfix}} м. куб.</p>
             </div>
         </div>
     </div>
 
-    <button (click)="activateAddingMeter()"> 
+    <button (click)="activateAddingMeter()">
         Добавить счетчик
     </button>
 
     <div *ngIf="adding">
         <form class="form_cotainer">
-             <p>
-                <select name="Meter Name" [(ngModel)]="selectedMeterName" required>  
+            <p>
+                <select name="Meter Name" [(ngModel)]="selectedMeterName" required>
                     <option *ngFor="let meter of clientCounterDto" [ngValue]="meter.name"> {{meter.name}} </option>
                 </select>
-             </p>
+            </p>
 
-             <button type="submit" (click)="onAddCLick()"> Добавить </button>
-             <button type="submit" (click)="onReadyCLick()"> Готово </button>
+            <button type="submit" (click)="onAddCLick()"> Добавить </button>
+            <button type="submit" (click)="onReadyCLick()"> Готово </button>
         </form>
     </div>
 
