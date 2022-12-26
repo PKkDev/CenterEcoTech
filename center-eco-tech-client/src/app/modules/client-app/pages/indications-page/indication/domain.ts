@@ -1,3 +1,9 @@
+export class clientCounterDto {
+    public name: string;
+    public postfix: string;
+    public clientId: string;
+}
+
 export class UserDetailDto {
     firstName: string;
     lastNme: string;
