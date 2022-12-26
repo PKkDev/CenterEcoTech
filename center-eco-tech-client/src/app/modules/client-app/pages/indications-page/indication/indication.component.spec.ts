@@ -1,14 +1,10 @@
 import { HttpClientModule } from '@angular/common/http';
 import { StaticProvider } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { StaticProvider } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ApiService } from 'src/app/services/api.service';
-import { FormsModule } from '@angular/forms';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { ApiService } from 'src/app/services/api.service';
+
 
 import { IndicationComponent } from './indication.component';
 
@@ -23,11 +19,7 @@ describe('IndicationComponent', () => {
       imports: [HttpClientModule, MatSnackBarModule, FormsModule],
       declarations: [ IndicationComponent ],
       providers: [MatSnackBar, ApiService, baseAppUrl]
-      imports: [HttpClientModule, MatSnackBarModule, FormsModule],
-      declarations: [ IndicationComponent ],
-      providers: [MatSnackBar, ApiService, baseAppUrl]
     })
-      .compileComponents();
       .compileComponents();
 
     fixture = TestBed.createComponent(IndicationComponent);
